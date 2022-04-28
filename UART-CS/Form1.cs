@@ -140,6 +140,14 @@ namespace UART_CS
 
             Led = (Led < 2) ? 2 : 1;
             buttonLed.Text = (buttonLed.Text == "Đóng") ? "Mở" : "Đóng";
+		if(buttonLed.Text=="Mở")
+		{
+			serialPort.Write("1");
+		}
+		else if(buttonLed.Text == "Đóng")
+		{
+			serialPort.Write("2");
+		}
             pictureBox1.Image = new Bitmap($@"C:\Users\QUAN\source\repos\UART-CS\UART-CS\Image\{Led.ToString()}.png");
             
         }
@@ -161,7 +169,14 @@ namespace UART_CS
 
         private void buttonUart_Click(object sender, EventArgs e)
         {
-            serialPort.Write(textBox1.Text);
+	if(serialPort.IsOpen)
+		{
+			serialPort.Write(textBox1.Text);	
+		}
+            else
+		{
+			MessageBox.Show("Vui Lòng Mở Cổng COM");
+		}
 
         }
     }

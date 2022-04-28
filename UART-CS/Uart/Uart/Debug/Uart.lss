@@ -3,31 +3,31 @@ Uart.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  0000019e  2**0
+  0 .data         00000000  00800100  00800100  000001c0  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000012a  00000000  00000000  00000074  2**1
+  1 .text         0000014c  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000001  00800100  00800100  0000019e  2**0
+  2 .bss          00000001  00800100  00800100  000001c0  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000019e  2**0
+  3 .comment      00000030  00000000  00000000  000001c0  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001d0  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001f0  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000030  00000000  00000000  0000020c  2**0
+  5 .debug_aranges 00000030  00000000  00000000  0000022c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000876  00000000  00000000  0000023c  2**0
+  6 .debug_info   00000876  00000000  00000000  0000025c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000007d4  00000000  00000000  00000ab2  2**0
+  7 .debug_abbrev 000007d4  00000000  00000000  00000ad2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000026b  00000000  00000000  00001286  2**0
+  8 .debug_line   00000289  00000000  00000000  000012a6  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  0000008c  00000000  00000000  000014f4  2**2
+  9 .debug_frame  0000008c  00000000  00000000  00001530  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000003e1  00000000  00000000  00001580  2**0
+ 10 .debug_str    000003e1  00000000  00000000  000015bc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000000cb  00000000  00000000  00001961  2**0
+ 11 .debug_loc    000000cb  00000000  00000000  0000199d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000020  00000000  00000000  00001a2c  2**0
+ 12 .debug_ranges 00000020  00000000  00000000  00001a68  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -69,7 +69,7 @@ Disassembly of section .text:
   42:	00 00       	nop
   44:	33 c0       	rjmp	.+102    	; 0xac <__bad_interrupt>
   46:	00 00       	nop
-  48:	42 c0       	rjmp	.+132    	; 0xce <__vector_18>
+  48:	44 c0       	rjmp	.+136    	; 0xd2 <__vector_18>
   4a:	00 00       	nop
   4c:	2f c0       	rjmp	.+94     	; 0xac <__bad_interrupt>
   4e:	00 00       	nop
@@ -126,17 +126,17 @@ Disassembly of section .text:
   a4:	b2 07       	cpc	r27, r18
   a6:	e1 f7       	brne	.-8      	; 0xa0 <.do_clear_bss_loop>
   a8:	06 d0       	rcall	.+12     	; 0xb6 <main>
-  aa:	3d c0       	rjmp	.+122    	; 0x126 <_exit>
+  aa:	4e c0       	rjmp	.+156    	; 0x148 <_exit>
 
 000000ac <__bad_interrupt>:
   ac:	a9 cf       	rjmp	.-174    	; 0x0 <__vectors>
 
 000000ae <uart_char_tx>:
-#define F_CPU 8000000UL
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-void uart_char_tx(unsigned char chr) {
+void uart_char_tx(unsigned char chr) 
+{
 	while (bit_is_clear(UCSR0A,UDRE0)) { };
   ae:	5d 9b       	sbis	0x0b, 5	; 11
   b0:	fe cf       	rjmp	.-4      	; 0xae <uart_char_tx>
@@ -150,77 +150,102 @@ volatile unsigned char u_data;
 int main(void){
 	//Baudrate 9600, t?n s? f=8MHz
 	//C?u h?nh UART0
+	DDRB = 0xff;
+  b6:	8f ef       	ldi	r24, 0xFF	; 255
+  b8:	87 bb       	out	0x17, r24	; 23
 	UBRR0H=0;
-  b6:	10 92 90 00 	sts	0x0090, r1	; 0x800090 <__TEXT_REGION_LENGTH__+0x7e0090>
+  ba:	10 92 90 00 	sts	0x0090, r1	; 0x800090 <__TEXT_REGION_LENGTH__+0x7e0090>
 	UBRR0L=51;
-  ba:	83 e3       	ldi	r24, 0x33	; 51
-  bc:	89 b9       	out	0x09, r24	; 9
+  be:	83 e3       	ldi	r24, 0x33	; 51
+  c0:	89 b9       	out	0x09, r24	; 9
 	UCSR0A=0x00;
-  be:	1b b8       	out	0x0b, r1	; 11
+  c2:	1b b8       	out	0x0b, r1	; 11
 	UCSR0C =(1<<UCSZ01)|(1<<UCSZ00);
-  c0:	86 e0       	ldi	r24, 0x06	; 6
-  c2:	80 93 95 00 	sts	0x0095, r24	; 0x800095 <__TEXT_REGION_LENGTH__+0x7e0095>
+  c4:	86 e0       	ldi	r24, 0x06	; 6
+  c6:	80 93 95 00 	sts	0x0095, r24	; 0x800095 <__TEXT_REGION_LENGTH__+0x7e0095>
 	UCSR0B =(1<<RXEN0)|(1<<TXEN0)|(1<<RXCIE0); //cho phép truy?n nh?n d? li?u và cho phép ng?t nh?n
-  c6:	88 e9       	ldi	r24, 0x98	; 152
-  c8:	8a b9       	out	0x0a, r24	; 10
+  ca:	88 e9       	ldi	r24, 0x98	; 152
+  cc:	8a b9       	out	0x0a, r24	; 10
 	sei(); //cho phép ng?t toàn c?c (bit I
-  ca:	78 94       	sei
-  cc:	ff cf       	rjmp	.-2      	; 0xcc <main+0x16>
+  ce:	78 94       	sei
+  d0:	ff cf       	rjmp	.-2      	; 0xd0 <main+0x1a>
 
-000000ce <__vector_18>:
+000000d2 <__vector_18>:
     while (1) 
     {
     }
 }
 
 ISR(USART0_RX_vect) { //hàm ph?c v? ng?t nh?n c?a UART0 thay cho hàm ISR(SIG_UART0_RECV)
-  ce:	1f 92       	push	r1
-  d0:	0f 92       	push	r0
-  d2:	0f b6       	in	r0, 0x3f	; 63
+  d2:	1f 92       	push	r1
   d4:	0f 92       	push	r0
-  d6:	11 24       	eor	r1, r1
-  d8:	0b b6       	in	r0, 0x3b	; 59
-  da:	0f 92       	push	r0
-  dc:	2f 93       	push	r18
-  de:	3f 93       	push	r19
-  e0:	4f 93       	push	r20
-  e2:	5f 93       	push	r21
-  e4:	6f 93       	push	r22
-  e6:	7f 93       	push	r23
-  e8:	8f 93       	push	r24
-  ea:	9f 93       	push	r25
-  ec:	af 93       	push	r26
-  ee:	bf 93       	push	r27
-  f0:	ef 93       	push	r30
-  f2:	ff 93       	push	r31
+  d6:	0f b6       	in	r0, 0x3f	; 63
+  d8:	0f 92       	push	r0
+  da:	11 24       	eor	r1, r1
+  dc:	0b b6       	in	r0, 0x3b	; 59
+  de:	0f 92       	push	r0
+  e0:	2f 93       	push	r18
+  e2:	3f 93       	push	r19
+  e4:	4f 93       	push	r20
+  e6:	5f 93       	push	r21
+  e8:	6f 93       	push	r22
+  ea:	7f 93       	push	r23
+  ec:	8f 93       	push	r24
+  ee:	9f 93       	push	r25
+  f0:	af 93       	push	r26
+  f2:	bf 93       	push	r27
+  f4:	ef 93       	push	r30
+  f6:	ff 93       	push	r31
 	u_data=UDR0;
-  f4:	8c b1       	in	r24, 0x0c	; 12
-  f6:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__DATA_REGION_ORIGIN__>
+  f8:	8c b1       	in	r24, 0x0c	; 12
+  fa:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__DATA_REGION_ORIGIN__>
+	if(u_data =='1')
+  fe:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 102:	81 33       	cpi	r24, 0x31	; 49
+ 104:	21 f4       	brne	.+8      	; 0x10e <__vector_18+0x3c>
+	{
+		PORTB |= (1<<PB0);
+ 106:	88 b3       	in	r24, 0x18	; 24
+ 108:	81 60       	ori	r24, 0x01	; 1
+ 10a:	88 bb       	out	0x18, r24	; 24
+ 10c:	07 c0       	rjmp	.+14     	; 0x11c <__vector_18+0x4a>
+	}
+	else if(u_data =='2')
+ 10e:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 112:	82 33       	cpi	r24, 0x32	; 50
+ 114:	19 f4       	brne	.+6      	; 0x11c <__vector_18+0x4a>
+	{
+		PORTB &= ~(1<<PB0);
+ 116:	88 b3       	in	r24, 0x18	; 24
+ 118:	8e 7f       	andi	r24, 0xFE	; 254
+ 11a:	88 bb       	out	0x18, r24	; 24
+	}
+	
 	uart_char_tx(u_data);
-  fa:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
-  fe:	d7 df       	rcall	.-82     	; 0xae <uart_char_tx>
- 100:	ff 91       	pop	r31
- 102:	ef 91       	pop	r30
- 104:	bf 91       	pop	r27
- 106:	af 91       	pop	r26
- 108:	9f 91       	pop	r25
- 10a:	8f 91       	pop	r24
- 10c:	7f 91       	pop	r23
- 10e:	6f 91       	pop	r22
- 110:	5f 91       	pop	r21
- 112:	4f 91       	pop	r20
- 114:	3f 91       	pop	r19
- 116:	2f 91       	pop	r18
- 118:	0f 90       	pop	r0
- 11a:	0b be       	out	0x3b, r0	; 59
- 11c:	0f 90       	pop	r0
- 11e:	0f be       	out	0x3f, r0	; 63
- 120:	0f 90       	pop	r0
- 122:	1f 90       	pop	r1
- 124:	18 95       	reti
+ 11c:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 120:	c6 df       	rcall	.-116    	; 0xae <uart_char_tx>
+ 122:	ff 91       	pop	r31
+ 124:	ef 91       	pop	r30
+ 126:	bf 91       	pop	r27
+ 128:	af 91       	pop	r26
+ 12a:	9f 91       	pop	r25
+ 12c:	8f 91       	pop	r24
+ 12e:	7f 91       	pop	r23
+ 130:	6f 91       	pop	r22
+ 132:	5f 91       	pop	r21
+ 134:	4f 91       	pop	r20
+ 136:	3f 91       	pop	r19
+ 138:	2f 91       	pop	r18
+ 13a:	0f 90       	pop	r0
+ 13c:	0b be       	out	0x3b, r0	; 59
+ 13e:	0f 90       	pop	r0
+ 140:	0f be       	out	0x3f, r0	; 63
+ 142:	0f 90       	pop	r0
+ 144:	1f 90       	pop	r1
+ 146:	18 95       	reti
 
-00000126 <_exit>:
- 126:	f8 94       	cli
+00000148 <_exit>:
+ 148:	f8 94       	cli
 
-00000128 <__stop_program>:
- 128:	ff cf       	rjmp	.-2      	; 0x128 <__stop_program>
+0000014a <__stop_program>:
+ 14a:	ff cf       	rjmp	.-2      	; 0x14a <__stop_program>

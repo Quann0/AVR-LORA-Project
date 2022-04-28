@@ -17,6 +17,7 @@ volatile unsigned char u_data;
 int main(void){
 	//Baudrate 9600, t?n s? f=8MHz
 	//C?u h?nh UART0
+	DDRB = 0xff;
 	UBRR0H=0;
 	UBRR0L=51;
 	UCSR0A=0x00;
@@ -31,5 +32,14 @@ int main(void){
 
 ISR(USART0_RX_vect) { //hàm ph?c v? ng?t nh?n c?a UART0 thay cho hàm ISR(SIG_UART0_RECV)
 	u_data=UDR0;
+	if(u_data =='1')
+	{
+		PORTB |= (1<<PB0);
+	}
+	else if(u_data =='2')
+	{
+		PORTB &= ~(1<<PB0);
+	}
+	
 	uart_char_tx(u_data);
 }
