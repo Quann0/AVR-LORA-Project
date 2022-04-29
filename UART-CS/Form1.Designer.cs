@@ -48,6 +48,9 @@ namespace UART_CS
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.buttonUart = new System.Windows.Forms.Button();
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.textBoxNhietdo = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -128,7 +131,9 @@ namespace UART_CS
             this.comboBoxPort.FormattingEnabled = true;
             this.comboBoxPort.Items.AddRange(new object[] {
             "COM1",
-            "COM2"});
+            "COM2",
+            "COM3",
+            "COM4"});
             this.comboBoxPort.Location = new System.Drawing.Point(108, 7);
             this.comboBoxPort.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxPort.Name = "comboBoxPort";
@@ -217,11 +222,34 @@ namespace UART_CS
             this.buttonUart.UseVisualStyleBackColor = true;
             this.buttonUart.Click += new System.EventHandler(this.buttonUart_Click);
             // 
+            // serialPort1
+            // 
+            this.serialPort1.PortName = "COM3";
+            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
+            // 
+            // textBoxNhietdo
+            // 
+            this.textBoxNhietdo.Location = new System.Drawing.Point(499, 121);
+            this.textBoxNhietdo.Name = "textBoxNhietdo";
+            this.textBoxNhietdo.Size = new System.Drawing.Size(58, 22);
+            this.textBoxNhietdo.TabIndex = 18;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(500, 101);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 17);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Nhietdo";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 360);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBoxNhietdo);
             this.Controls.Add(this.buttonUart);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pictureBox1);
@@ -268,6 +296,9 @@ namespace UART_CS
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button buttonUart;
         private System.IO.Ports.SerialPort serialPort;
+        private System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.TextBox textBoxNhietdo;
+        private System.Windows.Forms.Label label1;
     }
 }
 

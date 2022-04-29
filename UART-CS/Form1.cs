@@ -7,6 +7,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Extensions.Configuration;
@@ -35,6 +36,7 @@ namespace UART_CS
             InitializeComponent();
             Init_Control();
             LoadImage();
+            
         }
         public void Init_Control() 
         {
@@ -114,7 +116,7 @@ namespace UART_CS
 
             }
             button.Click += button_Click;
-
+            
 
             f.ShowDialog();
         }
@@ -156,27 +158,49 @@ namespace UART_CS
         {
             
             buttonConnect.Text = (buttonConnect.Text == "Connect") ? "Disconnect" : "Connect";
-            if (serialPort.IsOpen)
+            if (serialPort.IsOpen&& serialPort1.IsOpen)
             {
                 serialPort.Close();
-                
+                serialPort1.Close();
             }
             else
             {
                 serialPort.Open();
+                serialPort1.Open();
             }
+            //Thread thread = new Thread(new ThreadStart(DocNhietdo));
+            //thread.IsBackground = true;
+            //thread.Start();
         }
 
         private void buttonUart_Click(object sender, EventArgs e)
         {
-	if(serialPort.IsOpen)
-		{
-			serialPort.Write(textBox1.Text);	
-		}
+	        if(serialPort.IsOpen&& serialPort1.IsOpen)
+		    {
+			    serialPort.Write(textBox1.Text);
+                //textBoxNhietdo.Text =  serialPort1.ReadChar().ToString();
+		    }
             else
-		{
-			MessageBox.Show("Vui Lòng Mở Cổng COM");
-		}
+		    {
+			    MessageBox.Show("Vui Lòng Mở Cổng COM");
+		    }
+
+        }
+        string kq = "";
+        private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            var dataPort = serialPort1.ReadExisting();
+            
+            kq += dataPort;
+            if (kq.Length ==2)
+            {
+                string kq1 = kq;
+                Invoke(new MethodInvoker(() => textBoxNhietdo.Text = kq1.ToString() + "oC"));
+                //MessageBox.Show(kq);
+                
+                //textBoxNhietdo.Text = dataPort;
+                kq = "";
+            }
 
         }
     }
