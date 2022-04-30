@@ -9,8 +9,10 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <string.h>
+#include <stdlib.h>
 //char data[4];
 char data[2];
+const char *fixbug = "0";
 void uart_char_tx(unsigned char chr) 
 {
 	while (bit_is_clear(UCSR0A,UDRE0)) { };
@@ -23,10 +25,14 @@ void uart1_char_tx(char chr)
 }
 void gui_1_chuoi_dulieu( char a[2])
 {
+	if(strlen(a)==1)
+	{
+		a[1] = a[0];
+		a[0] = *fixbug;
+	}
 	for(int i=0;i<strlen(a);i++)
 	{
 		uart1_char_tx(a[i]);
-	//	_delay_ms(100);
 	}
 }
 uint16_t read_adc(unsigned int adc_channel) //adc_channel l?u tham s? kênh ADC c?n ??c.
@@ -62,13 +68,10 @@ void led7seg(uint16_t ADC_val) {
 }
 volatile unsigned char u_data;
 int main(void){
+
 	//Baudrate 9600, t?n s? f=8MHz
-	//C?u h?nh UART0
 	DDRA = 0xFF;
 	DDRB = 0xff;
-	//DDRF = 0x00 ;
-	//PORTF =0xff;
-	
 	UBRR0H=0;
 	UBRR0L=51;
 	UBRR1H=0;
@@ -84,22 +87,13 @@ int main(void){
 	sei(); //cho phép ng?t toàn c?c (bit I
     /* Replace with your application code */
 	uint16_t nhietdo=0;
-	//float check=0;
     while (1) 
     {
-		
 		nhietdo = read_adc(0);
 		nhietdo = nhietdo*5/10.23;
 		led7seg(nhietdo);
-		//_delay_ms(5);
-		//itoa(nhietdo,data,10);
-	//	if(check!=nhietdo)
-	//	{
-			itoa(nhietdo,data,10);
-			gui_1_chuoi_dulieu(data);
-			//check = nhietdo;
-	//	}
-		
+		itoa(nhietdo,data,10);//convert s? có cõ s? 10->chu?i
+		gui_1_chuoi_dulieu(data);	
     }
 }
 
@@ -113,6 +107,5 @@ ISR(USART0_RX_vect) { //hàm ph?c v? ng?t nh?n c?a UART0 thay cho hàm ISR(SIG_UAR
 	{
 		PORTB &= ~(1<<PB0);
 	}
-	
 	uart_char_tx(u_data);
 }

@@ -183,6 +183,27 @@
   <ItemGroup>
     <None Include="Image\2.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Image\nhietdo\0.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Image\nhietdo\15.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Image\nhietdo\38.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Image\nhietdo\44.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Image\nhietdo\55.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Image\nhietdo\70.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Image\nhietdo\25.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

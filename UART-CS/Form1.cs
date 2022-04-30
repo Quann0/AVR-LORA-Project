@@ -178,7 +178,6 @@ namespace UART_CS
 	        if(serialPort.IsOpen&& serialPort1.IsOpen)
 		    {
 			    serialPort.Write(textBox1.Text);
-                //textBoxNhietdo.Text =  serialPort1.ReadChar().ToString();
 		    }
             else
 		    {
@@ -190,18 +189,28 @@ namespace UART_CS
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var dataPort = serialPort1.ReadExisting();
-            
+            //MessageBox.Show(serialPort1.ReadByte().ToString());
             kq += dataPort;
-            if (kq.Length ==2)
+            if (kq.Length == 2)
             {
                 string kq1 = kq;
+                var compare = Convert.ToInt32(kq1);
+                compare = (compare==0)?0:(compare>0&&compare<=10)?10:(compare>10&&compare<=30)?30:(compare>30&&compare<=40)?40:(compare>40&&compare<=44)?44:(compare>44&&compare<=55)?55:(compare>55&&compare<=60)?60:(compare>60&&compare<=70)?70:100;
+                //if (kq1=="0"|kq1=="10"|kq1 == "30" | kq1 == "40"|kq1 == "44" | kq1 == "55"| kq1 == "50" | kq1 == "60" | kq1=="70") 
+               // {
+
+                    pictureBoxNhietdo.Image = new Bitmap($@"C:\Users\QUAN\source\repos\UART-CS\UART-CS\Image\nhietdo\{compare.ToString()}.jpg");
+                    pictureBoxNhietdo.SizeMode = PictureBoxSizeMode.Zoom;
+               // }
                 Invoke(new MethodInvoker(() => textBoxNhietdo.Text = kq1.ToString() + "oC"));
-                //MessageBox.Show(kq);
-                
-                //textBoxNhietdo.Text = dataPort;
                 kq = "";
             }
 
+        }
+
+        private void SignUp_MouseClick(object sender, MouseEventArgs e)
+        {
+            button1_Click(sender, e);
         }
     }
 }

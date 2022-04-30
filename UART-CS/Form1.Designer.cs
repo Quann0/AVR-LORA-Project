@@ -44,13 +44,15 @@ namespace UART_CS
             this.buttonConnect = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.buttonLed = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.buttonUart = new System.Windows.Forms.Button();
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.textBoxNhietdo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.pictureBoxNhietdo = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxNhietdo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,7 +77,7 @@ namespace UART_CS
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label2.Location = new System.Drawing.Point(562, 37);
+            this.label2.Location = new System.Drawing.Point(562, 32);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label2.Size = new System.Drawing.Size(90, 26);
@@ -84,10 +86,10 @@ namespace UART_CS
             // 
             // Login
             // 
-            this.Login.Location = new System.Drawing.Point(628, 73);
+            this.Login.Location = new System.Drawing.Point(652, 69);
             this.Login.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Login.Name = "Login";
-            this.Login.Size = new System.Drawing.Size(71, 23);
+            this.Login.Size = new System.Drawing.Size(74, 30);
             this.Login.TabIndex = 4;
             this.Login.Text = "Login";
             this.Login.UseVisualStyleBackColor = true;
@@ -96,18 +98,19 @@ namespace UART_CS
             // SignUp
             // 
             this.SignUp.AutoSize = true;
+            this.SignUp.Cursor = System.Windows.Forms.Cursors.Hand;
             this.SignUp.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.SignUp.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.SignUp.Location = new System.Drawing.Point(718, 78);
+            this.SignUp.Location = new System.Drawing.Point(732, 71);
             this.SignUp.Name = "SignUp";
             this.SignUp.Size = new System.Drawing.Size(65, 23);
             this.SignUp.TabIndex = 5;
             this.SignUp.Text = "SignUp";
-            this.SignUp.Click += new System.EventHandler(this.SignUp_Click);
+            this.SignUp.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SignUp_MouseClick);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(685, 101);
+            this.button1.Location = new System.Drawing.Point(680, 138);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(103, 23);
@@ -119,7 +122,7 @@ namespace UART_CS
             // AccountLabel
             // 
             this.AccountLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.AccountLabel.Location = new System.Drawing.Point(562, 9);
+            this.AccountLabel.Location = new System.Drawing.Point(562, 8);
             this.AccountLabel.Name = "AccountLabel";
             this.AccountLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.AccountLabel.Size = new System.Drawing.Size(90, 22);
@@ -197,14 +200,6 @@ namespace UART_CS
             this.buttonLed.UseVisualStyleBackColor = true;
             this.buttonLed.Click += new System.EventHandler(this.buttonLed_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(45, 88);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(112, 74);
-            this.pictureBox1.TabIndex = 15;
-            this.pictureBox1.TabStop = false;
-            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(261, 102);
@@ -243,11 +238,28 @@ namespace UART_CS
             this.label1.TabIndex = 19;
             this.label1.Text = "Nhietdo";
             // 
+            // pictureBoxNhietdo
+            // 
+            this.pictureBoxNhietdo.Location = new System.Drawing.Point(482, 149);
+            this.pictureBoxNhietdo.Name = "pictureBoxNhietdo";
+            this.pictureBoxNhietdo.Size = new System.Drawing.Size(110, 82);
+            this.pictureBoxNhietdo.TabIndex = 20;
+            this.pictureBoxNhietdo.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(45, 88);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(112, 74);
+            this.pictureBox1.TabIndex = 15;
+            this.pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 360);
+            this.Controls.Add(this.pictureBoxNhietdo);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxNhietdo);
             this.Controls.Add(this.buttonUart);
@@ -269,6 +281,7 @@ namespace UART_CS
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "`q";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxNhietdo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -299,6 +312,7 @@ namespace UART_CS
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.TextBox textBoxNhietdo;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBoxNhietdo;
     }
 }
 
