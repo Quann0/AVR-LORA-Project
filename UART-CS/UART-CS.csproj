@@ -204,6 +204,12 @@
   <ItemGroup>
     <None Include="Image\nhietdo\25.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Image\gif\original.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Image\gif\tumblr_mjj8jmPs9h1s7wauso1_500.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

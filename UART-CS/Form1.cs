@@ -42,13 +42,16 @@ namespace UART_CS
         {
             comboBoxPort.Text = "COM1";
             comboBoxBaud.Text = "9600";
+            timer1.Start();
         }
         public void LoadImage()
         {
             try 
             {
-                pictureBox1.Image = new Bitmap(@"C:\Users\QUAN\source\repos\UART-CS\UART-CS\Image\1.png");
+                pictureBoxTime.Image = new Bitmap(Application.StartupPath + "\\Image\\gif\\original.gif");
+                pictureBox1.Image = new Bitmap(Application.StartupPath + "\\Image\\1.png");
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBoxTime.SizeMode = PictureBoxSizeMode.Zoom;
             }
             catch (Exception) { MessageBox.Show("Bug in picture"); }
             
@@ -56,7 +59,7 @@ namespace UART_CS
         private void Login_Click(object sender, EventArgs e)
         {
             ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
-            configurationBuilder.AddJsonFile(@"C:\Users\QUAN\source\repos\UART-CS\UART-CS\login.json");
+            configurationBuilder.AddJsonFile(Application.StartupPath + "\\login.json");
             IConfigurationRoot configurationRoot = configurationBuilder.Build();
 
 
@@ -107,7 +110,7 @@ namespace UART_CS
                 {
                     Account account = new Account(textBoxes[0].Text.ToString(), textBoxes[1].Text.ToString());
                     string json = JsonConvert.SerializeObject(account);
-                    var s = @"C:\Users\QUAN\source\repos\UART-CS\UART-CS\login.json";
+                    var s = Application.StartupPath + "\\login.json";
                     System.IO.File.WriteAllText(s, json);
                     MessageBox.Show("Tao tai khoan thanh cong");
                     f.Close();
@@ -139,43 +142,47 @@ namespace UART_CS
         public int Led = 1;
         private void buttonLed_Click(object sender, EventArgs e)
         {
-
-            Led = (Led < 2) ? 2 : 1;
-            buttonLed.Text = (buttonLed.Text == "Đóng") ? "Mở" : "Đóng";
-		if(buttonLed.Text=="Mở")
-		{
-			serialPort.Write("1");
-		}
-		else if(buttonLed.Text == "Đóng")
-		{
-			serialPort.Write("2");
-		}
-            pictureBox1.Image = new Bitmap($@"C:\Users\QUAN\source\repos\UART-CS\UART-CS\Image\{Led.ToString()}.png");
-            
+            if (serialPort.IsOpen)
+            {
+                Led = (Led < 2) ? 2 : 1;
+                buttonLed.Text = (buttonLed.Text == "Đóng") ? "Mở" : "Đóng";
+                if (buttonLed.Text == "Mở")
+                {
+                    serialPort.Write("1");
+                }
+                else if (buttonLed.Text == "Đóng")
+                {
+                    serialPort.Write("2");
+                }
+                pictureBox1.Image = new Bitmap(Application.StartupPath + "\\Image\\"+Led.ToString()+".png");
+            }
+            else MessageBox.Show("Vui long ket noi", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)
         {
-            
-            buttonConnect.Text = (buttonConnect.Text == "Connect") ? "Disconnect" : "Connect";
-            if (serialPort.IsOpen&& serialPort1.IsOpen)
+            try
             {
-                serialPort.Close();
-                serialPort1.Close();
+                if (serialPort.IsOpen)
+                {
+                    serialPort.Close();
+                }
+                else
+                {
+                    serialPort.Open();
+                }
+                buttonConnect.Text = (buttonConnect.Text == "Connect") ? "Disconnect" : "Connect";
             }
-            else
+            catch(Exception) 
             {
-                serialPort.Open();
-                serialPort1.Open();
+                MessageBox.Show("Vui lòng mở cổng COM", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            //Thread thread = new Thread(new ThreadStart(DocNhietdo));
-            //thread.IsBackground = true;
-            //thread.Start();
+                
         }
 
         private void buttonUart_Click(object sender, EventArgs e)
         {
-	        if(serialPort.IsOpen&& serialPort1.IsOpen)
+	        if(serialPort.IsOpen)
 		    {
 			    serialPort.Write(textBox1.Text);
 		    }
@@ -186,31 +193,37 @@ namespace UART_CS
 
         }
         string kq = "";
-        private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+
+        private void SignUp_MouseClick(object sender, MouseEventArgs e)
         {
-            var dataPort = serialPort1.ReadExisting();
+            button1_Click(sender, e);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            labelTime.Text = DateTime.Now.ToString("hh:mm:ss");
+        }
+
+        private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            var dataPort = serialPort.ReadExisting();
             //MessageBox.Show(serialPort1.ReadByte().ToString());
             kq += dataPort;
             if (kq.Length == 2)
             {
                 string kq1 = kq;
                 var compare = Convert.ToInt32(kq1);
-                compare = (compare==0)?0:(compare>0&&compare<=10)?10:(compare>10&&compare<=30)?30:(compare>30&&compare<=40)?40:(compare>40&&compare<=44)?44:(compare>44&&compare<=55)?55:(compare>55&&compare<=60)?60:(compare>60&&compare<=70)?70:100;
-                //if (kq1=="0"|kq1=="10"|kq1 == "30" | kq1 == "40"|kq1 == "44" | kq1 == "55"| kq1 == "50" | kq1 == "60" | kq1=="70") 
-               // {
-
-                    pictureBoxNhietdo.Image = new Bitmap($@"C:\Users\QUAN\source\repos\UART-CS\UART-CS\Image\nhietdo\{compare.ToString()}.jpg");
-                    pictureBoxNhietdo.SizeMode = PictureBoxSizeMode.Zoom;
-               // }
+                compare = (compare == 0) ? 0 : (compare > 0 && compare <= 10) ? 10 : (compare > 10 && compare <= 30) ? 30 : (compare > 30 && compare <= 40) ? 40 : (compare > 40 && compare <= 44) ? 44 : (compare > 44 && compare <= 55) ? 55 : (compare > 55 && compare <= 60) ? 60 : (compare > 60 && compare < 70) ? 70 : 100;
+                pictureBoxNhietdo.Image = new Bitmap(Application.StartupPath + "\\Image\\gif\\nhietdo\\"+compare.ToString()+".jpg");
+                pictureBoxNhietdo.SizeMode = PictureBoxSizeMode.Zoom;
                 Invoke(new MethodInvoker(() => textBoxNhietdo.Text = kq1.ToString() + "oC"));
                 kq = "";
             }
-
         }
 
-        private void SignUp_MouseClick(object sender, MouseEventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            button1_Click(sender, e);
+            MessageBox.Show(Application.StartupPath);
         }
     }
 }

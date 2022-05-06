@@ -512,11 +512,10 @@ int main(void){
  2de:	86 b9       	out	0x06, r24	; 6
 	sei(); //cho phép ng?t toàn c?c (bit I
  2e0:	78 94       	sei
+    /* Replace with your application code */
 	uint16_t nhietdo=0;
-	//float check=0;
     while (1) 
     {
-		
 		nhietdo = read_adc(0);
  2e2:	80 e0       	ldi	r24, 0x00	; 0
  2e4:	90 e0       	ldi	r25, 0x00	; 0

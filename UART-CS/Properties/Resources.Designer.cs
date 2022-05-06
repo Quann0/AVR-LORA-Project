@@ -169,5 +169,35 @@ namespace UART_CS.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap original {
+            get {
+                object obj = ResourceManager.GetObject("original", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tumblr_mjj8jmPs9h1s7wauso1_500 {
+            get {
+                object obj = ResourceManager.GetObject("tumblr_mjj8jmPs9h1s7wauso1_500", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tumblr_mjj8jmPs9h1s7wauso1_5001 {
+            get {
+                object obj = ResourceManager.GetObject("tumblr_mjj8jmPs9h1s7wauso1_5001", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

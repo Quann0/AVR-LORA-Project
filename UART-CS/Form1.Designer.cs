@@ -42,42 +42,44 @@ namespace UART_CS
             this.BaudComboBox = new System.Windows.Forms.Label();
             this.PortComBoBox = new System.Windows.Forms.Label();
             this.buttonConnect = new System.Windows.Forms.Button();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.buttonLed = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.buttonUart = new System.Windows.Forms.Button();
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.textBoxNhietdo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.labelTime = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.pictureBoxTime = new System.Windows.Forms.PictureBox();
             this.pictureBoxNhietdo = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxNhietdo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // AccountBox
             // 
-            this.AccountBox.Location = new System.Drawing.Point(658, 8);
+            this.AccountBox.Location = new System.Drawing.Point(681, 8);
             this.AccountBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.AccountBox.Name = "AccountBox";
-            this.AccountBox.Size = new System.Drawing.Size(125, 22);
+            this.AccountBox.Size = new System.Drawing.Size(102, 22);
             this.AccountBox.TabIndex = 0;
             this.AccountBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AccountBox_KeyDown);
             // 
             // PassWordBox
             // 
-            this.PassWordBox.Location = new System.Drawing.Point(658, 34);
+            this.PassWordBox.Location = new System.Drawing.Point(681, 34);
             this.PassWordBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PassWordBox.Name = "PassWordBox";
-            this.PassWordBox.Size = new System.Drawing.Size(125, 22);
+            this.PassWordBox.Size = new System.Drawing.Size(102, 22);
             this.PassWordBox.TabIndex = 1;
             this.PassWordBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PassWordBox_KeyDown);
             // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label2.Location = new System.Drawing.Point(562, 32);
+            this.label2.Location = new System.Drawing.Point(585, 32);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label2.Size = new System.Drawing.Size(90, 26);
@@ -110,7 +112,7 @@ namespace UART_CS
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(680, 138);
+            this.button1.Location = new System.Drawing.Point(694, 103);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(103, 23);
@@ -122,7 +124,7 @@ namespace UART_CS
             // AccountLabel
             // 
             this.AccountLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.AccountLabel.Location = new System.Drawing.Point(562, 8);
+            this.AccountLabel.Location = new System.Drawing.Point(585, 8);
             this.AccountLabel.Name = "AccountLabel";
             this.AccountLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.AccountLabel.Size = new System.Drawing.Size(90, 22);
@@ -137,28 +139,28 @@ namespace UART_CS
             "COM2",
             "COM3",
             "COM4"});
-            this.comboBoxPort.Location = new System.Drawing.Point(108, 7);
+            this.comboBoxPort.Location = new System.Drawing.Point(65, 7);
             this.comboBoxPort.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxPort.Name = "comboBoxPort";
-            this.comboBoxPort.Size = new System.Drawing.Size(151, 24);
+            this.comboBoxPort.Size = new System.Drawing.Size(113, 24);
             this.comboBoxPort.TabIndex = 8;
             // 
             // comboBoxBaud
             // 
             this.comboBoxBaud.FormattingEnabled = true;
-            this.comboBoxBaud.Location = new System.Drawing.Point(108, 40);
+            this.comboBoxBaud.Location = new System.Drawing.Point(65, 30);
             this.comboBoxBaud.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxBaud.Name = "comboBoxBaud";
-            this.comboBoxBaud.Size = new System.Drawing.Size(151, 24);
+            this.comboBoxBaud.Size = new System.Drawing.Size(113, 24);
             this.comboBoxBaud.TabIndex = 9;
             // 
             // BaudComboBox
             // 
             this.BaudComboBox.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.BaudComboBox.Location = new System.Drawing.Point(12, 41);
+            this.BaudComboBox.Location = new System.Drawing.Point(3, 32);
             this.BaudComboBox.Name = "BaudComboBox";
             this.BaudComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.BaudComboBox.Size = new System.Drawing.Size(81, 22);
+            this.BaudComboBox.Size = new System.Drawing.Size(56, 22);
             this.BaudComboBox.TabIndex = 10;
             this.BaudComboBox.Text = "Baud";
             // 
@@ -168,89 +170,104 @@ namespace UART_CS
             this.PortComBoBox.Location = new System.Drawing.Point(3, 7);
             this.PortComBoBox.Name = "PortComBoBox";
             this.PortComBoBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.PortComBoBox.Size = new System.Drawing.Size(90, 22);
+            this.PortComBoBox.Size = new System.Drawing.Size(56, 22);
             this.PortComBoBox.TabIndex = 11;
             this.PortComBoBox.Text = "PORT";
             // 
             // buttonConnect
             // 
-            this.buttonConnect.Location = new System.Drawing.Point(274, 1);
+            this.buttonConnect.Location = new System.Drawing.Point(12, 69);
             this.buttonConnect.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonConnect.Name = "buttonConnect";
-            this.buttonConnect.Size = new System.Drawing.Size(125, 63);
+            this.buttonConnect.Size = new System.Drawing.Size(103, 53);
             this.buttonConnect.TabIndex = 12;
             this.buttonConnect.Text = "Connect";
             this.buttonConnect.UseVisualStyleBackColor = true;
             this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
             // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // buttonLed
             // 
-            this.buttonLed.Location = new System.Drawing.Point(45, 178);
+            this.buttonLed.Location = new System.Drawing.Point(129, 312);
             this.buttonLed.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonLed.Name = "buttonLed";
-            this.buttonLed.Size = new System.Drawing.Size(107, 45);
+            this.buttonLed.Size = new System.Drawing.Size(90, 45);
             this.buttonLed.TabIndex = 14;
-            this.buttonLed.Text = "Đóng";
+            this.buttonLed.Text = "Mở";
             this.buttonLed.UseVisualStyleBackColor = true;
             this.buttonLed.Click += new System.EventHandler(this.buttonLed_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(261, 102);
+            this.textBox1.Location = new System.Drawing.Point(0, 292);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(115, 22);
+            this.textBox1.Size = new System.Drawing.Size(85, 22);
             this.textBox1.TabIndex = 16;
             // 
             // buttonUart
             // 
-            this.buttonUart.Location = new System.Drawing.Point(261, 138);
+            this.buttonUart.Location = new System.Drawing.Point(3, 320);
             this.buttonUart.Name = "buttonUart";
-            this.buttonUart.Size = new System.Drawing.Size(104, 23);
+            this.buttonUart.Size = new System.Drawing.Size(65, 29);
             this.buttonUart.TabIndex = 17;
-            this.buttonUart.Text = "Truyendata";
+            this.buttonUart.Text = "Send";
             this.buttonUart.UseVisualStyleBackColor = true;
             this.buttonUart.Click += new System.EventHandler(this.buttonUart_Click);
             // 
-            // serialPort1
+            // serialPort
             // 
-            this.serialPort1.PortName = "COM3";
-            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
+            this.serialPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort_DataReceived);
             // 
             // textBoxNhietdo
             // 
-            this.textBoxNhietdo.Location = new System.Drawing.Point(499, 121);
+            this.textBoxNhietdo.Location = new System.Drawing.Point(12, 151);
             this.textBoxNhietdo.Name = "textBoxNhietdo";
-            this.textBoxNhietdo.Size = new System.Drawing.Size(58, 22);
+            this.textBoxNhietdo.Size = new System.Drawing.Size(56, 22);
             this.textBoxNhietdo.TabIndex = 18;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(500, 101);
+            this.label1.Location = new System.Drawing.Point(11, 131);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 17);
             this.label1.TabIndex = 19;
             this.label1.Text = "Nhietdo";
             // 
+            // labelTime
+            // 
+            this.labelTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.labelTime.Location = new System.Drawing.Point(703, 227);
+            this.labelTime.Name = "labelTime";
+            this.labelTime.Size = new System.Drawing.Size(85, 33);
+            this.labelTime.TabIndex = 21;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // pictureBoxTime
+            // 
+            this.pictureBoxTime.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.pictureBoxTime.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBoxTime.Location = new System.Drawing.Point(652, 263);
+            this.pictureBoxTime.Name = "pictureBoxTime";
+            this.pictureBoxTime.Size = new System.Drawing.Size(145, 94);
+            this.pictureBoxTime.TabIndex = 22;
+            this.pictureBoxTime.TabStop = false;
+            // 
             // pictureBoxNhietdo
             // 
-            this.pictureBoxNhietdo.Location = new System.Drawing.Point(482, 149);
+            this.pictureBoxNhietdo.Location = new System.Drawing.Point(12, 179);
             this.pictureBoxNhietdo.Name = "pictureBoxNhietdo";
-            this.pictureBoxNhietdo.Size = new System.Drawing.Size(110, 82);
+            this.pictureBoxNhietdo.Size = new System.Drawing.Size(73, 58);
             this.pictureBoxNhietdo.TabIndex = 20;
             this.pictureBoxNhietdo.TabStop = false;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(45, 88);
+            this.pictureBox1.Location = new System.Drawing.Point(124, 250);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(112, 74);
+            this.pictureBox1.Size = new System.Drawing.Size(95, 57);
             this.pictureBox1.TabIndex = 15;
             this.pictureBox1.TabStop = false;
             // 
@@ -258,7 +275,10 @@ namespace UART_CS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(800, 360);
+            this.Controls.Add(this.pictureBoxTime);
+            this.Controls.Add(this.labelTime);
             this.Controls.Add(this.pictureBoxNhietdo);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxNhietdo);
@@ -278,9 +298,12 @@ namespace UART_CS
             this.Controls.Add(this.label2);
             this.Controls.Add(this.PassWordBox);
             this.Controls.Add(this.AccountBox);
+            this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
-            this.Text = "`q";
+            this.Text = "Smart";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxNhietdo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -303,16 +326,17 @@ namespace UART_CS
         private System.Windows.Forms.Label BaudComboBox;
         private System.Windows.Forms.Label PortComBoBox;
         private System.Windows.Forms.Button buttonConnect;
-        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Button buttonLed;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button buttonUart;
         private System.IO.Ports.SerialPort serialPort;
-        private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.TextBox textBoxNhietdo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBoxNhietdo;
+        private System.Windows.Forms.Label labelTime;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.PictureBox pictureBoxTime;
     }
 }
 
