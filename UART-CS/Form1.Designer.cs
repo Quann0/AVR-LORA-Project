@@ -35,7 +35,6 @@ namespace UART_CS
             this.label2 = new System.Windows.Forms.Label();
             this.Login = new System.Windows.Forms.Button();
             this.SignUp = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.AccountLabel = new System.Windows.Forms.Label();
             this.comboBoxPort = new System.Windows.Forms.ComboBox();
             this.comboBoxBaud = new System.Windows.Forms.ComboBox();
@@ -88,10 +87,10 @@ namespace UART_CS
             // 
             // Login
             // 
-            this.Login.Location = new System.Drawing.Point(652, 69);
+            this.Login.Location = new System.Drawing.Point(681, 60);
             this.Login.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Login.Name = "Login";
-            this.Login.Size = new System.Drawing.Size(74, 30);
+            this.Login.Size = new System.Drawing.Size(102, 30);
             this.Login.TabIndex = 4;
             this.Login.Text = "Login";
             this.Login.UseVisualStyleBackColor = true;
@@ -103,23 +102,12 @@ namespace UART_CS
             this.SignUp.Cursor = System.Windows.Forms.Cursors.Hand;
             this.SignUp.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.SignUp.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.SignUp.Location = new System.Drawing.Point(732, 71);
+            this.SignUp.Location = new System.Drawing.Point(660, 99);
             this.SignUp.Name = "SignUp";
-            this.SignUp.Size = new System.Drawing.Size(65, 23);
+            this.SignUp.Size = new System.Drawing.Size(137, 23);
             this.SignUp.TabIndex = 5;
-            this.SignUp.Text = "SignUp";
+            this.SignUp.Text = "Change Account";
             this.SignUp.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SignUp_MouseClick);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(694, 103);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "DoiTaiKhoan";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // AccountLabel
             // 
@@ -292,7 +280,6 @@ namespace UART_CS
             this.Controls.Add(this.comboBoxBaud);
             this.Controls.Add(this.comboBoxPort);
             this.Controls.Add(this.AccountLabel);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.SignUp);
             this.Controls.Add(this.Login);
             this.Controls.Add(this.label2);
@@ -302,7 +289,6 @@ namespace UART_CS
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Smart";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxNhietdo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -319,7 +305,6 @@ namespace UART_CS
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button Login;
         private System.Windows.Forms.Label SignUp;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label AccountLabel;
         private System.Windows.Forms.ComboBox comboBoxPort;
         private System.Windows.Forms.ComboBox comboBoxBaud;

@@ -35,8 +35,9 @@ void gui_1_chuoi_dulieu( char a[2])
 		uart1_char_tx(a[i]);
 	}
 }
-uint16_t read_adc(unsigned int adc_channel) //adc_channel l?u tham s? kênh ADC c?n ??c.
+int read_adc(unsigned int adc_channel) //adc_channel l?u tham s? kênh ADC c?n ??c.
 {
+	ADMUX &= 0xf0;
 	ADMUX |= adc_channel; //Ch?n kênh ADC.
 	ADCSRA |=(1<<ADSC); //Cho phép b?t ??u quá tr?nh chuy?n ??i ADC: l?y giá tr? ?i?n áp vào (Vin) trên kênh ?? ch?n, sau ?ó th?c hi?n chuy?n ??i ADC theo công th?c:
 	while(bit_is_clear(ADCSRA,ADIF)) //trong khi th?c hi?n chuy?n ??i ADC (bit ADIF = 0).
@@ -87,11 +88,17 @@ int main(void){
 	sei(); //cho phép ng?t toàn c?c (bit I
     /* Replace with your application code */
 	uint16_t nhietdo=0;
+	int nhietdo1 = 0;
     while (1) 
     {
 		nhietdo = read_adc(0);
+		nhietdo1 = read_adc(1);
+		nhietdo1 = nhietdo>>8 & 0xff;
 		nhietdo = nhietdo*5/10.23;
 		led7seg(nhietdo);
+		_delay_ms(500);
+		led7seg(nhietdo1);
+		_delay_ms(500);
 		itoa(nhietdo,data,10);//convert s? có cõ s? 10->chu?i
 		gui_1_chuoi_dulieu(data);	
     }
@@ -99,11 +106,11 @@ int main(void){
 
 ISR(USART0_RX_vect) { //hàm ph?c v? ng?t nh?n c?a UART0 thay cho hàm ISR(SIG_UART0_RECV)
 	u_data=UDR0;
-	if(u_data =='1')
+	if(u_data =='2')
 	{
 		PORTB |= (1<<PB0);
 	}
-	else if(u_data =='2')
+	else if(u_data =='1')
 	{
 		PORTB &= ~(1<<PB0);
 	}

@@ -58,70 +58,21 @@ namespace UART_CS
         }
         private void Login_Click(object sender, EventArgs e)
         {
-            ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
-            configurationBuilder.AddJsonFile(Application.StartupPath + "\\login.json");
-            IConfigurationRoot configurationRoot = configurationBuilder.Build();
-
-
-            if (AccountBox.Text == configurationRoot.GetSection("tk").Value && PassWordBox.Text == configurationRoot.GetSection("mk").Value)
-                MessageBox.Show("Đăng nhập thành công");
-            else MessageBox.Show("Đăng Nhập Thất Bại", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-        }
-
-        private void SignUp_Click(object sender, EventArgs e)
-        {
-            Form f = new Form();
-            Button button = new Button();
-            List<Label> label = new List<Label> { new Label { }, new Label { }, new Label() };
-
-            f.Controls.Add(button);
-            foreach (var item in label)
+            try
             {
-                f.Controls.Add(item);
+                ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
+                configurationBuilder.AddJsonFile(Application.StartupPath + "\\login.json");
+                IConfigurationRoot configurationRoot = configurationBuilder.Build();
+
+
+                if (AccountBox.Text == configurationRoot.GetSection("tk").Value && PassWordBox.Text == configurationRoot.GetSection("mk").Value)
+                    MessageBox.Show("Đăng nhập thành công");
+                else MessageBox.Show("Đăng Nhập Thất Bại", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Form f = new Form();
-            Button button = new Button() { Location = new Point(45, 181), Text = "OK" };
-            List<Label> label = new List<Label>
+            catch (Exception) 
             {
-                new Label { Location = new Point(45, 21),Text = "TaiKhoan" },
-                new Label { Location = new Point(45, 51), Text = "matkhau" },
-                new Label {Location = new Point(45, 81), Text = "Nhaplaimk" }
-            };
-            List<TextBox> textBoxes = new List<TextBox>
-            {
-                new TextBox{Location = new Point(120, 21)},
-                new TextBox{Location = new Point(120, 51)},
-                new TextBox{Location = new Point(120, 81)}
-            };
-            f.Controls.AddRange(textBoxes.ToArray());
-            f.Controls.Add(button);
-            foreach (var item in label)
-            {
-                f.Controls.Add(item);
+                MessageBox.Show("Đăng Nhập Thất Bại", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            void button_Click(object sender1, EventArgs e1)
-            {
-                if (textBoxes[1].Text == textBoxes[2].Text)
-                {
-                    Account account = new Account(textBoxes[0].Text.ToString(), textBoxes[1].Text.ToString());
-                    string json = JsonConvert.SerializeObject(account);
-                    var s = Application.StartupPath + "\\login.json";
-                    System.IO.File.WriteAllText(s, json);
-                    MessageBox.Show("Tao tai khoan thanh cong");
-                    f.Close();
-                }
-                else MessageBox.Show("Vui long nhap lai mat khau", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            }
-            button.Click += button_Click;
-            
-
-            f.ShowDialog();
         }
 
         private void PassWordBox_KeyDown(object sender, KeyEventArgs e)
@@ -190,13 +141,46 @@ namespace UART_CS
 		    {
 			    MessageBox.Show("Vui Lòng Mở Cổng COM");
 		    }
-
         }
         string kq = "";
 
         private void SignUp_MouseClick(object sender, MouseEventArgs e)
         {
-            button1_Click(sender, e);
+            Form f = new Form();
+            Button button = new Button() { Location = new Point(45, 181), Text = "OK" };
+            List<Label> label = new List<Label>
+            {
+                new Label { Location = new Point(45, 21),Text = "TaiKhoan" },
+                new Label { Location = new Point(45, 51), Text = "matkhau" },
+                new Label {Location = new Point(45, 81), Text = "Nhaplaimk" }
+            };
+            List<TextBox> textBoxes = new List<TextBox>
+            {
+                new TextBox{Location = new Point(120, 21)},
+                new TextBox{Location = new Point(120, 51)},
+                new TextBox{Location = new Point(120, 81)}
+            };
+            f.Controls.AddRange(textBoxes.ToArray());
+            f.Controls.Add(button);
+            foreach (var item in label)
+            {
+                f.Controls.Add(item);
+            }
+            void button_Click(object sender1, EventArgs e1)
+            {
+                if (textBoxes[1].Text == textBoxes[2].Text)
+                {
+                    Account account = new Account(textBoxes[0].Text.ToString(), textBoxes[1].Text.ToString());
+                    string json = JsonConvert.SerializeObject(account);
+                    var s = Application.StartupPath + "\\login.json";
+                    System.IO.File.WriteAllText(s, json);
+                    MessageBox.Show("Tao tai khoan thanh cong");
+                    f.Close();
+                }
+                else MessageBox.Show("Vui long nhap lai mat khau", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            button.Click += button_Click;
+            f.ShowDialog();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -207,24 +191,17 @@ namespace UART_CS
         private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var dataPort = serialPort.ReadExisting();
-            //MessageBox.Show(serialPort1.ReadByte().ToString());
             kq += dataPort;
             if (kq.Length == 2)
             {
                 string kq1 = kq;
                 var compare = Convert.ToInt32(kq1);
                 compare = (compare == 0) ? 0 : (compare > 0 && compare <= 10) ? 10 : (compare > 10 && compare <= 30) ? 30 : (compare > 30 && compare <= 40) ? 40 : (compare > 40 && compare <= 44) ? 44 : (compare > 44 && compare <= 55) ? 55 : (compare > 55 && compare <= 60) ? 60 : (compare > 60 && compare < 70) ? 70 : 100;
-                pictureBoxNhietdo.Image = new Bitmap(Application.StartupPath + "\\Image\\gif\\nhietdo\\"+compare.ToString()+".jpg");
+                pictureBoxNhietdo.Image = new Bitmap(Application.StartupPath + "\\Image\\nhietdo\\"+compare.ToString()+".jpg");
                 pictureBoxNhietdo.SizeMode = PictureBoxSizeMode.Zoom;
                 Invoke(new MethodInvoker(() => textBoxNhietdo.Text = kq1.ToString() + "oC"));
                 kq = "";
             }
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            MessageBox.Show(Application.StartupPath);
-        }
     }
 }
-
