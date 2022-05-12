@@ -1,3 +1,3 @@
 # AVR-Project
-- Kết nối 2 COM khác nhau
-- Cùng tốc độ Baud
+- Kết nối đúng SerialPort(COM)
+- Cùng tốc độ Baud , tốc độ truyền, 8bit ,...
