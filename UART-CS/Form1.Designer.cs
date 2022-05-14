@@ -49,9 +49,15 @@ namespace UART_CS
             this.label1 = new System.Windows.Forms.Label();
             this.labelTime = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.buttonStartDC = new System.Windows.Forms.Button();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.pictureBoxDC = new System.Windows.Forms.PictureBox();
             this.pictureBoxTime = new System.Windows.Forms.PictureBox();
             this.pictureBoxNhietdo = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.labelHumi = new System.Windows.Forms.Label();
+            this.textBoxHumi = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxNhietdo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -78,10 +84,10 @@ namespace UART_CS
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label2.Location = new System.Drawing.Point(585, 32);
+            this.label2.Location = new System.Drawing.Point(572, 32);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label2.Size = new System.Drawing.Size(90, 26);
+            this.label2.Size = new System.Drawing.Size(103, 26);
             this.label2.TabIndex = 3;
             this.label2.Text = "PassWord";
             // 
@@ -112,10 +118,10 @@ namespace UART_CS
             // AccountLabel
             // 
             this.AccountLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.AccountLabel.Location = new System.Drawing.Point(585, 8);
+            this.AccountLabel.Location = new System.Drawing.Point(572, 9);
             this.AccountLabel.Name = "AccountLabel";
             this.AccountLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.AccountLabel.Size = new System.Drawing.Size(90, 22);
+            this.AccountLabel.Size = new System.Drawing.Size(103, 22);
             this.AccountLabel.TabIndex = 7;
             this.AccountLabel.Text = "Account";
             // 
@@ -233,6 +239,35 @@ namespace UART_CS
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // buttonStartDC
+            // 
+            this.buttonStartDC.Location = new System.Drawing.Point(290, 312);
+            this.buttonStartDC.Name = "buttonStartDC";
+            this.buttonStartDC.Size = new System.Drawing.Size(86, 39);
+            this.buttonStartDC.TabIndex = 23;
+            this.buttonStartDC.Text = "StartDC";
+            this.buttonStartDC.UseVisualStyleBackColor = true;
+            this.buttonStartDC.Click += new System.EventHandler(this.buttonStartDC_Click);
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(391, 325);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(110, 21);
+            this.radioButton1.TabIndex = 24;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "radioButton1";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // pictureBoxDC
+            // 
+            this.pictureBoxDC.Location = new System.Drawing.Point(290, 250);
+            this.pictureBoxDC.Name = "pictureBoxDC";
+            this.pictureBoxDC.Size = new System.Drawing.Size(107, 57);
+            this.pictureBoxDC.TabIndex = 25;
+            this.pictureBoxDC.TabStop = false;
+            // 
             // pictureBoxTime
             // 
             this.pictureBoxTime.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -259,12 +294,33 @@ namespace UART_CS
             this.pictureBox1.TabIndex = 15;
             this.pictureBox1.TabStop = false;
             // 
+            // labelHumi
+            // 
+            this.labelHumi.AutoSize = true;
+            this.labelHumi.Location = new System.Drawing.Point(128, 131);
+            this.labelHumi.Name = "labelHumi";
+            this.labelHumi.Size = new System.Drawing.Size(49, 17);
+            this.labelHumi.TabIndex = 27;
+            this.labelHumi.Text = "Do am";
+            // 
+            // textBoxHumi
+            // 
+            this.textBoxHumi.Location = new System.Drawing.Point(122, 151);
+            this.textBoxHumi.Name = "textBoxHumi";
+            this.textBoxHumi.Size = new System.Drawing.Size(56, 22);
+            this.textBoxHumi.TabIndex = 26;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(800, 360);
+            this.Controls.Add(this.labelHumi);
+            this.Controls.Add(this.textBoxHumi);
+            this.Controls.Add(this.pictureBoxDC);
+            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.buttonStartDC);
             this.Controls.Add(this.pictureBoxTime);
             this.Controls.Add(this.labelTime);
             this.Controls.Add(this.pictureBoxNhietdo);
@@ -289,6 +345,7 @@ namespace UART_CS
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Smart";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxNhietdo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -322,6 +379,11 @@ namespace UART_CS
         private System.Windows.Forms.Label labelTime;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.PictureBox pictureBoxTime;
+        private System.Windows.Forms.Button buttonStartDC;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.PictureBox pictureBoxDC;
+        private System.Windows.Forms.Label labelHumi;
+        private System.Windows.Forms.TextBox textBoxHumi;
     }
 }
 

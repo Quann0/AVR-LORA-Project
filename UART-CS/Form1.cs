@@ -41,8 +41,10 @@ namespace UART_CS
         public void Init_Control() 
         {
             comboBoxPort.Text = "COM1";
-            comboBoxBaud.Text = "9600";
+            comboBoxBaud.Text = "115200";
+
             timer1.Start();
+
         }
         public void LoadImage()
         {
@@ -50,8 +52,10 @@ namespace UART_CS
             {
                 pictureBoxTime.Image = new Bitmap(Application.StartupPath + "\\Image\\gif\\original.gif");
                 pictureBox1.Image = new Bitmap(Application.StartupPath + "\\Image\\1.png");
+                pictureBoxDC.Image = new Bitmap(Application.StartupPath + "\\Image\\dongco\\a.jpg");
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBoxTime.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBoxDC.SizeMode = PictureBoxSizeMode.Zoom;
             }
             catch (Exception) { MessageBox.Show("Bug in picture"); }
             
@@ -112,6 +116,8 @@ namespace UART_CS
 
         private void buttonConnect_Click(object sender, EventArgs e)
         {
+            serialPort.PortName = comboBoxPort.Text;
+            serialPort.BaudRate = Convert.ToInt32(comboBoxBaud.Text);
             try
             {
                 if (serialPort.IsOpen)
@@ -192,16 +198,37 @@ namespace UART_CS
         {
             var dataPort = serialPort.ReadExisting();
             kq += dataPort;
-            if (kq.Length == 2)
+            if (kq.Length > 3)
             {
+                //Invoke(new MethodInvoker(() => buttonLed_Click(sender, e)));
                 string kq1 = kq;
-                var compare = Convert.ToInt32(kq1);
+                var compare = Convert.ToInt32(kq1.Substring(0,2));
                 compare = (compare == 0) ? 0 : (compare > 0 && compare <= 10) ? 10 : (compare > 10 && compare <= 30) ? 30 : (compare > 30 && compare <= 40) ? 40 : (compare > 40 && compare <= 44) ? 44 : (compare > 44 && compare <= 55) ? 55 : (compare > 55 && compare <= 60) ? 60 : (compare > 60 && compare < 70) ? 70 : 100;
                 pictureBoxNhietdo.Image = new Bitmap(Application.StartupPath + "\\Image\\nhietdo\\"+compare.ToString()+".jpg");
                 pictureBoxNhietdo.SizeMode = PictureBoxSizeMode.Zoom;
-                Invoke(new MethodInvoker(() => textBoxNhietdo.Text = kq1.ToString() + "oC"));
+                Invoke(new MethodInvoker(() => textBoxNhietdo.Text = kq1.ToString().Substring(0,2) + "oC"));
+                Invoke(new MethodInvoker(() => textBoxHumi.Text = kq1.ToString().Substring(2) + "oC"));
                 kq = "";
             }
+        }
+        public string DC = "a";
+        private void buttonStartDC_Click(object sender, EventArgs e)
+        {
+            if (serialPort.IsOpen)
+            {
+                DC = (DC == "a") ? "b" : "a";
+                buttonStartDC.Text = (buttonStartDC.Text == "StartDC") ? "StopDC" : "StartDC";
+                if (buttonStartDC.Text == "StartDC")
+                {
+                    serialPort.Write("a");
+                }
+                else if (buttonLed.Text == "StopDC")
+                {
+                    serialPort.Write("b");
+                }
+                pictureBox1.Image = new Bitmap(Application.StartupPath + "\\Image\\dongco\\" + DC + ".jpg");
+            }
+            else MessageBox.Show("Vui long ket noi", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

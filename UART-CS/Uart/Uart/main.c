@@ -4,14 +4,35 @@
  * Created: 4/27/2022 8:01:59 PM
  * Author : QUAN
  */ 
+
+
 #define F_CPU 8000000UL
+#ifndef DHT11_H_
+#define DHT11_H_
+
+#define DHT11_ERROR 255
+
+#define DHT11_DDR DDRF
+#define DHT11_PORT PORTF
+#define DHT11_PIN PINF
+#define DHT11_INPUTPIN PF1
+
+
+
+
+#endif /* DHT11_H_ */
+
 #include <avr/io.h>
+#include <stdio.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <string.h>
 #include <stdlib.h>
-//char data[4];
-char data[2];
+
+void dht11_getdata(uint8_t num, uint8_t *data);
+uint8_t getdata(uint8_t select);
+char data[4];
+
 const char *fixbug = "0";
 void uart_char_tx(unsigned char chr) 
 {
@@ -23,7 +44,7 @@ void uart1_char_tx(char chr)
 	while (bit_is_clear(UCSR1A,UDRE1)) { };
 	UDR1=chr;
 }
-void gui_1_chuoi_dulieu( char a[2])
+void gui_1_chuoi_dulieu( char a[4])
 {
 	if(strlen(a)==1)
 	{
@@ -35,6 +56,7 @@ void gui_1_chuoi_dulieu( char a[2])
 		uart1_char_tx(a[i]);
 	}
 }
+
 int read_adc(unsigned int adc_channel) //adc_channel l?u tham s? kênh ADC c?n ??c.
 {
 	ADMUX &= 0xf0;
@@ -87,20 +109,29 @@ int main(void){
 	ADCSRA |=(1<<ADEN) | (1<<ADPS2) | (1<<ADPS0);//Cho phép ADC và ch?n h? s? chia xung nh?p cho ADC là 32.
 	sei(); //cho phép ng?t toàn c?c (bit I
     /* Replace with your application code */
-	uint16_t nhietdo=0;
-	int nhietdo1 = 0;
+//	uint16_t nhietdo=0;
+	uint8_t datatemp = 0;
+	uint8_t dataHumi = 0;
+	int DataSum = 0;
+//	char buf[40] = {0,};
     while (1) 
     {
-		nhietdo = read_adc(0);
-		nhietdo1 = read_adc(1);
-		nhietdo1 = nhietdo>>8 & 0xff;
-		nhietdo = nhietdo*5/10.23;
-		led7seg(nhietdo);
-		_delay_ms(500);
-		led7seg(nhietdo1);
-		_delay_ms(500);
-		itoa(nhietdo,data,10);//convert s? có cõ s? 10->chu?i
-		gui_1_chuoi_dulieu(data);	
+		dht11_getdata(0, &datatemp);
+
+		dht11_getdata(1, &dataHumi);
+		DataSum=datatemp*100+dataHumi;
+		led7seg(DataSum);
+		itoa(DataSum,data,10);
+		gui_1_chuoi_dulieu(data);
+
+		
+		
+		
+		
+//		led7seg(nhietdo1);
+//		_delay_ms(500);
+		//itoa(nhietdo,data1,10);//convert s? có cõ s? 10->chu?i
+		
     }
 }
 
@@ -115,4 +146,77 @@ ISR(USART0_RX_vect) { //hàm ph?c v? ng?t nh?n c?a UART0 thay cho hàm ISR(SIG_UAR
 		PORTB &= ~(1<<PB0);
 	}
 	uart_char_tx(u_data);
+}
+
+/* get data from dht11 */
+uint8_t getdata(uint8_t select) {
+	uint8_t bits[5];
+	uint8_t i,j = 0;
+	
+	memset(bits, 0, sizeof(bits));
+	
+	//reset port
+	DHT11_DDR |= (1<<DHT11_INPUTPIN); //output
+	DHT11_PORT |= (1<<DHT11_INPUTPIN); //high
+	_delay_ms(100);
+	
+	//send request
+	DHT11_PORT &= ~(1<<DHT11_INPUTPIN); //low
+	_delay_ms(18);
+	//-- MCU pulls up voltage and waits for DHT response (20-40us)
+	DHT11_PORT |= (1<<DHT11_INPUTPIN); //high
+	_delay_us(1);
+	DHT11_DDR &= ~(1<<DHT11_INPUTPIN); //input
+	_delay_us(39);
+	//--
+	
+	//check start condition 1 (low)
+	if((DHT11_PIN & (1<<DHT11_INPUTPIN))) {
+		return DHT11_ERROR;
+	}
+	_delay_us(80);
+	//check start condition 2 (high)
+	if(!(DHT11_PIN & (1<<DHT11_INPUTPIN))) {
+		return DHT11_ERROR;
+	}
+	_delay_us(80);
+	
+	//read the data
+	for (j=0; j<5; j++) { //read 5 byte
+		uint8_t result=0;
+		for(i=0; i<8; i++) {//read every bit
+			while(!(DHT11_PIN & (1<<DHT11_INPUTPIN))); //wait for an high input
+			_delay_us(30);
+			if(DHT11_PIN & (1<<DHT11_INPUTPIN)) //if input is high after 30 us, get result
+			result |= (1<<(7-i));
+			while(DHT11_PIN & (1<<DHT11_INPUTPIN)); //wait until input get low
+		}
+		bits[j] = result;
+	}
+	
+	//reset port
+	DHT11_DDR |= (1<<DHT11_INPUTPIN); //output
+	DHT11_PORT |= (1<<DHT11_INPUTPIN); //low
+	_delay_ms(100);
+	
+	//check checksum
+	if (bits[0] + bits[1] + bits[2] + bits[3] == bits[4]) {
+		if (select == 0) { //return temperature
+			return(bits[2]);
+			} else if(select == 1){ //return humidity
+			return(bits[0]);
+		}
+	}
+	
+	return DHT11_ERROR;
+}
+
+void dht11_getdata(uint8_t num, uint8_t *data){
+	uint8_t buf = getdata(num);
+	if(buf == DHT11_ERROR){
+		;
+	}
+	else{
+		*data = buf;
+	}
 }
