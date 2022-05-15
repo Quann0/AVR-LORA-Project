@@ -40,9 +40,9 @@ namespace UART_CS
         }
         public void Init_Control() 
         {
-            comboBoxPort.Text = "COM1";
-            comboBoxBaud.Text = "115200";
-
+            //comboBoxBaud.Items.AddRange(SerialPort.GetPortNames().ToString()); 
+            comboBoxPort.Text = "";
+            comboBoxBaud.Text = "9600";
             timer1.Start();
 
         }
@@ -116,8 +116,13 @@ namespace UART_CS
 
         private void buttonConnect_Click(object sender, EventArgs e)
         {
-            serialPort.PortName = comboBoxPort.Text;
-            serialPort.BaudRate = Convert.ToInt32(comboBoxBaud.Text);
+            buttonConnect.Text = (buttonConnect.Text == "Connect") ? "Disconnect" : "Connect";
+            if (buttonConnect.Text == "Disconnect") 
+            {
+                serialPort.PortName = comboBoxPort.Text;
+                serialPort.BaudRate = Convert.ToInt32(comboBoxBaud.Text);
+            }
+            
             try
             {
                 if (serialPort.IsOpen)
@@ -128,7 +133,6 @@ namespace UART_CS
                 {
                     serialPort.Open();
                 }
-                buttonConnect.Text = (buttonConnect.Text == "Connect") ? "Disconnect" : "Connect";
             }
             catch(Exception) 
             {
@@ -229,6 +233,11 @@ namespace UART_CS
                 pictureBox1.Image = new Bitmap(Application.StartupPath + "\\Image\\dongco\\" + DC + ".jpg");
             }
             else MessageBox.Show("Vui long ket noi", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        private void comboBoxPort_DropDown(object sender, EventArgs e)
+        {
+            comboBoxPort.Items.Clear();
+            comboBoxPort.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames()); 
         }
     }
 }

@@ -7,33 +7,30 @@
 
 
 #define F_CPU 8000000UL
-#ifndef DHT11_H_
-#define DHT11_H_
-
-#define DHT11_ERROR 255
-
-#define DHT11_DDR DDRF
-#define DHT11_PORT PORTF
-#define DHT11_PIN PINF
-#define DHT11_INPUTPIN PF1
-
-
-
-
-#endif /* DHT11_H_ */
-
-#include <avr/io.h>
 #include <stdio.h>
+#include <avr/io.h>
+//#include <stdio.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <string.h>
 #include <stdlib.h>
 
+#ifndef DHT11_H_
+#define DHT11_H_
+
+#define DHT11_ERROR 255
+#define DHT11_DDR DDRF
+#define DHT11_PORT PORTF
+#define DHT11_PIN PINF
+#define DHT11_INPUTPIN PF1
+
+#endif /* DHT11_H_ */
+
 void dht11_getdata(uint8_t num, uint8_t *data);
 uint8_t getdata(uint8_t select);
-char data[4];
+char dataSend[4];
 
-const char *fixbug = "0";
+char *fixbug = "0";
 void uart_char_tx(unsigned char chr) 
 {
 	while (bit_is_clear(UCSR0A,UDRE0)) { };
@@ -46,11 +43,11 @@ void uart1_char_tx(char chr)
 }
 void gui_1_chuoi_dulieu( char a[4])
 {
-	if(strlen(a)==1)
-	{
-		a[1] = a[0];
-		a[0] = *fixbug;
-	}
+	//if(strlen(a)==1)
+	//{
+		//a[1] = a[0];
+		//a[0] = *fixbug;
+	//}
 	for(int i=0;i<strlen(a);i++)
 	{
 		uart1_char_tx(a[i]);
@@ -104,28 +101,24 @@ int main(void){
 	UCSR0B =(1<<RXEN0)|(1<<TXEN0)|(1<<RXCIE0); //cho phép truy?n nh?n d? li?u và cho phép ng?t nh?n
 	UCSR1A=0x00;
 	UCSR1C =(1<<UCSZ11)|(1<<UCSZ10);
-	UCSR1B |=(1<<TXEN1)|(1<<TXCIE1);
-	ADMUX |= (1<<REFS0); //Ch?n ?i?n áp tham chi?u AVCC
-	ADCSRA |=(1<<ADEN) | (1<<ADPS2) | (1<<ADPS0);//Cho phép ADC và ch?n h? s? chia xung nh?p cho ADC là 32.
+	UCSR1B =(1<<RXEN1)|(1<<TXEN1)|(1<<RXCIE1);
+//	ADMUX |= (1<<REFS0); //Ch?n ?i?n áp tham chi?u AVCC
+//	ADCSRA |=(1<<ADEN) | (1<<ADPS2) | (1<<ADPS1)|(1<<ADPS0);//Cho phép ADC và ch?n h? s? chia xung nh?p cho ADC là 32.
 	sei(); //cho phép ng?t toàn c?c (bit I
     /* Replace with your application code */
-//	uint16_t nhietdo=0;
 	uint8_t datatemp = 0;
 	uint8_t dataHumi = 0;
-	int DataSum = 0;
+	uint16_t DataSum = 0;
 //	char buf[40] = {0,};
     while (1) 
     {
 		dht11_getdata(0, &datatemp);
-
 		dht11_getdata(1, &dataHumi);
 		DataSum=datatemp*100+dataHumi;
 		led7seg(DataSum);
-		itoa(DataSum,data,10);
-		gui_1_chuoi_dulieu(data);
-
-		
-		
+		itoa(DataSum,dataSend,10);
+		gui_1_chuoi_dulieu(dataSend);
+		//_delay_ms(100);
 		
 		
 //		led7seg(nhietdo1);

@@ -128,16 +128,12 @@ namespace UART_CS
             // comboBoxPort
             // 
             this.comboBoxPort.FormattingEnabled = true;
-            this.comboBoxPort.Items.AddRange(new object[] {
-            "COM1",
-            "COM2",
-            "COM3",
-            "COM4"});
             this.comboBoxPort.Location = new System.Drawing.Point(65, 7);
             this.comboBoxPort.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxPort.Name = "comboBoxPort";
             this.comboBoxPort.Size = new System.Drawing.Size(113, 24);
             this.comboBoxPort.TabIndex = 8;
+            this.comboBoxPort.DropDown += new System.EventHandler(this.comboBoxPort_DropDown);
             // 
             // comboBoxBaud
             // 
