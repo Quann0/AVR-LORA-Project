@@ -154,19 +154,13 @@
   <data name="30" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Image\nhietdo\30.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="4285adcdc940ec1377a9bbf3e59f76ae" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\dongco\a.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
+
   <data name="70" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Image\nhietdo\70.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tumblr_mjj8jmPs9h1s7wauso1_500" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Image\gif\tumblr_mjj8jmPs9h1s7wauso1_500.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="a" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\dongco\a.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="b" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\dongco\b.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
+
+
 </root>

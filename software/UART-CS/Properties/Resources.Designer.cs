@@ -123,16 +123,6 @@ namespace UART_CS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _4285adcdc940ec1377a9bbf3e59f76ae {
-            get {
-                object obj = ResourceManager.GetObject("4285adcdc940ec1377a9bbf3e59f76ae", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap _44 {
             get {
                 object obj = ResourceManager.GetObject("44", resourceCulture);
@@ -176,26 +166,6 @@ namespace UART_CS.Properties {
         internal static System.Drawing.Bitmap _70 {
             get {
                 object obj = ResourceManager.GetObject("70", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap a {
-            get {
-                object obj = ResourceManager.GetObject("a", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap b {
-            get {
-                object obj = ResourceManager.GetObject("b", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
