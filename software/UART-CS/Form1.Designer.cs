@@ -243,7 +243,7 @@ namespace UART_CS
             this.buttonStartDC.TabIndex = 23;
             this.buttonStartDC.Text = "StartDC";
             this.buttonStartDC.UseVisualStyleBackColor = true;
- //           this.buttonStartDC.Click += new System.EventHandler(this.buttonStartDC_Click);
+            this.buttonStartDC.Click += new System.EventHandler(this.buttonStartDC_Click);
             // 
             // radioButton1
             // 
