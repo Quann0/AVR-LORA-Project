@@ -214,25 +214,25 @@ namespace UART_CS
                 kq = "";
             }
         }
-        //public string DC = "a";
-        //private void buttonStartDC_Click(object sender, EventArgs e)
-        //{
-        //    if (serialPort.IsOpen)
-        //    {
-        //        DC = (DC == "a") ? "b" : "a";
-        //        buttonStartDC.Text = (buttonStartDC.Text == "StartDC") ? "StopDC" : "StartDC";
-        //        if (buttonStartDC.Text == "StartDC")
-        //        {
-        //            serialPort.Write("a");
-        //        }
-        //        else if (buttonLed.Text == "StopDC")
-        //        {
-        //            serialPort.Write("b");
-        //        }
-        //        pictureBoxDC.Image = new Bitmap(Application.StartupPath + "\\Image\\dongco\\" + DC + ".jpg");
-        //    }
-        //    else MessageBox.Show("Vui long ket noi", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //}
+        public string DC = "a";
+        private void buttonStartDC_Click(object sender, EventArgs e)
+        {
+            if (serialPort.IsOpen)
+            {
+                DC = (DC == "a") ? "b" : "a";
+                buttonStartDC.Text = (buttonStartDC.Text == "StartDC") ? "StopDC" : "StartDC";
+                if (buttonStartDC.Text == "StartDC")
+                {
+                    serialPort.Write("a");
+                }
+                else if (buttonLed.Text == "StopDC")
+                {
+                    serialPort.Write("b");
+                }
+                pictureBoxDC.Image = new Bitmap(Application.StartupPath + "\\Image\\dongco\\" + DC + ".jpg");
+            }
+            else MessageBox.Show("Vui long ket noi", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         private void comboBoxPort_DropDown(object sender, EventArgs e)
         {
             comboBoxPort.Items.Clear();
