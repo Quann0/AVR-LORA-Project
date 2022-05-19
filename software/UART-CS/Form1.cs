@@ -41,7 +41,7 @@ namespace UART_CS
         {
             //comboBoxBaud.Items.AddRange(SerialPort.GetPortNames().ToString()); 
             comboBoxPort.Text = "";
-            comboBoxBaud.Text = "9600";
+            comboBoxBaud.Text = "115200";
             timer1.Start();
 
         }
@@ -52,9 +52,11 @@ namespace UART_CS
                 pictureBoxTime.Image = new Bitmap(Application.StartupPath + "\\Image\\gif\\original.gif");
                 pictureBox1.Image = new Bitmap(Application.StartupPath + "\\Image\\1.png");
                 pictureBoxDC.Image = new Bitmap(Application.StartupPath + "\\Image\\dongco\\a.jpg");
+                pictureBoxBuz.Image = new Bitmap(Application.StartupPath + "\\Image\\3.jpg");
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBoxTime.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBoxDC.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBoxBuz.SizeMode = PictureBoxSizeMode.Zoom;
             }
             catch (Exception) { MessageBox.Show("Bug in picture"); }
             
@@ -112,31 +114,38 @@ namespace UART_CS
             }
             else MessageBox.Show("Vui long ket noi", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
         private void buttonConnect_Click(object sender, EventArgs e)
         {
-            buttonConnect.Text = (buttonConnect.Text == "Connect") ? "Disconnect" : "Connect";
-            if (buttonConnect.Text == "Disconnect") 
+            if (comboBoxPort.Text != "")
             {
-                serialPort.PortName = comboBoxPort.Text;
-                serialPort.BaudRate = Convert.ToInt32(comboBoxBaud.Text);
-            }
-            
-            try
-            {
-                if (serialPort.IsOpen)
+                buttonConnect.Text = (buttonConnect.Text == "Connect") ? "Disconnect" : "Connect";
+                if (buttonConnect.Text == "Disconnect")
                 {
-                    serialPort.Close();
+                    serialPort.PortName = comboBoxPort.Text;
+                    serialPort.BaudRate = Convert.ToInt32(comboBoxBaud.Text);
                 }
-                else
+
+                try
                 {
-                    serialPort.Open();
+                    if (serialPort.IsOpen)
+                    {
+                        serialPort.Close();
+                    }
+                    else
+                    {
+                        serialPort.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Vui lòng mở cổng COM", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            catch(Exception) 
+            else 
             {
                 MessageBox.Show("Vui lòng mở cổng COM", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            
                 
         }
 
@@ -237,6 +246,25 @@ namespace UART_CS
         {
             comboBoxPort.Items.Clear();
             comboBoxPort.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames()); 
+        }
+        public int Buz = 3;
+        private void buttonBuz_Click(object sender, EventArgs e)
+        {
+            if (serialPort.IsOpen)
+            {
+                Buz = (Buz < 4) ? 4 : 3;
+                buttonBuz.Text = (buttonLed.Text == "OFF") ? "ON" : "OFF";
+                if (buttonBuz.Text == "ON")
+                {
+                    serialPort.Write("3");
+                }
+                else if (buttonLed.Text == "OFF")
+                {
+                    serialPort.Write("4");
+                }
+                pictureBoxBuz.Image = new Bitmap(Application.StartupPath + "\\Image\\" + Buz.ToString() + ".jpg");
+            }
+            else MessageBox.Show("Vui long ket noi", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

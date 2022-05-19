@@ -29,7 +29,9 @@
 void dht11_getdata(uint8_t num, uint8_t *data);
 uint8_t getdata(uint8_t select);
 char dataSend[4];
-
+uint8_t datatemp = 0;
+uint8_t dataHumi = 0;
+uint16_t DataSum = 0;
 void uart_char_tx(unsigned char chr) 
 {
 	while (bit_is_clear(UCSR0A,UDRE0)) { };
@@ -46,21 +48,6 @@ void gui_1_chuoi_dulieu( char a[4])
 	{
 		uart1_char_tx(a[i]);
 	}
-}
-
-int read_adc(unsigned int adc_channel) //adc_channel l?u tham s? kênh ADC c?n ??c.
-{
-	ADMUX &= 0xf0;
-	ADMUX |= adc_channel; //Ch?n kênh ADC.
-	ADCSRA |=(1<<ADSC); //Cho phép b?t ??u quá tr?nh chuy?n ??i ADC: l?y giá tr? ?i?n áp vào (Vin) trên kênh ?? ch?n, sau ?ó th?c hi?n chuy?n ??i ADC theo công th?c:
-	while(bit_is_clear(ADCSRA,ADIF)) //trong khi th?c hi?n chuy?n ??i ADC (bit ADIF = 0).
-	{
-		; //Ch? trong quá tr?nh chuy?n ??i ADC, sau khi chuy?n ??i xong th? bit ADIF = 1.
-	}
-	_delay_ms(50);
-	//Ho?c có th? s? d?ng l?nh loop nh? sau ?? thay th? cho l?nh while bên trên:
-	//	loop_until_bit_is_set(ADCSRA,ADIF);
-	return ADCW; //Giá tr? chuy?n ??i ???c l?u vào thanh ghi ADCW 16 bit.
 }
 void led7seg(uint16_t ADC_val) {
 	uint16_t nghin,tram,chuc,donvi;
@@ -80,9 +67,18 @@ void led7seg(uint16_t ADC_val) {
 	PORTA = donvi|(1<<PA7);//(1<<PE7):c?p ngu?n cho led hàng ??n v? sau ?ó OR v?i donvi.
 	_delay_ms(1);
 }
+void TMR_vInit(void)
+{
+	/* Start timer 1 with clock prescaler CLK/1024 */
+	/* Resolution is 139 us */
+	/* Maximum time is 9.1 s */
+	TCCR1A = (0<<COM1A1)|(0<<COM1A0)|(0<<COM1B1)|(0<<COM1B0)|(0<<COM1C1)|(0<<COM1C0)|(0<<WGM11)|(0<<WGM10);
+
+	TCCR1B = (0<<ICNC1)|(0<<ICES1)|(0<<WGM13)|(0<<WGM12)|(1<<CS12)|(0<<CS11)|(1<<CS10);
+}
 volatile unsigned char u_data;
 int main(void){
-
+	TMR_vInit();	
 	//Baudrate 9600, t?n s? f=8MHz
 	DDRA = 0xFF;
 	DDRB = 0xff;
@@ -94,43 +90,52 @@ int main(void){
 	UCSR0C =(1<<UCSZ01)|(1<<UCSZ00);
 	UCSR0B =(1<<RXEN0)|(1<<TXEN0)|(1<<RXCIE0); //cho phép truy?n nh?n d? li?u và cho phép ng?t nh?n
 	UCSR1A=0x00;
+	
 	UCSR1C =(1<<UCSZ11)|(1<<UCSZ10);
 	UCSR1B =(1<<RXEN1)|(1<<TXEN1)|(1<<RXCIE1);
-//	ADMUX |= (1<<REFS0); //Ch?n ?i?n áp tham chi?u AVCC
-//	ADCSRA |=(1<<ADEN) | (1<<ADPS2) | (1<<ADPS1)|(1<<ADPS0);//Cho phép ADC và ch?n h? s? chia xung nh?p cho ADC là 32.
+	
+	TCCR1A |=(1<<CS11)|(1<<CS10); // CS12=0, CS11=1, CS10=1(chia t?n s? cho 64)
+	OCR1A = 0xF0;
+	TIMSK |=(1<<OCIE1A); //cho phép ng?t tràn c?a T/C1
 	sei(); //cho phép ng?t toàn c?c (bit I
     /* Replace with your application code */
-	uint8_t datatemp = 0;
-	uint8_t dataHumi = 0;
-	uint16_t DataSum = 0;
 //	char buf[40] = {0,};
     while (1) 
     {
-		dht11_getdata(0, &datatemp);
-		dht11_getdata(1, &dataHumi);
-		DataSum=datatemp*100+dataHumi;
-		led7seg(DataSum);
-		//dataSend[0] = datatemp;
-		//dataSend[1] = dataHumi;
-		itoa(DataSum,dataSend,10);
-		gui_1_chuoi_dulieu(dataSend);
-		
     }
 }
 
 ISR(USART0_RX_vect) { //hàm ph?c v? ng?t nh?n c?a UART0 thay cho hàm ISR(SIG_UART0_RECV)
 	u_data=UDR0;
-	if(u_data =='2')
+	if(u_data =='1')
+	{
+		PORTB &= ~(1<<PB0);
+	}
+	else if(u_data =='2')
 	{
 		PORTB |= (1<<PB0);
 	}
-	else if(u_data =='1')
+	else if(u_data =='3')
+	{
+		PORTB &= ~(1<<PB0);
+	}
+	else if(u_data =='4')
 	{
 		PORTB &= ~(1<<PB0);
 	}
 	uart_char_tx(u_data);
 }
-
+ISR (TIMER1_COMPA_vect){
+	dht11_getdata(0, &datatemp);
+	dht11_getdata(1, &dataHumi);
+	DataSum=datatemp*100+dataHumi;
+	led7seg(DataSum);
+	_delay_ms(100);
+	dataSend[0] = datatemp;
+	dataSend[1] = dataHumi;
+	//itoa(DataSum,dataSend,10);
+	gui_1_chuoi_dulieu(dataSend);
+}
 /* get data from dht11 */
 uint8_t getdata(uint8_t select) {
 	uint8_t bits[5];

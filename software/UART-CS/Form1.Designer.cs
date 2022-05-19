@@ -50,13 +50,15 @@ namespace UART_CS
             this.labelTime = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.buttonStartDC = new System.Windows.Forms.Button();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.labelHumi = new System.Windows.Forms.Label();
+            this.textBoxHumi = new System.Windows.Forms.TextBox();
+            this.buttonBuz = new System.Windows.Forms.Button();
+            this.pictureBoxBuz = new System.Windows.Forms.PictureBox();
             this.pictureBoxDC = new System.Windows.Forms.PictureBox();
             this.pictureBoxTime = new System.Windows.Forms.PictureBox();
             this.pictureBoxNhietdo = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.labelHumi = new System.Windows.Forms.Label();
-            this.textBoxHumi = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuz)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxNhietdo)).BeginInit();
@@ -177,10 +179,10 @@ namespace UART_CS
             // 
             // buttonLed
             // 
-            this.buttonLed.Location = new System.Drawing.Point(129, 312);
+            this.buttonLed.Location = new System.Drawing.Point(122, 312);
             this.buttonLed.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonLed.Name = "buttonLed";
-            this.buttonLed.Size = new System.Drawing.Size(90, 45);
+            this.buttonLed.Size = new System.Drawing.Size(97, 45);
             this.buttonLed.TabIndex = 14;
             this.buttonLed.Text = "Mở";
             this.buttonLed.UseVisualStyleBackColor = true;
@@ -237,28 +239,52 @@ namespace UART_CS
             // 
             // buttonStartDC
             // 
-            this.buttonStartDC.Location = new System.Drawing.Point(290, 312);
+            this.buttonStartDC.Location = new System.Drawing.Point(402, 315);
             this.buttonStartDC.Name = "buttonStartDC";
-            this.buttonStartDC.Size = new System.Drawing.Size(86, 39);
+            this.buttonStartDC.Size = new System.Drawing.Size(107, 39);
             this.buttonStartDC.TabIndex = 23;
             this.buttonStartDC.Text = "StartDC";
             this.buttonStartDC.UseVisualStyleBackColor = true;
             this.buttonStartDC.Click += new System.EventHandler(this.buttonStartDC_Click);
             // 
-            // radioButton1
+            // labelHumi
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(391, 325);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(110, 21);
-            this.radioButton1.TabIndex = 24;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.labelHumi.AutoSize = true;
+            this.labelHumi.Location = new System.Drawing.Point(128, 131);
+            this.labelHumi.Name = "labelHumi";
+            this.labelHumi.Size = new System.Drawing.Size(49, 17);
+            this.labelHumi.TabIndex = 27;
+            this.labelHumi.Text = "Do am";
+            // 
+            // textBoxHumi
+            // 
+            this.textBoxHumi.Location = new System.Drawing.Point(122, 151);
+            this.textBoxHumi.Name = "textBoxHumi";
+            this.textBoxHumi.Size = new System.Drawing.Size(56, 22);
+            this.textBoxHumi.TabIndex = 26;
+            // 
+            // buttonBuz
+            // 
+            this.buttonBuz.Location = new System.Drawing.Point(256, 312);
+            this.buttonBuz.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonBuz.Name = "buttonBuz";
+            this.buttonBuz.Size = new System.Drawing.Size(95, 45);
+            this.buttonBuz.TabIndex = 28;
+            this.buttonBuz.Text = "On";
+            this.buttonBuz.UseVisualStyleBackColor = true;
+            this.buttonBuz.Click += new System.EventHandler(this.buttonBuz_Click);
+            // 
+            // pictureBoxBuz
+            // 
+            this.pictureBoxBuz.Location = new System.Drawing.Point(256, 250);
+            this.pictureBoxBuz.Name = "pictureBoxBuz";
+            this.pictureBoxBuz.Size = new System.Drawing.Size(95, 57);
+            this.pictureBoxBuz.TabIndex = 29;
+            this.pictureBoxBuz.TabStop = false;
             // 
             // pictureBoxDC
             // 
-            this.pictureBoxDC.Location = new System.Drawing.Point(290, 250);
+            this.pictureBoxDC.Location = new System.Drawing.Point(402, 250);
             this.pictureBoxDC.Name = "pictureBoxDC";
             this.pictureBoxDC.Size = new System.Drawing.Size(107, 57);
             this.pictureBoxDC.TabIndex = 25;
@@ -290,32 +316,17 @@ namespace UART_CS
             this.pictureBox1.TabIndex = 15;
             this.pictureBox1.TabStop = false;
             // 
-            // labelHumi
-            // 
-            this.labelHumi.AutoSize = true;
-            this.labelHumi.Location = new System.Drawing.Point(128, 131);
-            this.labelHumi.Name = "labelHumi";
-            this.labelHumi.Size = new System.Drawing.Size(49, 17);
-            this.labelHumi.TabIndex = 27;
-            this.labelHumi.Text = "Do am";
-            // 
-            // textBoxHumi
-            // 
-            this.textBoxHumi.Location = new System.Drawing.Point(122, 151);
-            this.textBoxHumi.Name = "textBoxHumi";
-            this.textBoxHumi.Size = new System.Drawing.Size(56, 22);
-            this.textBoxHumi.TabIndex = 26;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(800, 360);
+            this.Controls.Add(this.pictureBoxBuz);
+            this.Controls.Add(this.buttonBuz);
             this.Controls.Add(this.labelHumi);
             this.Controls.Add(this.textBoxHumi);
             this.Controls.Add(this.pictureBoxDC);
-            this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.buttonStartDC);
             this.Controls.Add(this.pictureBoxTime);
             this.Controls.Add(this.labelTime);
@@ -341,6 +352,7 @@ namespace UART_CS
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Smart";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuz)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxNhietdo)).EndInit();
@@ -376,10 +388,11 @@ namespace UART_CS
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.PictureBox pictureBoxTime;
         private System.Windows.Forms.Button buttonStartDC;
-        private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.PictureBox pictureBoxDC;
         private System.Windows.Forms.Label labelHumi;
         private System.Windows.Forms.TextBox textBoxHumi;
+        private System.Windows.Forms.PictureBox pictureBoxBuz;
+        private System.Windows.Forms.Button buttonBuz;
     }
 }
 
