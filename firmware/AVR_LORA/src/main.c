@@ -13,14 +13,13 @@
 #include <stdlib.h>
 #include <avr/iom128.h>
 #include "myLCD.h"
-#ifndef DHT11_H_
-#define DHT11_H_
+#include "DHT.h"
 
-#define DHT11_ERROR 255
-#define DHT11_DDR DDRF
-#define DHT11_PORT PORTF
-#define DHT11_PIN PINF
-#define DHT11_INPUTPIN PF1
+//#define DHT11_ERROR 255
+//#define DHT11_DDR DDRF
+//#define DHT11_PORT PORTF
+//#define DHT11_PIN PINF
+//#define DHT11_INPUTPIN PF1
 #define PORT_LED_O      PORTB
 #define DDR_LED_O       DDRB
 #define BIT_LED_O       6
@@ -34,10 +33,8 @@
 #define USART0_BAUD         115200ul
 #define USART0_UBBR_VALUE   ((F_CPU/(USART0_BAUD<<4))-1)
 
-#endif /* DHT11_H_ */
 
-void dht11_getdata(uint8_t num, uint8_t *data);
-uint8_t getdata(uint8_t select);
+
 void USART0_vInit(void)
 {
     // Set baud rate
@@ -61,7 +58,6 @@ void Init_IO(void) {
 }
 //char data[4];
 char data[2];
-const char *fixbug = "0";
 void uart_char_tx(unsigned char chr)
 {
 	while (bit_is_clear(UCSR0A,UDRE0)) { };
@@ -70,11 +66,6 @@ void uart_char_tx(unsigned char chr)
 }
 void gui_1_chuoi_dulieu( char a[2])
 {
-	if(strlen(a)==1)
-	{
-		a[1] = a[0];
-		a[0] = *fixbug;
-	}
 	for(int i=0;i<strlen(a);i++)
 	{
 		uart_char_tx(a[i]);
@@ -139,125 +130,58 @@ int main(void){
 	//ADCSRA |=(1<<ADEN) | (1<<ADPS2) | (1<<ADPS0);//Cho phép ADC và ch?n h? s? chia xung nh?p cho ADC là 32.
 //	sei(); //cho phép ng?t toàn c?c (bit I
     /* Replace with your application code */
-//	uint16_t nhietdo=0
-	uint8_t datatemp = 0;
-	uint8_t dataHumi = 0;
-	uint16_t DataSum = 0;
+
 	clr_LCD();
-	move_LCD(1,1);
-	printf_LCD("Temp: %d",datatemp);
-	move_LCD(2,1);
-	printf_LCD("Humi: %d",dataHumi);
-	_delay_ms(500);
+	//Variables
+	uint8_t temperature[1];
+	uint8_t humidity[1];
+
+	//Setup
+	DHT_Setup();
 	sei();
     while (1)
     {
-    	clr_LCD();
-		dht11_getdata(0, &datatemp);
-		dht11_getdata(1, &dataHumi);
-		//DataSum=datatemp*100+dataHumi;
-		move_LCD(1,1);
-		printf_LCD("Temp: %d",datatemp);
-		move_LCD(2,1);
-		printf_LCD("Humi: %d",dataHumi);
-//    	u8Data = USART0_vReceiveByte();
-//    				if(u8Data)
-//    				{
-//    					clr_LCD();
-//    					if(u8Data =='2')
-//    					{
-//    						PORT_LED_O |= (1<<BIT_LED_O);
-//    					}
-//    					else if(u8Data =='1')
-//    					{
-//    						PORT_LED_O &= ~(1<<BIT_LED_O);
-//    					}
-//    					//*a = u8Data1;
-//    					else if(u8Data == 'b')
-//    					{
-//    						PORT_BUZ ^= (1<<BIT_BUZ);
-//    					}
-//    					clr_LCD();
-//    					move_LCD(1, 1);
-//    					printf_LCD("Data: %c", u8Data);
-//    					_delay_ms(1000);
-//    				}
-//    				USART0_vSendByte(u8Data);
+    	//Read from sensor
+    			DHT_Read(temperature, humidity);
+
+    			//Check status
+    			switch (DHT_GetStatus())
+    			{
+    				case (DHT_Ok):
+    					//Print temperature
+    					//print(temperature[0]);
+					clr_LCD();
+						move_LCD(1,1);
+						printf_LCD("Temp : %d",temperature[0]);
+						move_LCD(2,1);
+						printf_LCD("Humi : %d",humidity[0]);
+						_delay_ms(100);
+						data[0] = temperature[0];
+						data[1] = humidity[0];
+						gui_1_chuoi_dulieu(data);
+    					//Print humidity
+    					//print(humidity[0]);
+    					break;
+    				case (DHT_Error_Checksum):
+						//Do something
+						break;
+					case (DHT_Error_Timeout):
+						//Do something else
+						break;
+					case (DHT_Error_Humidity):
+						//Do something else
+						break;
+					case (DHT_Error_Temperature):
+						//Do something else
+						break;
+    			}
+
+    			//Sensor needs 1-2s to stabilize its readings
+    			_delay_ms(1000);
+
     }
 }
 
-/* get data from dht11 */
-uint8_t getdata(uint8_t select) {
-	uint8_t bits[5];
-	uint8_t i,j = 0;
-
-	memset(bits, 0, sizeof(bits));
-
-	//reset port
-	DHT11_DDR |= (1<<DHT11_INPUTPIN); //output
-	DHT11_PORT |= (1<<DHT11_INPUTPIN); //high
-	_delay_ms(100);
-
-	//send request
-	DHT11_PORT &= ~(1<<DHT11_INPUTPIN); //low
-	_delay_ms(18);
-	//-- MCU pulls up voltage and waits for DHT response (20-40us)
-	DHT11_PORT |= (1<<DHT11_INPUTPIN); //high
-	_delay_us(1);
-	DHT11_DDR &= ~(1<<DHT11_INPUTPIN); //input
-	_delay_us(39);
-	//--
-
-	//check start condition 1 (low)
-	if((DHT11_PIN & (1<<DHT11_INPUTPIN))) {
-		return DHT11_ERROR;
-	}
-	_delay_us(80);
-	//check start condition 2 (high)
-	if(!(DHT11_PIN & (1<<DHT11_INPUTPIN))) {
-		return DHT11_ERROR;
-	}
-	_delay_us(80);
-
-	//read the data
-	for (j=0; j<5; j++) { //read 5 byte
-		uint8_t result=0;
-		for(i=0; i<8; i++) {//read every bit
-			while(!(DHT11_PIN & (1<<DHT11_INPUTPIN))); //wait for an high input
-			_delay_us(30);
-			if(DHT11_PIN & (1<<DHT11_INPUTPIN)) //if input is high after 30 us, get result
-			result |= (1<<(7-i));
-			while(DHT11_PIN & (1<<DHT11_INPUTPIN)); //wait until input get low
-		}
-		bits[j] = result;
-	}
-
-	//reset port
-	DHT11_DDR |= (1<<DHT11_INPUTPIN); //output
-	DHT11_PORT |= (1<<DHT11_INPUTPIN); //low
-	_delay_ms(100);
-
-	//check checksum
-	if (bits[0] + bits[1] + bits[2] + bits[3] == bits[4]) {
-		if (select == 0) { //return temperature
-			return(bits[2]);
-			} else if(select == 1){ //return humidity
-			return(bits[0]);
-		}
-	}
-
-	return DHT11_ERROR;
-}
-
-void dht11_getdata(uint8_t num, uint8_t *data){
-	uint8_t buf = getdata(num);
-	if(buf == DHT11_ERROR){
-		;
-	}
-	else{
-		*data = buf;
-	}
-}
 ISR(USART0_RX_vect) { //hàm ph?c v? ng?t nh?n c?a UART0 thay cho hàm ISR(SIG_UART0_RECV)
 	u8Data = USART0_vReceiveByte();
 			if(u8Data)

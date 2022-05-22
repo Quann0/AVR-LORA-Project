@@ -205,16 +205,15 @@ namespace UART_CS
         {
             labelTime.Text = DateTime.Now.ToString("hh:mm:ss");
         }
-        
         private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            var dataPort = serialPort.ReadExisting();
+            var dataPort = serialPort.ReadChar();
             kq += dataPort;
             if (kq.Length >3)
             {
                 //Invoke(new MethodInvoker(() => buttonLed_Click(sender, e)));
                 string kq1 = kq.ToString();
-                var compare = Convert.ToInt32(kq1.Substring(0,2));
+                var compare = Convert.ToInt32(kq1.Substring(0,1));
                 compare = (compare == 0) ? 0 : (compare > 0 && compare <= 10) ? 10 : (compare > 10 && compare <= 30) ? 30 : (compare > 30 && compare <= 40) ? 40 : (compare > 40 && compare <= 44) ? 44 : (compare > 44 && compare <= 55) ? 55 : (compare > 55 && compare <= 60) ? 60 : (compare > 60 && compare < 70) ? 70 : 100;
                 pictureBoxNhietdo.Image = new Bitmap(Application.StartupPath + "\\Image\\nhietdo\\"+compare.ToString()+".jpg");
                 pictureBoxNhietdo.SizeMode = PictureBoxSizeMode.Zoom;
@@ -253,14 +252,14 @@ namespace UART_CS
             if (serialPort.IsOpen)
             {
                 Buz = (Buz < 4) ? 4 : 3;
-                buttonBuz.Text = (buttonLed.Text == "OFF") ? "ON" : "OFF";
+                buttonBuz.Text = (buttonBuz.Text == "OFF") ? "ON" : "OFF";
                 if (buttonBuz.Text == "ON")
                 {
-                    serialPort.Write("3");
+                    serialPort.Write("b");
                 }
-                else if (buttonLed.Text == "OFF")
+                else if (buttonBuz.Text == "OFF")
                 {
-                    serialPort.Write("4");
+                    serialPort.Write("b");
                 }
                 pictureBoxBuz.Image = new Bitmap(Application.StartupPath + "\\Image\\" + Buz.ToString() + ".jpg");
             }

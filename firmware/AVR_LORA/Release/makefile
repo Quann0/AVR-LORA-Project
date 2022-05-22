@@ -50,7 +50,7 @@ all: AVR_LORA.elf secondary-outputs
 AVR_LORA.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,AVR_LORA.map -mmcu=atmega128 -o "AVR_LORA.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,AVR_LORA.map -Wl,-u,vfprintf -lprintf_flt -mmcu=atmega128 -o "AVR_LORA.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

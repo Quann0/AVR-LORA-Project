@@ -3,31 +3,31 @@ Uart.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  00000616  2**0
+  0 .data         00000000  00800100  00800100  000005ae  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000005a2  00000000  00000000  00000074  2**1
+  1 .text         0000053a  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000009  00800100  00800100  00000616  2**0
+  2 .bss          00000007  00800100  00800100  000005ae  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000616  2**0
+  3 .comment      00000030  00000000  00000000  000005ae  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000648  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000005e0  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000070  00000000  00000000  00000684  2**0
+  5 .debug_aranges 00000068  00000000  00000000  0000061c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000fcc  00000000  00000000  000006f4  2**0
+  6 .debug_info   00000e9b  00000000  00000000  00000684  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000009de  00000000  00000000  000016c0  2**0
+  7 .debug_abbrev 00000941  00000000  00000000  0000151f  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000063c  00000000  00000000  0000209e  2**0
+  8 .debug_line   000005ed  00000000  00000000  00001e60  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000001a4  00000000  00000000  000026dc  2**2
+  9 .debug_frame  00000194  00000000  00000000  00002450  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000051e  00000000  00000000  00002880  2**0
+ 10 .debug_str    000004e6  00000000  00000000  000025e4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000086e  00000000  00000000  00002d9e  2**0
+ 11 .debug_loc    000007d5  00000000  00000000  00002aca  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000078  00000000  00000000  0000360c  2**0
+ 12 .debug_ranges 00000070  00000000  00000000  0000329f  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -122,48 +122,66 @@ Disassembly of section .text:
   a0:	1d 92       	st	X+, r1
 
 000000a2 <.do_clear_bss_start>:
-  a2:	a9 30       	cpi	r26, 0x09	; 9
+  a2:	a7 30       	cpi	r26, 0x07	; 7
   a4:	b2 07       	cpc	r27, r18
   a6:	e1 f7       	brne	.-8      	; 0xa0 <.do_clear_bss_loop>
   a8:	cb d0       	rcall	.+406    	; 0x240 <main>
-  aa:	79 c2       	rjmp	.+1266   	; 0x59e <_exit>
+  aa:	45 c2       	rjmp	.+1162   	; 0x536 <_exit>
 
 000000ac <__bad_interrupt>:
   ac:	a9 cf       	rjmp	.-174    	; 0x0 <__vectors>
 
 000000ae <uart_char_tx>:
-	}
-	_delay_ms(50);
-	//Ho?c có th? s? d?ng l?nh loop nh? sau ?? thay th? cho l?nh while bên trên:
-	//	loop_until_bit_is_set(ADCSRA,ADIF);
-	return ADCW; //Giá tr? chuy?n ??i ???c l?u vào thanh ghi ADCW 16 bit.
-}
+uint8_t dataHumi = 0;
+uint16_t DataSum = 0;
+
+void uart_char_tx(unsigned char chr) 
+{
+	while (bit_is_clear(UCSR0A,UDRE0)) { };
   ae:	5d 9b       	sbis	0x0b, 5	; 11
   b0:	fe cf       	rjmp	.-4      	; 0xae <uart_char_tx>
+	UDR0=chr;
   b2:	8c b9       	out	0x0c, r24	; 12
   b4:	08 95       	ret
 
 000000b6 <uart1_char_tx>:
+}
+void uart1_char_tx(char chr)
+{
+	while (bit_is_clear(UCSR1A,UDRE1)) { };
   b6:	90 91 9b 00 	lds	r25, 0x009B	; 0x80009b <__TEXT_REGION_LENGTH__+0x7e009b>
   ba:	95 ff       	sbrs	r25, 5
   bc:	fc cf       	rjmp	.-8      	; 0xb6 <uart1_char_tx>
+	UDR1=chr;
   be:	80 93 9c 00 	sts	0x009C, r24	; 0x80009c <__TEXT_REGION_LENGTH__+0x7e009c>
   c2:	08 95       	ret
 
 000000c4 <gui_1_chuoi_dulieu>:
+}
+void gui_1_chuoi_dulieu( char a[2])
+{
   c4:	0f 93       	push	r16
   c6:	1f 93       	push	r17
   c8:	cf 93       	push	r28
   ca:	df 93       	push	r29
   cc:	8c 01       	movw	r16, r24
+	for(int i=0;i<strlen(a);i++)
   ce:	c0 e0       	ldi	r28, 0x00	; 0
   d0:	d0 e0       	ldi	r29, 0x00	; 0
   d2:	06 c0       	rjmp	.+12     	; 0xe0 <gui_1_chuoi_dulieu+0x1c>
+	{
+		uart1_char_tx(a[i]);
   d4:	f8 01       	movw	r30, r16
   d6:	ec 0f       	add	r30, r28
   d8:	fd 1f       	adc	r31, r29
   da:	80 81       	ld	r24, Z
   dc:	ec df       	rcall	.-40     	; 0xb6 <uart1_char_tx>
+	while (bit_is_clear(UCSR1A,UDRE1)) { };
+	UDR1=chr;
+}
+void gui_1_chuoi_dulieu( char a[2])
+{
+	for(int i=0;i<strlen(a);i++)
   de:	21 96       	adiw	r28, 0x01	; 1
   e0:	f8 01       	movw	r30, r16
   e2:	01 90       	ld	r0, Z+
@@ -175,6 +193,10 @@ Disassembly of section .text:
   ee:	ce 17       	cp	r28, r30
   f0:	df 07       	cpc	r29, r31
   f2:	80 f3       	brcs	.-32     	; 0xd4 <gui_1_chuoi_dulieu+0x10>
+	{
+		uart1_char_tx(a[i]);
+	}
+}
   f4:	df 91       	pop	r29
   f6:	cf 91       	pop	r28
   f8:	1f 91       	pop	r17
@@ -195,7 +217,7 @@ void led7seg(uint16_t ADC_val) {
  10c:	9c 01       	movw	r18, r24
  10e:	ad ec       	ldi	r26, 0xCD	; 205
  110:	bc ec       	ldi	r27, 0xCC	; 204
- 112:	03 d2       	rcall	.+1030   	; 0x51a <__umulhisi3>
+ 112:	02 d2       	rcall	.+1028   	; 0x518 <__umulhisi3>
  114:	ac 01       	movw	r20, r24
  116:	56 95       	lsr	r21
  118:	47 95       	ror	r20
@@ -219,7 +241,7 @@ void led7seg(uint16_t ADC_val) {
  13c:	95 0b       	sbc	r25, r21
  13e:	ac 01       	movw	r20, r24
 	ADC_val /= 10; //L?y giá tr? ADC chia cho 10 l?y ph?n nguyên gán vào bi?n ADC_val
- 140:	ec d1       	rcall	.+984    	; 0x51a <__umulhisi3>
+ 140:	eb d1       	rcall	.+982    	; 0x518 <__umulhisi3>
  142:	ec 01       	movw	r28, r24
  144:	d6 95       	lsr	r29
  146:	c7 95       	ror	r28
@@ -229,7 +251,7 @@ void led7seg(uint16_t ADC_val) {
  14e:	c7 95       	ror	r28
 	chuc = ADC_val % 10;
  150:	9e 01       	movw	r18, r28
- 152:	e3 d1       	rcall	.+966    	; 0x51a <__umulhisi3>
+ 152:	e2 d1       	rcall	.+964    	; 0x518 <__umulhisi3>
  154:	fc 01       	movw	r30, r24
  156:	f6 95       	lsr	r31
  158:	e7 95       	ror	r30
@@ -260,7 +282,7 @@ void led7seg(uint16_t ADC_val) {
  188:	27 95       	ror	r18
  18a:	ab e7       	ldi	r26, 0x7B	; 123
  18c:	b4 e1       	ldi	r27, 0x14	; 20
- 18e:	c5 d1       	rcall	.+906    	; 0x51a <__umulhisi3>
+ 18e:	c4 d1       	rcall	.+904    	; 0x518 <__umulhisi3>
  190:	7c 01       	movw	r14, r24
  192:	f6 94       	lsr	r15
  194:	e7 94       	ror	r14
@@ -268,7 +290,7 @@ void led7seg(uint16_t ADC_val) {
 	tram = ADC_val % 10;
  198:	ad ec       	ldi	r26, 0xCD	; 205
  19a:	bc ec       	ldi	r27, 0xCC	; 204
- 19c:	be d1       	rcall	.+892    	; 0x51a <__umulhisi3>
+ 19c:	bd d1       	rcall	.+890    	; 0x518 <__umulhisi3>
  19e:	ec 01       	movw	r28, r24
  1a0:	d6 95       	lsr	r29
  1a2:	c7 95       	ror	r28
@@ -301,7 +323,7 @@ void led7seg(uint16_t ADC_val) {
  1d6:	27 95       	ror	r18
  1d8:	a5 ec       	ldi	r26, 0xC5	; 197
  1da:	b0 e2       	ldi	r27, 0x20	; 32
- 1dc:	9e d1       	rcall	.+828    	; 0x51a <__umulhisi3>
+ 1dc:	9d d1       	rcall	.+826    	; 0x518 <__umulhisi3>
  1de:	92 95       	swap	r25
  1e0:	82 95       	swap	r24
  1e2:	8f 70       	andi	r24, 0x0F	; 15
@@ -380,6 +402,8 @@ void led7seg(uint16_t ADC_val) {
 }
 volatile unsigned char u_data;
 int main(void){
+	//Setup
+	
 	TMR_vInit();	
  240:	fb df       	rcall	.-10     	; 0x238 <TMR_vInit>
 	//Baudrate 9600, t?n s? f=8MHz
@@ -527,8 +551,8 @@ ISR(USART0_RX_vect) { //hàm ph?c v? ng?t nh?n c?a UART0 thay cho hàm ISR(SIG_UAR
  31c:	18 95       	reti
 
 0000031e <getdata>:
-	//dataSend[1] = dataHumi;
-	itoa(DataSum,dataSend,10);
+	dataSend[1] = dataHumi;
+	//itoa(DataSum,dataSend,10);
 	gui_1_chuoi_dulieu(dataSend);
 }
 /* get data from dht11 */
@@ -893,125 +917,59 @@ ISR (TIMER1_COMPA_vect){
  4d8:	e1 f7       	brne	.-8      	; 0x4d2 <__vector_12+0x5a>
  4da:	00 c0       	rjmp	.+0      	; 0x4dc <__vector_12+0x64>
  4dc:	00 00       	nop
-    } else if (__radix < 2 || __radix > 36) {
-	*__s = 0;
-	return __s;
-    } else {
-	extern char *__itoa_ncheck (int, char *, unsigned char);
-	return __itoa_ncheck (__val, __s, __radix);
- 4de:	4a e0       	ldi	r20, 0x0A	; 10
- 4e0:	65 e0       	ldi	r22, 0x05	; 5
- 4e2:	71 e0       	ldi	r23, 0x01	; 1
- 4e4:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
- 4e8:	90 91 01 01 	lds	r25, 0x0101	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
 	_delay_ms(100);
-	//dataSend[0] = datatemp;
-	//dataSend[1] = dataHumi;
-	itoa(DataSum,dataSend,10);
+	dataSend[0] = datatemp;
+ 4de:	e5 e0       	ldi	r30, 0x05	; 5
+ 4e0:	f1 e0       	ldi	r31, 0x01	; 1
+ 4e2:	80 91 03 01 	lds	r24, 0x0103	; 0x800103 <datatemp>
+ 4e6:	80 83       	st	Z, r24
+	dataSend[1] = dataHumi;
+ 4e8:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <dataHumi>
+	//itoa(DataSum,dataSend,10);
 	gui_1_chuoi_dulieu(dataSend);
- 4ec:	25 d0       	rcall	.+74     	; 0x538 <__itoa_ncheck>
- 4ee:	85 e0       	ldi	r24, 0x05	; 5
- 4f0:	91 e0       	ldi	r25, 0x01	; 1
- 4f2:	e8 dd       	rcall	.-1072   	; 0xc4 <gui_1_chuoi_dulieu>
+ 4ec:	81 83       	std	Z+1, r24	; 0x01
+ 4ee:	cf 01       	movw	r24, r30
+ 4f0:	e9 dd       	rcall	.-1070   	; 0xc4 <gui_1_chuoi_dulieu>
 }
- 4f4:	ff 91       	pop	r31
- 4f6:	ef 91       	pop	r30
- 4f8:	bf 91       	pop	r27
- 4fa:	af 91       	pop	r26
- 4fc:	9f 91       	pop	r25
- 4fe:	8f 91       	pop	r24
- 500:	7f 91       	pop	r23
- 502:	6f 91       	pop	r22
- 504:	5f 91       	pop	r21
- 506:	4f 91       	pop	r20
- 508:	3f 91       	pop	r19
- 50a:	2f 91       	pop	r18
- 50c:	0f 90       	pop	r0
- 50e:	0b be       	out	0x3b, r0	; 59
- 510:	0f 90       	pop	r0
- 512:	0f be       	out	0x3f, r0	; 63
- 514:	0f 90       	pop	r0
- 516:	1f 90       	pop	r1
- 518:	18 95       	reti
+ 4f2:	ff 91       	pop	r31
+ 4f4:	ef 91       	pop	r30
+ 4f6:	bf 91       	pop	r27
+ 4f8:	af 91       	pop	r26
+ 4fa:	9f 91       	pop	r25
+ 4fc:	8f 91       	pop	r24
+ 4fe:	7f 91       	pop	r23
+ 500:	6f 91       	pop	r22
+ 502:	5f 91       	pop	r21
+ 504:	4f 91       	pop	r20
+ 506:	3f 91       	pop	r19
+ 508:	2f 91       	pop	r18
+ 50a:	0f 90       	pop	r0
+ 50c:	0b be       	out	0x3b, r0	; 59
+ 50e:	0f 90       	pop	r0
+ 510:	0f be       	out	0x3f, r0	; 63
+ 512:	0f 90       	pop	r0
+ 514:	1f 90       	pop	r1
+ 516:	18 95       	reti
 
-0000051a <__umulhisi3>:
- 51a:	a2 9f       	mul	r26, r18
- 51c:	b0 01       	movw	r22, r0
- 51e:	b3 9f       	mul	r27, r19
- 520:	c0 01       	movw	r24, r0
- 522:	a3 9f       	mul	r26, r19
- 524:	70 0d       	add	r23, r0
- 526:	81 1d       	adc	r24, r1
- 528:	11 24       	eor	r1, r1
- 52a:	91 1d       	adc	r25, r1
- 52c:	b2 9f       	mul	r27, r18
- 52e:	70 0d       	add	r23, r0
- 530:	81 1d       	adc	r24, r1
- 532:	11 24       	eor	r1, r1
- 534:	91 1d       	adc	r25, r1
- 536:	08 95       	ret
+00000518 <__umulhisi3>:
+ 518:	a2 9f       	mul	r26, r18
+ 51a:	b0 01       	movw	r22, r0
+ 51c:	b3 9f       	mul	r27, r19
+ 51e:	c0 01       	movw	r24, r0
+ 520:	a3 9f       	mul	r26, r19
+ 522:	70 0d       	add	r23, r0
+ 524:	81 1d       	adc	r24, r1
+ 526:	11 24       	eor	r1, r1
+ 528:	91 1d       	adc	r25, r1
+ 52a:	b2 9f       	mul	r27, r18
+ 52c:	70 0d       	add	r23, r0
+ 52e:	81 1d       	adc	r24, r1
+ 530:	11 24       	eor	r1, r1
+ 532:	91 1d       	adc	r25, r1
+ 534:	08 95       	ret
 
-00000538 <__itoa_ncheck>:
- 538:	bb 27       	eor	r27, r27
- 53a:	4a 30       	cpi	r20, 0x0A	; 10
- 53c:	31 f4       	brne	.+12     	; 0x54a <__itoa_ncheck+0x12>
- 53e:	99 23       	and	r25, r25
- 540:	22 f4       	brpl	.+8      	; 0x54a <__itoa_ncheck+0x12>
- 542:	bd e2       	ldi	r27, 0x2D	; 45
- 544:	90 95       	com	r25
- 546:	81 95       	neg	r24
- 548:	9f 4f       	sbci	r25, 0xFF	; 255
- 54a:	01 c0       	rjmp	.+2      	; 0x54e <__utoa_common>
+00000536 <_exit>:
+ 536:	f8 94       	cli
 
-0000054c <__utoa_ncheck>:
- 54c:	bb 27       	eor	r27, r27
-
-0000054e <__utoa_common>:
- 54e:	fb 01       	movw	r30, r22
- 550:	55 27       	eor	r21, r21
- 552:	aa 27       	eor	r26, r26
- 554:	88 0f       	add	r24, r24
- 556:	99 1f       	adc	r25, r25
- 558:	aa 1f       	adc	r26, r26
- 55a:	a4 17       	cp	r26, r20
- 55c:	10 f0       	brcs	.+4      	; 0x562 <__utoa_common+0x14>
- 55e:	a4 1b       	sub	r26, r20
- 560:	83 95       	inc	r24
- 562:	50 51       	subi	r21, 0x10	; 16
- 564:	b9 f7       	brne	.-18     	; 0x554 <__utoa_common+0x6>
- 566:	a0 5d       	subi	r26, 0xD0	; 208
- 568:	aa 33       	cpi	r26, 0x3A	; 58
- 56a:	08 f0       	brcs	.+2      	; 0x56e <__utoa_common+0x20>
- 56c:	a9 5d       	subi	r26, 0xD9	; 217
- 56e:	a1 93       	st	Z+, r26
- 570:	00 97       	sbiw	r24, 0x00	; 0
- 572:	79 f7       	brne	.-34     	; 0x552 <__utoa_common+0x4>
- 574:	b1 11       	cpse	r27, r1
- 576:	b1 93       	st	Z+, r27
- 578:	11 92       	st	Z+, r1
- 57a:	cb 01       	movw	r24, r22
- 57c:	00 c0       	rjmp	.+0      	; 0x57e <strrev>
-
-0000057e <strrev>:
- 57e:	dc 01       	movw	r26, r24
- 580:	fc 01       	movw	r30, r24
- 582:	67 2f       	mov	r22, r23
- 584:	71 91       	ld	r23, Z+
- 586:	77 23       	and	r23, r23
- 588:	e1 f7       	brne	.-8      	; 0x582 <strrev+0x4>
- 58a:	32 97       	sbiw	r30, 0x02	; 2
- 58c:	04 c0       	rjmp	.+8      	; 0x596 <strrev+0x18>
- 58e:	7c 91       	ld	r23, X
- 590:	6d 93       	st	X+, r22
- 592:	70 83       	st	Z, r23
- 594:	62 91       	ld	r22, -Z
- 596:	ae 17       	cp	r26, r30
- 598:	bf 07       	cpc	r27, r31
- 59a:	c8 f3       	brcs	.-14     	; 0x58e <strrev+0x10>
- 59c:	08 95       	ret
-
-0000059e <_exit>:
- 59e:	f8 94       	cli
-
-000005a0 <__stop_program>:
- 5a0:	ff cf       	rjmp	.-2      	; 0x5a0 <__stop_program>
+00000538 <__stop_program>:
+ 538:	ff cf       	rjmp	.-2      	; 0x538 <__stop_program>

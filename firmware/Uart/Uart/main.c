@@ -26,12 +26,15 @@
 
 #endif /* DHT11_H_ */
 
+
+
 void dht11_getdata(uint8_t num, uint8_t *data);
 uint8_t getdata(uint8_t select);
-char dataSend[4];
+char dataSend[2];
 uint8_t datatemp = 0;
 uint8_t dataHumi = 0;
 uint16_t DataSum = 0;
+
 void uart_char_tx(unsigned char chr) 
 {
 	while (bit_is_clear(UCSR0A,UDRE0)) { };
@@ -42,7 +45,7 @@ void uart1_char_tx(char chr)
 	while (bit_is_clear(UCSR1A,UDRE1)) { };
 	UDR1=chr;
 }
-void gui_1_chuoi_dulieu( char a[4])
+void gui_1_chuoi_dulieu( char a[2])
 {
 	for(int i=0;i<strlen(a);i++)
 	{
@@ -78,6 +81,8 @@ void TMR_vInit(void)
 }
 volatile unsigned char u_data;
 int main(void){
+	//Setup
+	
 	TMR_vInit();	
 	//Baudrate 9600, t?n s? f=8MHz
 	DDRA = 0xFF;
