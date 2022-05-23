@@ -21,6 +21,8 @@ namespace UART_CS
     {
         class Account
         {
+            public Account () { }
+            ~ Account() { }
             public string tk { set; get; }
             public string mk { set; get; }
             public Account(string _tk, string _mk)
@@ -39,9 +41,13 @@ namespace UART_CS
         }
         public void Init_Control() 
         {
-            //comboBoxBaud.Items.AddRange(SerialPort.GetPortNames().ToString()); 
+            List<string> baudList = new List<string>{"600","1200","2400","4800","9600","14400","19200","38400","56000","57600","115200"};
+            comboBoxBaud.Items.AddRange(baudList.ToArray());
             comboBoxPort.Text = "";
-            comboBoxBaud.Text = "115200";
+            comboBoxPort.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxBaud.Text = "";
+            comboBoxBaud.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxBaud.DropDownHeight = comboBoxBaud.ItemHeight * 8;
             timer1.Start();
 
         }
@@ -71,7 +77,10 @@ namespace UART_CS
 
 
                 if (AccountBox.Text == configurationRoot.GetSection("tk").Value && PassWordBox.Text == configurationRoot.GetSection("mk").Value)
+                {
                     MessageBox.Show("Đăng nhập thành công");
+                    this.Enabled = true;
+                }
                 else MessageBox.Show("Đăng Nhập Thất Bại", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception) 
@@ -101,12 +110,12 @@ namespace UART_CS
             if (serialPort.IsOpen)
             {
                 Led = (Led < 2) ? 2 : 1;
-                buttonLed.Text = (buttonLed.Text == "Đóng") ? "Mở" : "Đóng";
-                if (buttonLed.Text == "Mở")
+                buttonLed.Text = (buttonLed.Text == "OFF") ? "ON" : "OFF";
+                if (buttonLed.Text == "ON")
                 {
                     serialPort.Write("1");
                 }
-                else if (buttonLed.Text == "Đóng")
+                else if (buttonLed.Text == "OFF")
                 {
                     serialPort.Write("2");
                 }
@@ -116,13 +125,20 @@ namespace UART_CS
         }
         private void buttonConnect_Click(object sender, EventArgs e)
         {
-            if (comboBoxPort.Text != "")
+            if (comboBoxPort.Text != "" && comboBoxBaud.Text != "")
             {
                 buttonConnect.Text = (buttonConnect.Text == "Connect") ? "Disconnect" : "Connect";
                 if (buttonConnect.Text == "Disconnect")
                 {
                     serialPort.PortName = comboBoxPort.Text;
                     serialPort.BaudRate = Convert.ToInt32(comboBoxBaud.Text);
+                    comboBoxPort.Enabled = false;
+                    comboBoxBaud.Enabled = false;
+                }
+                else
+                {
+                    comboBoxPort.Enabled = true;
+                    comboBoxBaud.Enabled = true;
                 }
 
                 try
@@ -203,7 +219,7 @@ namespace UART_CS
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            labelTime.Text = DateTime.Now.ToString("hh:mm:ss");
+            labelTime.Text = DateTime.Now.ToString("dd/MM/yyy\nHH:mm:ss");
         }
         private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
@@ -211,7 +227,6 @@ namespace UART_CS
             kq += dataPort;
             if (kq.Length >3)
             {
-                //Invoke(new MethodInvoker(() => buttonLed_Click(sender, e)));
                 string kq1 = kq.ToString();
                 var compare = Convert.ToInt32(kq1.Substring(0,1));
                 compare = (compare == 0) ? 0 : (compare > 0 && compare <= 10) ? 10 : (compare > 10 && compare <= 30) ? 30 : (compare > 30 && compare <= 40) ? 40 : (compare > 40 && compare <= 44) ? 44 : (compare > 44 && compare <= 55) ? 55 : (compare > 55 && compare <= 60) ? 60 : (compare > 60 && compare < 70) ? 70 : 100;
@@ -233,7 +248,7 @@ namespace UART_CS
                 {
                     serialPort.Write("a");
                 }
-                else if (buttonLed.Text == "StopDC")
+                else if (buttonStartDC.Text == "StopDC")
                 {
                     serialPort.Write("b");
                 }
@@ -244,7 +259,11 @@ namespace UART_CS
         private void comboBoxPort_DropDown(object sender, EventArgs e)
         {
             comboBoxPort.Items.Clear();
-            comboBoxPort.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames()); 
+            comboBoxPort.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames());
+            if(comboBoxPort.Items.Count > 5) 
+            {
+                comboBoxPort.DropDownHeight = comboBoxPort.ItemHeight * 6;
+            }
         }
         public int Buz = 3;
         private void buttonBuz_Click(object sender, EventArgs e)
@@ -264,6 +283,12 @@ namespace UART_CS
                 pictureBoxBuz.Image = new Bitmap(Application.StartupPath + "\\Image\\" + Buz.ToString() + ".jpg");
             }
             else MessageBox.Show("Vui long ket noi", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.AutoSize = true;
+            
         }
     }
 }

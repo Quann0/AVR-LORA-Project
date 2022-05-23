@@ -30,6 +30,7 @@ namespace UART_CS
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.AccountBox = new System.Windows.Forms.TextBox();
             this.PassWordBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -50,7 +51,7 @@ namespace UART_CS
             this.labelTime = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.buttonStartDC = new System.Windows.Forms.Button();
-            this.labelHumi = new System.Windows.Forms.Label();
+            this.labelHumiTag = new System.Windows.Forms.Label();
             this.textBoxHumi = new System.Windows.Forms.TextBox();
             this.buttonBuz = new System.Windows.Forms.Button();
             this.pictureBoxBuz = new System.Windows.Forms.PictureBox();
@@ -130,6 +131,7 @@ namespace UART_CS
             // comboBoxPort
             // 
             this.comboBoxPort.FormattingEnabled = true;
+            this.comboBoxPort.IntegralHeight = false;
             this.comboBoxPort.Location = new System.Drawing.Point(65, 7);
             this.comboBoxPort.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxPort.Name = "comboBoxPort";
@@ -154,7 +156,7 @@ namespace UART_CS
             this.BaudComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.BaudComboBox.Size = new System.Drawing.Size(56, 22);
             this.BaudComboBox.TabIndex = 10;
-            this.BaudComboBox.Text = "Baud";
+            this.BaudComboBox.Text = "BAUD";
             // 
             // PortComBoBox
             // 
@@ -184,7 +186,7 @@ namespace UART_CS
             this.buttonLed.Name = "buttonLed";
             this.buttonLed.Size = new System.Drawing.Size(97, 45);
             this.buttonLed.TabIndex = 14;
-            this.buttonLed.Text = "Mở";
+            this.buttonLed.Text = "ON";
             this.buttonLed.UseVisualStyleBackColor = true;
             this.buttonLed.Click += new System.EventHandler(this.buttonLed_Click);
             // 
@@ -201,7 +203,7 @@ namespace UART_CS
             // 
             this.buttonUart.Location = new System.Drawing.Point(3, 320);
             this.buttonUart.Name = "buttonUart";
-            this.buttonUart.Size = new System.Drawing.Size(65, 29);
+            this.buttonUart.Size = new System.Drawing.Size(112, 37);
             this.buttonUart.TabIndex = 17;
             this.buttonUart.Text = "Send";
             this.buttonUart.UseVisualStyleBackColor = true;
@@ -230,9 +232,9 @@ namespace UART_CS
             // labelTime
             // 
             this.labelTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.labelTime.Location = new System.Drawing.Point(703, 227);
+            this.labelTime.Location = new System.Drawing.Point(681, 216);
             this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(85, 33);
+            this.labelTime.Size = new System.Drawing.Size(107, 44);
             this.labelTime.TabIndex = 21;
             // 
             // timer1
@@ -241,7 +243,7 @@ namespace UART_CS
             // 
             // buttonStartDC
             // 
-            this.buttonStartDC.Location = new System.Drawing.Point(402, 315);
+            this.buttonStartDC.Location = new System.Drawing.Point(383, 315);
             this.buttonStartDC.Name = "buttonStartDC";
             this.buttonStartDC.Size = new System.Drawing.Size(107, 39);
             this.buttonStartDC.TabIndex = 23;
@@ -249,18 +251,18 @@ namespace UART_CS
             this.buttonStartDC.UseVisualStyleBackColor = true;
             this.buttonStartDC.Click += new System.EventHandler(this.buttonStartDC_Click);
             // 
-            // labelHumi
+            // labelHumiTag
             // 
-            this.labelHumi.AutoSize = true;
-            this.labelHumi.Location = new System.Drawing.Point(128, 131);
-            this.labelHumi.Name = "labelHumi";
-            this.labelHumi.Size = new System.Drawing.Size(49, 17);
-            this.labelHumi.TabIndex = 27;
-            this.labelHumi.Text = "Do am";
+            this.labelHumiTag.AutoSize = true;
+            this.labelHumiTag.Location = new System.Drawing.Point(97, 131);
+            this.labelHumiTag.Name = "labelHumiTag";
+            this.labelHumiTag.Size = new System.Drawing.Size(49, 17);
+            this.labelHumiTag.TabIndex = 27;
+            this.labelHumiTag.Text = "Do am";
             // 
             // textBoxHumi
             // 
-            this.textBoxHumi.Location = new System.Drawing.Point(122, 151);
+            this.textBoxHumi.Location = new System.Drawing.Point(100, 151);
             this.textBoxHumi.Name = "textBoxHumi";
             this.textBoxHumi.Size = new System.Drawing.Size(56, 22);
             this.textBoxHumi.TabIndex = 26;
@@ -286,7 +288,7 @@ namespace UART_CS
             // 
             // pictureBoxDC
             // 
-            this.pictureBoxDC.Location = new System.Drawing.Point(402, 250);
+            this.pictureBoxDC.Location = new System.Drawing.Point(383, 250);
             this.pictureBoxDC.Name = "pictureBoxDC";
             this.pictureBoxDC.Size = new System.Drawing.Size(107, 57);
             this.pictureBoxDC.TabIndex = 25;
@@ -322,11 +324,13 @@ namespace UART_CS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(800, 360);
             this.Controls.Add(this.pictureBoxBuz);
             this.Controls.Add(this.buttonBuz);
-            this.Controls.Add(this.labelHumi);
+            this.Controls.Add(this.labelHumiTag);
             this.Controls.Add(this.textBoxHumi);
             this.Controls.Add(this.pictureBoxDC);
             this.Controls.Add(this.buttonStartDC);
@@ -351,9 +355,11 @@ namespace UART_CS
             this.Controls.Add(this.PassWordBox);
             this.Controls.Add(this.AccountBox);
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
-            this.Text = "Smart";
+            this.Text = "Smart Home";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuz)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTime)).EndInit();
@@ -373,7 +379,6 @@ namespace UART_CS
         private System.Windows.Forms.Button Login;
         private System.Windows.Forms.Label SignUp;
         private System.Windows.Forms.Label AccountLabel;
-        private System.Windows.Forms.ComboBox comboBoxPort;
         private System.Windows.Forms.ComboBox comboBoxBaud;
         private System.Windows.Forms.Label BaudComboBox;
         private System.Windows.Forms.Label PortComBoBox;
@@ -391,10 +396,11 @@ namespace UART_CS
         private System.Windows.Forms.PictureBox pictureBoxTime;
         private System.Windows.Forms.Button buttonStartDC;
         private System.Windows.Forms.PictureBox pictureBoxDC;
-        private System.Windows.Forms.Label labelHumi;
+        private System.Windows.Forms.Label labelHumiTag;
         private System.Windows.Forms.TextBox textBoxHumi;
         private System.Windows.Forms.PictureBox pictureBoxBuz;
         private System.Windows.Forms.Button buttonBuz;
+        private System.Windows.Forms.ComboBox comboBoxPort;
     }
 }
 

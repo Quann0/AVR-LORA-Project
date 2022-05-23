@@ -15,16 +15,9 @@
 
 //------ Headers ------//
 //#include <inttypes.h>
-#include <stdio.h>
-#include <avr/io.h>
-//#include <stdio.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
-#include <string.h>
-#include <stdlib.h>
+#include "source.h"
 
-#include "IO_Macros.h"
-#include "DHT_Settings.h"
+
 //----------------------//
 
 //----- Auxiliary data -------------------//
