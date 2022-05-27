@@ -49,7 +49,6 @@ namespace UART_CS
             comboBoxBaud.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxBaud.DropDownHeight = comboBoxBaud.ItemHeight * 8;
             timer1.Start();
-
         }
         public void LoadImage()
         {
@@ -221,19 +220,21 @@ namespace UART_CS
         {
             labelTime.Text = DateTime.Now.ToString("dd/MM/yyy\nHH:mm:ss");
         }
+        public int check = 0;
         private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            var dataPort = serialPort.ReadChar();
+            var dataPort = serialPort.ReadExisting();
             kq += dataPort;
             if (kq.Length >3)
             {
                 string kq1 = kq.ToString();
-                var compare = Convert.ToInt32(kq1.Substring(0,1));
+                var compare = Convert.ToInt32(kq1.Substring(0,2));
                 compare = (compare == 0) ? 0 : (compare > 0 && compare <= 10) ? 10 : (compare > 10 && compare <= 30) ? 30 : (compare > 30 && compare <= 40) ? 40 : (compare > 40 && compare <= 44) ? 44 : (compare > 44 && compare <= 55) ? 55 : (compare > 55 && compare <= 60) ? 60 : (compare > 60 && compare < 70) ? 70 : 100;
                 pictureBoxNhietdo.Image = new Bitmap(Application.StartupPath + "\\Image\\nhietdo\\"+compare.ToString()+".jpg");
                 pictureBoxNhietdo.SizeMode = PictureBoxSizeMode.Zoom;
                 Invoke(new MethodInvoker(() => textBoxNhietdo.Text = kq1.ToString().Substring(0,2) + "oC"));
-                Invoke(new MethodInvoker(() => textBoxHumi.Text = kq1.ToString().Substring(2) + "oC"));
+                Invoke(new MethodInvoker(() => textBoxHumi.Text = kq1.ToString().Substring(2) + "%"));
+                check = 0;
                 kq = "";
             }
         }
@@ -250,7 +251,7 @@ namespace UART_CS
                 }
                 else if (buttonStartDC.Text == "StopDC")
                 {
-                    serialPort.Write("b");
+                    serialPort.Write("a");
                 }
                 pictureBoxDC.Image = new Bitmap(Application.StartupPath + "\\Image\\dongco\\" + DC + ".jpg");
             }
@@ -274,11 +275,11 @@ namespace UART_CS
                 buttonBuz.Text = (buttonBuz.Text == "OFF") ? "ON" : "OFF";
                 if (buttonBuz.Text == "ON")
                 {
-                    serialPort.Write("b");
+                    serialPort.Write("3");
                 }
                 else if (buttonBuz.Text == "OFF")
                 {
-                    serialPort.Write("b");
+                    serialPort.Write("4");
                 }
                 pictureBoxBuz.Image = new Bitmap(Application.StartupPath + "\\Image\\" + Buz.ToString() + ".jpg");
             }
@@ -289,6 +290,11 @@ namespace UART_CS
         {
             this.AutoSize = true;
             
+        }
+
+        private void labelEditBaud_Click(object sender, EventArgs e)
+        {
+            comboBoxBaud.DropDownStyle = ComboBoxStyle.DropDown;
         }
     }
 }

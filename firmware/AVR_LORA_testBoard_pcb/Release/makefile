@@ -31,56 +31,56 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 LSS += \
-AVR_LORA.lss \
+project_Emb.lss \
 
 FLASH_IMAGE += \
-AVR_LORA.hex \
+project_Emb.hex \
 
 EEPROM_IMAGE += \
-AVR_LORA.eep \
+project_Emb.eep \
 
 SIZEDUMMY += \
 sizedummy \
 
 
 # All Target
-all: AVR_LORA.elf secondary-outputs
+all: project_Emb.elf secondary-outputs
 
 # Tool invocations
-AVR_LORA.elf: $(OBJS) $(USER_OBJS)
+project_Emb.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,AVR_LORA.map -Wl,-u,vfprintf -lprintf_flt -mmcu=atmega128 -o "AVR_LORA.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,project_Emb.map -Wl,-u,vfprintf -lprintf_flt -mmcu=atmega128 -o "project_Emb.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-AVR_LORA.lss: AVR_LORA.elf
+project_Emb.lss: project_Emb.elf
 	@echo 'Invoking: AVR Create Extended Listing'
-	-avr-objdump -h -S AVR_LORA.elf  >"AVR_LORA.lss"
+	-avr-objdump -h -S project_Emb.elf  >"project_Emb.lss"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-AVR_LORA.hex: AVR_LORA.elf
+project_Emb.hex: project_Emb.elf
 	@echo 'Create Flash image (ihex format)'
-	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex AVR_LORA.elf  "AVR_LORA.hex"
+	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex project_Emb.elf  "project_Emb.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-AVR_LORA.eep: AVR_LORA.elf
+project_Emb.eep: project_Emb.elf
 	@echo 'Create eeprom image (ihex format)'
-	-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex AVR_LORA.elf  "AVR_LORA.eep"
+	-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex project_Emb.elf  "project_Emb.eep"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-sizedummy: AVR_LORA.elf
+sizedummy: project_Emb.elf
 	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=atmega128 AVR_LORA.elf
+	-avr-size --format=avr --mcu=atmega128 project_Emb.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(EEPROM_IMAGE)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) AVR_LORA.elf
+	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(EEPROM_IMAGE)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) project_Emb.elf
 	-@echo ' '
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY)

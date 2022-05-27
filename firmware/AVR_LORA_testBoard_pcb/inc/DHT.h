@@ -12,12 +12,13 @@
 ||	This library can drive DHT11 and DHT22 sensors.
 ||
 */
-
 //------ Headers ------//
-//#include <inttypes.h>
-#include "source.h"
+#include <inttypes.h>
+#include <util/delay.h>
+#include <avr/io.h>
 
-
+#include "IO_Macros.h"
+#include "DHT_Settings.h"
 //----------------------//
 
 //----- Auxiliary data -------------------//

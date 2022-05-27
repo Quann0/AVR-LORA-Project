@@ -1,3 +1,19 @@
-src/myLCD.d: ../src/myLCD.c C:\Users\AnhThu\AVR_LORA\inc/myLCD.h
+src/myLCD.d: ../src/myLCD.c \
+ C:\Users\QUAN\source\repos\UART-CS\firmware\AVR_LORA_testBoard_pcb\inc/myLCD.h \
+ C:\Users\QUAN\source\repos\UART-CS\firmware\AVR_LORA_testBoard_pcb\inc/source.h \
+ C:\Users\QUAN\source\repos\UART-CS\firmware\AVR_LORA_testBoard_pcb\inc/myLCD.h \
+ C:\Users\QUAN\source\repos\UART-CS\firmware\AVR_LORA_testBoard_pcb\inc/IO_Macros.h \
+ C:\Users\QUAN\source\repos\UART-CS\firmware\AVR_LORA_testBoard_pcb\inc/DHT_Settings.h \
+ C:\Users\QUAN\source\repos\UART-CS\firmware\AVR_LORA_testBoard_pcb\inc/DHT.h
 
-C:\Users\AnhThu\AVR_LORA\inc/myLCD.h:
+C:\Users\QUAN\source\repos\UART-CS\firmware\AVR_LORA_testBoard_pcb\inc/myLCD.h:
+
+C:\Users\QUAN\source\repos\UART-CS\firmware\AVR_LORA_testBoard_pcb\inc/source.h:
+
+C:\Users\QUAN\source\repos\UART-CS\firmware\AVR_LORA_testBoard_pcb\inc/myLCD.h:
+
+C:\Users\QUAN\source\repos\UART-CS\firmware\AVR_LORA_testBoard_pcb\inc/IO_Macros.h:
+
+C:\Users\QUAN\source\repos\UART-CS\firmware\AVR_LORA_testBoard_pcb\inc/DHT_Settings.h:
+
+C:\Users\QUAN\source\repos\UART-CS\firmware\AVR_LORA_testBoard_pcb\inc/DHT.h:

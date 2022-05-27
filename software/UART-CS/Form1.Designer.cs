@@ -59,6 +59,7 @@ namespace UART_CS
             this.pictureBoxTime = new System.Windows.Forms.PictureBox();
             this.pictureBoxNhietdo = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.labelEditBaud = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuz)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTime)).BeginInit();
@@ -132,7 +133,7 @@ namespace UART_CS
             // 
             this.comboBoxPort.FormattingEnabled = true;
             this.comboBoxPort.IntegralHeight = false;
-            this.comboBoxPort.Location = new System.Drawing.Point(65, 7);
+            this.comboBoxPort.Location = new System.Drawing.Point(75, 5);
             this.comboBoxPort.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxPort.Name = "comboBoxPort";
             this.comboBoxPort.Size = new System.Drawing.Size(113, 24);
@@ -142,7 +143,7 @@ namespace UART_CS
             // comboBoxBaud
             // 
             this.comboBoxBaud.FormattingEnabled = true;
-            this.comboBoxBaud.Location = new System.Drawing.Point(65, 30);
+            this.comboBoxBaud.Location = new System.Drawing.Point(75, 30);
             this.comboBoxBaud.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxBaud.Name = "comboBoxBaud";
             this.comboBoxBaud.Size = new System.Drawing.Size(113, 24);
@@ -151,17 +152,17 @@ namespace UART_CS
             // BaudComboBox
             // 
             this.BaudComboBox.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.BaudComboBox.Location = new System.Drawing.Point(3, 32);
+            this.BaudComboBox.Location = new System.Drawing.Point(6, 32);
             this.BaudComboBox.Name = "BaudComboBox";
             this.BaudComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.BaudComboBox.Size = new System.Drawing.Size(56, 22);
+            this.BaudComboBox.Size = new System.Drawing.Size(66, 22);
             this.BaudComboBox.TabIndex = 10;
             this.BaudComboBox.Text = "BAUD";
             // 
             // PortComBoBox
             // 
             this.PortComBoBox.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.PortComBoBox.Location = new System.Drawing.Point(3, 7);
+            this.PortComBoBox.Location = new System.Drawing.Point(12, 7);
             this.PortComBoBox.Name = "PortComBoBox";
             this.PortComBoBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.PortComBoBox.Size = new System.Drawing.Size(56, 22);
@@ -320,6 +321,18 @@ namespace UART_CS
             this.pictureBox1.TabIndex = 15;
             this.pictureBox1.TabStop = false;
             // 
+            // labelEditBaud
+            // 
+            this.labelEditBaud.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.labelEditBaud.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.labelEditBaud.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.labelEditBaud.Location = new System.Drawing.Point(194, 37);
+            this.labelEditBaud.Name = "labelEditBaud";
+            this.labelEditBaud.Size = new System.Drawing.Size(79, 21);
+            this.labelEditBaud.TabIndex = 30;
+            this.labelEditBaud.Text = "AddBaud";
+            this.labelEditBaud.Click += new System.EventHandler(this.labelEditBaud_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -328,6 +341,7 @@ namespace UART_CS
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(800, 360);
+            this.Controls.Add(this.labelEditBaud);
             this.Controls.Add(this.pictureBoxBuz);
             this.Controls.Add(this.buttonBuz);
             this.Controls.Add(this.labelHumiTag);
@@ -401,6 +415,7 @@ namespace UART_CS
         private System.Windows.Forms.PictureBox pictureBoxBuz;
         private System.Windows.Forms.Button buttonBuz;
         private System.Windows.Forms.ComboBox comboBoxPort;
+        private System.Windows.Forms.Label labelEditBaud;
     }
 }
 

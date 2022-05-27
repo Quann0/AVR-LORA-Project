@@ -12,8 +12,9 @@
  *  Author: khuehm
  */
 
-#include "myLCD.h"
 
+#include "myLCD.h"
+#include "source.h"
 char Read2Nib(void)
 {
   char HNib, LNib;

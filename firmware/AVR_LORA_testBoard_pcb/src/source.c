@@ -32,20 +32,11 @@ void TMR_vInit(void)
 
     TCCR1B =  (0<<ICNC1) |(0<<ICES1) |(0<<WGM13) |(0<<WGM12)
              |(1<<CS12)  |(0<<CS11)  |(1<<CS10);
-}
 
-void uart_char_tx(unsigned char chr)
-{
-	while (bit_is_clear(UCSR0A,UDRE0)) { };
-	UDR0=chr;
+    TCNT1 = 0;
+    OCR1A = 7200;
+    TIMSK |= (1<<OCIE1A);
 
-}
-void gui_1_chuoi_dulieu( char a[2])
-{
-	for(int i=0;i<strlen(a);i++)
-	{
-		uart_char_tx(a[i]);
-	}
 }
 void USART0_vSendByte(uint8_t u8Data)
 {
@@ -58,7 +49,13 @@ void USART0_vSendByte(uint8_t u8Data)
     // Transmit data
     UDR0 = u8Data;
 }
-
+void String_dataSend(uint8_t a[4])
+{
+	for(int i=0;i<4;i++)
+	{
+		USART0_vSendByte(a[i]);
+	}
+}
 uint8_t USART0_vReceiveByte()
 {
     // Wait until a byte has been received

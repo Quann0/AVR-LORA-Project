@@ -20,7 +20,6 @@
 || 5. 	PinMode(LED, OUTPUT);		||10.	int a = DigitalRead(BUTTON);
 ||
 */
-#include <avr/io.h>
 
 //----- I/O Macros -----
 //Macros to edit PORT, DDR and PIN

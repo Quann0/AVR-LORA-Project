@@ -8,7 +8,6 @@
 
 #ifndef MYLCD_H_
 #define MYLCD_H_
-
 #include <avr/io.h>
 //#include <util/delay.h>
 #include <stdio.h>

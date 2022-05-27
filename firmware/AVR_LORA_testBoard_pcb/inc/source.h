@@ -27,14 +27,16 @@
 #define USART0_BAUD         115200ul
 #define USART0_UBBR_VALUE   ((F_CPU/(USART0_BAUD<<4))-1)
 
+//Variables
 volatile unsigned char u8Data;
-char data[2];
-
+uint8_t temperature[1];
+uint8_t humidity[1];
+uint8_t data[4];
+int Sum;
 void USART0_vInit(void);
 void Init_IO(void);
 void TMR_vInit(void);
-void uart_char_tx(unsigned char chr);
-void gui_1_chuoi_dulieu( char a[2]);
+void String_dataSend(uint8_t a[4]);
 void USART0_vSendByte(uint8_t u8Data);
 uint8_t USART0_vReceiveByte();
 #endif
