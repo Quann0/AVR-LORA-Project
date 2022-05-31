@@ -38,12 +38,22 @@ c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr
                               ./src/DHT.o (__mulsf3)
 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3x.o)
                               c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3.o) (__mulsf3x)
+c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(calloc.o)
+                              ./src/main.o (calloc)
+c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(malloc.o)
+                              c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(calloc.o) (malloc)
 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(ftoa_engine.o)
                               c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libprintf_flt.a(vfprintf_flt.o) (__ftoa_engine)
 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen_P.o)
                               c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libprintf_flt.a(vfprintf_flt.o) (strnlen_P)
+c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(memset.o)
+                              c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(calloc.o) (memset)
+c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strncpy.o)
+                              ./src/main.o (strncpy)
 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen.o)
                               c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libprintf_flt.a(vfprintf_flt.o) (strnlen)
+c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strstr.o)
+                              ./src/main.o (strstr)
 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(itoa_ncheck.o)
                               ./src/main.o (__itoa_ncheck)
 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(utoa_ncheck.o)
@@ -61,11 +71,18 @@ Allocating common symbols
 Common symbol       size              file
 
 temperature         0x1               ./src/DHT.o
+CheckSend           0x2               ./src/DHT.o
+__brkval            0x2               c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(malloc.o)
 u8Data              0x1               ./src/DHT.o
 humidity            0x1               ./src/DHT.o
+leftString          0x2               ./src/DHT.o
 data                0x4               ./src/DHT.o
+NullforLastString   0x2               ./src/DHT.o
 Sum                 0x2               ./src/DHT.o
 __DHT_STATUS        0x1               ./src/DHT.o
+__flp               0x2               c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(malloc.o)
+rightString         0x2               ./src/DHT.o
+pDataReceive        0x2               ./src/DHT.o
 
 Memory Configuration
 
@@ -194,7 +211,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x1798
+.text           0x00000000     0x1c5c
  *(.vectors)
  .vectors       0x00000000       0x8c c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51/crtatmega128.o
                 0x00000000                __vector_default
@@ -311,9 +328,14 @@ END GROUP
  .text          0x000001d0        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_zero.o)
  .text          0x000001d0        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3.o)
  .text          0x000001d0        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3x.o)
+ .text          0x000001d0        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .text          0x000001d0        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(malloc.o)
  .text          0x000001d0        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(ftoa_engine.o)
  .text          0x000001d0        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen_P.o)
+ .text          0x000001d0        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(memset.o)
+ .text          0x000001d0        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strncpy.o)
  .text          0x000001d0        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen.o)
+ .text          0x000001d0        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strstr.o)
  .text          0x000001d0        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(itoa_ncheck.o)
  .text          0x000001d0        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(utoa_ncheck.o)
  .text          0x000001d0        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(fputc.o)
@@ -350,186 +372,205 @@ END GROUP
                 0x00000bd4       0x20 ./src/DHT.o
                 0x00000bd4                DHT_CelsiusToKelvin
  .text.startup.main
-                0x00000bf4       0x60 ./src/main.o
+                0x00000bf4       0x64 ./src/main.o
                 0x00000bf4                main
  .text.__vector_12
-                0x00000c54       0xe2 ./src/main.o
-                0x00000c54                __vector_12
+                0x00000c58       0xe2 ./src/main.o
+                0x00000c58                __vector_12
  .text.__vector_18
-                0x00000d36       0xae ./src/main.o
-                0x00000d36                __vector_18
+                0x00000d3a      0x22e ./src/main.o
+                0x00000d3a                __vector_18
  .text.Read2Nib
-                0x00000de4       0x28 ./src/myLCD.o
-                0x00000de4                Read2Nib
+                0x00000f68       0x28 ./src/myLCD.o
+                0x00000f68                Read2Nib
  .text.Write2Nib
-                0x00000e0c       0x22 ./src/myLCD.o
-                0x00000e0c                Write2Nib
+                0x00000f90       0x22 ./src/myLCD.o
+                0x00000f90                Write2Nib
  .text.Write8Bit
-                0x00000e2e        0x8 ./src/myLCD.o
-                0x00000e2e                Write8Bit
+                0x00000fb2        0x8 ./src/myLCD.o
+                0x00000fb2                Write8Bit
  .text.wait_LCD
-                0x00000e36       0x28 ./src/myLCD.o
-                0x00000e36                wait_LCD
+                0x00000fba       0x28 ./src/myLCD.o
+                0x00000fba                wait_LCD
  .text.init_LCD
-                0x00000e5e       0x38 ./src/myLCD.o
-                0x00000e5e                init_LCD
+                0x00000fe2       0x38 ./src/myLCD.o
+                0x00000fe2                init_LCD
  .text.home_LCD
-                0x00000e96        0xc ./src/myLCD.o
-                0x00000e96                home_LCD
+                0x0000101a        0xc ./src/myLCD.o
+                0x0000101a                home_LCD
  .text.move_LCD
-                0x00000ea2       0x16 ./src/myLCD.o
-                0x00000ea2                move_LCD
- .text.clr_LCD  0x00000eb8        0xc ./src/myLCD.o
-                0x00000eb8                clr_LCD
+                0x00001026       0x16 ./src/myLCD.o
+                0x00001026                move_LCD
+ .text.clr_LCD  0x0000103c        0xc ./src/myLCD.o
+                0x0000103c                clr_LCD
  .text.putChar_LCD
-                0x00000ec4        0xa ./src/myLCD.o
-                0x00000ec4                putChar_LCD
+                0x00001048        0xa ./src/myLCD.o
+                0x00001048                putChar_LCD
  .text.putStr_LCD
-                0x00000ece       0x26 ./src/myLCD.o
-                0x00000ece                putStr_LCD
+                0x00001052       0x26 ./src/myLCD.o
+                0x00001052                putStr_LCD
  .text.printf_LCD
-                0x00000ef4       0x30 ./src/myLCD.o
-                0x00000ef4                printf_LCD
+                0x00001078       0x30 ./src/myLCD.o
+                0x00001078                printf_LCD
  .text.USART0_vInit
-                0x00000f24       0x14 ./src/source.o
-                0x00000f24                USART0_vInit
- .text.Init_IO  0x00000f38        0xe ./src/source.o
-                0x00000f38                Init_IO
+                0x000010a8       0x14 ./src/source.o
+                0x000010a8                USART0_vInit
+ .text.Init_IO  0x000010bc        0xe ./src/source.o
+                0x000010bc                Init_IO
  .text.TMR_vInit
-                0x00000f46       0x1a ./src/source.o
-                0x00000f46                TMR_vInit
+                0x000010ca       0x1a ./src/source.o
+                0x000010ca                TMR_vInit
+ .text.Variables_vInit
+                0x000010e4       0x66 ./src/source.o
+                0x000010e4                Variables_vInit
  .text.USART0_vSendByte
-                0x00000f60        0x8 ./src/source.o
-                0x00000f60                USART0_vSendByte
+                0x0000114a        0x8 ./src/source.o
+                0x0000114a                USART0_vSendByte
  .text.String_dataSend
-                0x00000f68       0x26 ./src/source.o
-                0x00000f68                String_dataSend
+                0x00001152       0x26 ./src/source.o
+                0x00001152                String_dataSend
  .text.USART0_vReceiveByte
-                0x00000f8e        0x8 ./src/source.o
-                0x00000f8e                USART0_vReceiveByte
+                0x00001178        0x8 ./src/source.o
+                0x00001178                USART0_vReceiveByte
  .text.libgcc.mul
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  .text.libgcc.div
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
- .text.libgcc   0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+ .text.libgcc   0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  .text.libgcc.prologue
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  .text.libgcc.builtins
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  .text.libgcc.fmul
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  .text.libgcc.fixed
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  .text.libgcc.mul
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
  .text.libgcc.div
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
- .text.libgcc   0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
  .text.libgcc.prologue
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
  .text.libgcc.builtins
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
  .text.libgcc.fmul
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
  .text.libgcc.fixed
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
  .text.libgcc.mul
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
  .text.libgcc.div
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
- .text.libgcc   0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
  .text.libgcc.prologue
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
  .text.libgcc.builtins
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
  .text.libgcc.fmul
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
  .text.libgcc.fixed
-                0x00000f96        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
+                0x00001180        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
  .text.avr-libc.fplib
-                0x00000f96        0xe c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(addsf3.o)
-                0x00000f96                __subsf3
-                0x00000f98                __addsf3
+                0x00001180        0xe c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(addsf3.o)
+                0x00001180                __subsf3
+                0x00001182                __addsf3
  .text.avr-libc.fplib
-                0x00000fa4       0xcc c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(addsf3x.o)
-                0x00000fc6                __addsf3x
+                0x0000118e       0xcc c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(addsf3x.o)
+                0x000011b0                __addsf3x
  .text.avr-libc.fplib
-                0x00001070        0x8 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(divsf3.o)
-                0x00001070                __divsf3
+                0x0000125a        0x8 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(divsf3.o)
+                0x0000125a                __divsf3
  .text.avr-libc.fplib
-                0x00001078       0xdc c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(divsf3x.o)
-                0x00001098                __divsf3x
-                0x0000109e                __divsf3_pse
+                0x00001262       0xdc c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(divsf3x.o)
+                0x00001282                __divsf3x
+                0x00001288                __divsf3_pse
  .text.avr-libc.fplib
-                0x00001154       0x5e c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fixunssfsi.o)
-                0x00001154                __fixunssfsi
+                0x0000133e       0x5e c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fixunssfsi.o)
+                0x0000133e                __fixunssfsi
  .text.avr-libc.fplib
-                0x000011b2       0x7a c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(floatsisf.o)
-                0x000011b2                __floatunsisf
-                0x000011b6                __floatsisf
+                0x0000139c       0x7a c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(floatsisf.o)
+                0x0000139c                __floatunsisf
+                0x000013a0                __floatsisf
  .text.avr-libc.fplib
-                0x0000122c        0xc c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_inf.o)
-                0x0000122c                __fp_inf
+                0x00001416        0xc c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_inf.o)
+                0x00001416                __fp_inf
  .text.avr-libc.fplib
-                0x00001238        0x6 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_nan.o)
-                0x00001238                __fp_nan
+                0x00001422        0x6 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_nan.o)
+                0x00001422                __fp_nan
  .text.avr-libc.fplib
-                0x0000123e        0xe c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_pscA.o)
-                0x0000123e                __fp_pscA
+                0x00001428        0xe c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_pscA.o)
+                0x00001428                __fp_pscA
  .text.avr-libc.fplib
-                0x0000124c        0xe c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_pscB.o)
-                0x0000124c                __fp_pscB
+                0x00001436        0xe c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_pscB.o)
+                0x00001436                __fp_pscB
  .text.avr-libc.fplib
-                0x0000125a       0x22 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_round.o)
-                0x0000125a                __fp_round
+                0x00001444       0x22 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_round.o)
+                0x00001444                __fp_round
  .text.avr-libc.fplib
-                0x0000127c       0x44 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_split3.o)
-                0x0000127c                __fp_split3
-                0x0000128c                __fp_splitA
+                0x00001466       0x44 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_split3.o)
+                0x00001466                __fp_split3
+                0x00001476                __fp_splitA
  .text.avr-libc.fplib
-                0x000012c0        0xe c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_zero.o)
-                0x000012c0                __fp_zero
-                0x000012c2                __fp_szero
+                0x000014aa        0xe c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_zero.o)
+                0x000014aa                __fp_zero
+                0x000014ac                __fp_szero
  .text.avr-libc.fplib
-                0x000012ce        0x8 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3.o)
-                0x000012ce                __mulsf3
+                0x000014b8        0x8 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3.o)
+                0x000014b8                __mulsf3
  .text.avr-libc.fplib
-                0x000012d6       0xd2 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3x.o)
-                0x000012f4                __mulsf3x
-                0x000012fa                __mulsf3_pse
+                0x000014c0       0xd2 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3x.o)
+                0x000014de                __mulsf3x
+                0x000014e4                __mulsf3_pse
  .text.avr-libc
-                0x000013a8      0x1b0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(ftoa_engine.o)
-                0x000013a8                __ftoa_engine
+                0x00001592       0x38 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(calloc.o)
+                0x00001592                calloc
  .text.avr-libc
-                0x00001558       0x16 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen_P.o)
-                0x00001558                strnlen_P
+                0x000015ca      0x242 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(malloc.o)
+                0x000015ca                malloc
+                0x000016fa                free
  .text.avr-libc
-                0x0000156e       0x16 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen.o)
-                0x0000156e                strnlen
+                0x0000180c      0x1b0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(ftoa_engine.o)
+                0x0000180c                __ftoa_engine
  .text.avr-libc
-                0x00001584       0x16 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(itoa_ncheck.o)
-                0x00001584                __itoa_ncheck
+                0x000019bc       0x16 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen_P.o)
+                0x000019bc                strnlen_P
  .text.avr-libc
-                0x0000159a       0x34 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(utoa_ncheck.o)
-                0x0000159a                __utoa_ncheck
-                0x0000159c                __utoa_common
+                0x000019d2        0xe c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(memset.o)
+                0x000019d2                memset
  .text.avr-libc
-                0x000015ce       0x78 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(fputc.o)
-                0x000015ce                fputc
+                0x000019e0       0x1e c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strncpy.o)
+                0x000019e0                strncpy
  .text.avr-libc
-                0x00001646       0x72 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(vsnprintf.o)
-                0x00001646                vsnprintf
+                0x000019fe       0x16 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen.o)
+                0x000019fe                strnlen
  .text.avr-libc
-                0x000016b8       0xbc c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(ultoa_invert.o)
-                0x000016b8                __ultoa_invert
+                0x00001a14       0x34 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strstr.o)
+                0x00001a14                strstr
  .text.avr-libc
-                0x00001774       0x20 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strrev.o)
-                0x00001774                strrev
-                0x00001794                . = ALIGN (0x2)
+                0x00001a48       0x16 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(itoa_ncheck.o)
+                0x00001a48                __itoa_ncheck
+ .text.avr-libc
+                0x00001a5e       0x34 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(utoa_ncheck.o)
+                0x00001a5e                __utoa_ncheck
+                0x00001a60                __utoa_common
+ .text.avr-libc
+                0x00001a92       0x78 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(fputc.o)
+                0x00001a92                fputc
+ .text.avr-libc
+                0x00001b0a       0x72 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(vsnprintf.o)
+                0x00001b0a                vsnprintf
+ .text.avr-libc
+                0x00001b7c       0xbc c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(ultoa_invert.o)
+                0x00001b7c                __ultoa_invert
+ .text.avr-libc
+                0x00001c38       0x20 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strrev.o)
+                0x00001c38                strrev
+                0x00001c58                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00001794        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
-                0x00001794                _exit
-                0x00001794                exit
+ .fini9         0x00001c58        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x00001c58                _exit
+                0x00001c58                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -548,11 +589,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00001794        0x4 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+ .fini0         0x00001c58        0x4 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  *(.fini0)
-                0x00001798                _etext = .
+                0x00001c5c                _etext = .
 
-.data           0x00800100       0x26 load address 0x00001798
+.data           0x00800100       0x46 load address 0x00001c5c
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51/crtatmega128.o
@@ -579,83 +620,108 @@ END GROUP
  .data          0x00800100        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_zero.o)
  .data          0x00800100        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3.o)
  .data          0x00800100        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3x.o)
- .data          0x00800100        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(ftoa_engine.o)
- .data          0x00800100        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen_P.o)
- .data          0x00800100        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen.o)
- .data          0x00800100        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(itoa_ncheck.o)
- .data          0x00800100        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(utoa_ncheck.o)
- .data          0x00800100        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(fputc.o)
- .data          0x00800100        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(vsnprintf.o)
- .data          0x00800100        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(ultoa_invert.o)
- .data          0x00800100        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strrev.o)
+ .data          0x00800100        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .data          0x00800100        0x6 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(malloc.o)
+                0x00800100                __malloc_heap_end
+                0x00800102                __malloc_heap_start
+                0x00800104                __malloc_margin
+ .data          0x00800106        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(ftoa_engine.o)
+ .data          0x00800106        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen_P.o)
+ .data          0x00800106        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(memset.o)
+ .data          0x00800106        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strncpy.o)
+ .data          0x00800106        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen.o)
+ .data          0x00800106        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strstr.o)
+ .data          0x00800106        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(itoa_ncheck.o)
+ .data          0x00800106        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(utoa_ncheck.o)
+ .data          0x00800106        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(fputc.o)
+ .data          0x00800106        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(vsnprintf.o)
+ .data          0x00800106        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(ultoa_invert.o)
+ .data          0x00800106        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strrev.o)
  *(.data*)
  *(.gnu.linkonce.d*)
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x00800100       0x26 ./src/main.o
+                0x00800106       0x40 ./src/main.o
+                                 0x43 (size before relaxing)
+ .rodata.str1.1
+                0x00800146       0x40 ./src/source.o
+                                  0x1 (size before relaxing)
  *(.gnu.linkonce.r*)
-                0x00800126                . = ALIGN (0x2)
-                0x00800126                _edata = .
-                0x00800126                PROVIDE (__data_end, .)
+                0x00800186                . = ALIGN (0x2)
+                0x00800186                _edata = .
+                0x00800186                PROVIDE (__data_end, .)
 
-.bss            0x00800126       0x1b
-                0x00800126                PROVIDE (__bss_start, .)
+.bss            0x00800146       0x29
+                0x00800146                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51/crtatmega128.o
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libprintf_flt.a(vfprintf_flt.o)
- .bss           0x00800126        0x0 ./src/DHT.o
- .bss           0x00800126        0x0 ./src/main.o
- .bss           0x00800126        0x0 ./src/myLCD.o
- .bss           0x00800126        0x0 ./src/source.o
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(addsf3.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(addsf3x.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(divsf3.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(divsf3x.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fixunssfsi.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(floatsisf.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_inf.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_nan.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_pscA.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_pscB.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_round.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_split3.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_zero.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3x.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(ftoa_engine.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen_P.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(itoa_ncheck.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(utoa_ncheck.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(fputc.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(vsnprintf.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(ultoa_invert.o)
- .bss           0x00800126        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strrev.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51/crtatmega128.o
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libprintf_flt.a(vfprintf_flt.o)
+ .bss           0x00800146        0x0 ./src/DHT.o
+ .bss           0x00800146        0x0 ./src/main.o
+ .bss           0x00800146        0x0 ./src/myLCD.o
+ .bss           0x00800146        0x0 ./src/source.o
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(addsf3.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(addsf3x.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(divsf3.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(divsf3x.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fixunssfsi.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(floatsisf.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_inf.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_nan.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_pscA.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_pscB.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_round.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_split3.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_zero.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3x.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(malloc.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(ftoa_engine.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen_P.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(memset.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strncpy.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strstr.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(itoa_ncheck.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(utoa_ncheck.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(fputc.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(vsnprintf.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(ultoa_invert.o)
+ .bss           0x00800146        0x0 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strrev.o)
  *(.bss*)
- .bss.lcd_buffer.2328
-                0x00800126       0x11 ./src/myLCD.o
+ .bss.lcd_buffer.2333
+                0x00800146       0x11 ./src/myLCD.o
  *(COMMON)
- COMMON         0x00800137        0xa ./src/DHT.o
-                0x00800137                temperature
-                0x00800138                u8Data
-                0x00800139                humidity
-                0x0080013a                data
-                0x0080013e                Sum
-                0x00800140                __DHT_STATUS
-                0x00800141                PROVIDE (__bss_end, .)
-                0x00001798                __data_load_start = LOADADDR (.data)
-                0x000017be                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800157       0x14 ./src/DHT.o
+                0x00800157                temperature
+                0x00800158                CheckSend
+                0x0080015a                u8Data
+                0x0080015b                humidity
+                0x0080015c                leftString
+                0x0080015e                data
+                0x00800162                NullforLastString
+                0x00800164                Sum
+                0x00800166                __DHT_STATUS
+                0x00800167                rightString
+                0x00800169                pDataReceive
+ COMMON         0x0080016b        0x4 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(malloc.o)
+                0x0080016b                __brkval
+                0x0080016d                __flp
+                0x0080016f                PROVIDE (__bss_end, .)
+                0x00001c5c                __data_load_start = LOADADDR (.data)
+                0x00001ca2                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800141        0x0
+.noinit         0x0080016f        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x00800141                _end = .
-                [!provide]                PROVIDE (__heap_start, .)
+                0x0080016f                _end = .
+                0x0080016f                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -703,6 +769,8 @@ END GROUP
  .comment       0x0000005c       0x31 ./src/main.o
  .comment       0x0000005c       0x31 ./src/myLCD.o
  .comment       0x0000005c       0x31 ./src/source.o
+ .comment       0x0000005c       0x31 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .comment       0x0000005c       0x31 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(malloc.o)
  .comment       0x0000005c       0x31 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(fputc.o)
  .comment       0x0000005c       0x31 c:/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(vsnprintf.o)
 

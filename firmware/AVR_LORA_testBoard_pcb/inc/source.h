@@ -28,11 +28,14 @@
 #define USART0_UBBR_VALUE   ((F_CPU/(USART0_BAUD<<4))-1)
 
 //Variables
-volatile unsigned char u8Data;
-uint8_t temperature[1];
-uint8_t humidity[1];
+uint8_t u8Data;
+uint8_t temperature;
+uint8_t humidity;
 uint8_t data[4];
+uint8_t *pDataReceive,*NullforLastString;
+uint8_t *leftString, *rightString;
 int Sum;
+int CheckSend;
 void USART0_vInit(void);
 void Init_IO(void);
 void TMR_vInit(void);

@@ -48,6 +48,8 @@ namespace UART_CS
             comboBoxBaud.Text = "";
             comboBoxBaud.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxBaud.DropDownHeight = comboBoxBaud.ItemHeight * 8;
+            textBox1.Multiline = true;
+            textBox1.AcceptsReturn = true;
             timer1.Start();
         }
         public void LoadImage()
@@ -112,11 +114,11 @@ namespace UART_CS
                 buttonLed.Text = (buttonLed.Text == "OFF") ? "ON" : "OFF";
                 if (buttonLed.Text == "ON")
                 {
-                    serialPort.Write("1");
+                    serialPort.Write("ledOff~");
                 }
                 else if (buttonLed.Text == "OFF")
                 {
-                    serialPort.Write("2");
+                    serialPort.Write("ledOff~");
                 }
                 pictureBox1.Image = new Bitmap(Application.StartupPath + "\\Image\\"+Led.ToString()+".png");
             }
@@ -133,6 +135,8 @@ namespace UART_CS
                     serialPort.BaudRate = Convert.ToInt32(comboBoxBaud.Text);
                     comboBoxPort.Enabled = false;
                     comboBoxBaud.Enabled = false;
+                    textBoxHumi.Enabled = true;
+                    textBoxNhietdo.Enabled = true;
                 }
                 else
                 {
@@ -163,12 +167,13 @@ namespace UART_CS
             
                 
         }
-
+        public string leftString = "";
+        public string rightString = "";
         private void buttonUart_Click(object sender, EventArgs e)
         {
 	        if(serialPort.IsOpen)
 		    {
-			    serialPort.Write(textBox1.Text);
+			    serialPort.Write(textBox1.Text+"~");
 		    }
             else
 		    {
@@ -275,11 +280,11 @@ namespace UART_CS
                 buttonBuz.Text = (buttonBuz.Text == "OFF") ? "ON" : "OFF";
                 if (buttonBuz.Text == "ON")
                 {
-                    serialPort.Write("3");
+                    serialPort.Write("buzOff~");
                 }
                 else if (buttonBuz.Text == "OFF")
                 {
-                    serialPort.Write("4");
+                    serialPort.Write("buzOn~");
                 }
                 pictureBoxBuz.Image = new Bitmap(Application.StartupPath + "\\Image\\" + Buz.ToString() + ".jpg");
             }
@@ -289,12 +294,19 @@ namespace UART_CS
         private void Form1_Load(object sender, EventArgs e)
         {
             this.AutoSize = true;
+            textBoxHumi.Enabled = false;
+            textBoxNhietdo.Enabled = false;
             
         }
 
         private void labelEditBaud_Click(object sender, EventArgs e)
         {
             comboBoxBaud.DropDownStyle = ComboBoxStyle.DropDown;
+        }
+
+        private void buttonClearString_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
         }
     }
 }

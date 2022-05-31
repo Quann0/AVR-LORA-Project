@@ -5,12 +5,17 @@
  * Author : QUAN
  */
 #include <stdlib.h>
+#include <string.h>
 #include "source.h"
 #include "DHT.h"
-int main(void){
+
+int main(void)
+{
+
 	Init_IO();
 	init_LCD();
 	TMR_vInit();
+	Variables_vInit();
 	USART0_vInit();
 	sei();
 	USART0_vSendByte('A');
@@ -29,7 +34,7 @@ int main(void){
 ISR(TIMER1_COMPA_vect)
 {
 	//Read from sensor
-	DHT_Read(temperature, humidity);
+	DHT_Read(&temperature, &humidity);
 	//Check status
 	switch (DHT_GetStatus())
 	{
@@ -37,13 +42,13 @@ ISR(TIMER1_COMPA_vect)
 			//Print temperature
 			//print(temperature[0]);
 			PORT_LED_O ^= (1<<BIT_LED_O);
-			Sum = temperature[0]*100 + humidity[0];
+			Sum = temperature*100 + humidity;
 			itoa(Sum,data,10);
 			clr_LCD();
 			move_LCD(1,1);
-			printf_LCD("Temp : %d",temperature[0]);
+			printf_LCD("Temp : %d",temperature);
 			move_LCD(2,1);
-			printf_LCD("Humi : %d",humidity[0]);
+			printf_LCD("Humi : %d",humidity);
 			String_dataSend(data);
 			//Print humidity
 			break;
@@ -65,23 +70,55 @@ ISR(USART0_RX_vect) { //hï¿½m ph?c v? ng?t nh?n c?a UART0 thay cho hï¿½m ISR(SIG
 	u8Data = USART0_vReceiveByte();
 	if(u8Data)
 	{
-		clr_LCD();
-		if(u8Data =='2')
+		*(pDataReceive + CheckSend++) = u8Data;
+		if(*(pDataReceive + (CheckSend - 1)) == '~')
 		{
-			PORT_LED_O |= (1<<BIT_LED_O);
+			*(pDataReceive + (CheckSend - 1)) = *NullforLastString;
+			if(strstr(pDataReceive,"buzOn"))
+			{
+				PORT_BUZ &= ~(1<<BIT_BUZ);
+			}
+			else if(strstr(pDataReceive,"buzOff"))
+			{
+				PORT_BUZ |= (1<<BIT_BUZ);
+			}
+			else if(strstr(pDataReceive,"ledOn"))
+			{
+				PORT_LED_O |= (1<<BIT_LED_O);
+			}
+			else if(strstr(pDataReceive,"ledOff"))
+			{
+				PORT_LED_O &= ~(1<<BIT_LED_O);
+			}
+			else
+			{
+				if(strlen(pDataReceive)>10)
+				{
+					//nay la cat chuoi ðó nhaaaa
+					strncpy(leftString, pDataReceive + 0, 10);
+					*(leftString + 10) = '\0';
+					strncpy(rightString, pDataReceive + 10, (strlen(pDataReceive) - 10));
+					*(rightString + (strlen(pDataReceive) - 10)) = '\0';
+
+					clr_LCD();
+					move_LCD(1, 1);
+					printf_LCD("Data: %s", leftString);
+					move_LCD(2,1);
+					printf_LCD("%s", rightString);
+				}
+				else
+				{
+					clr_LCD();
+					move_LCD(1, 1);
+					printf_LCD("Data: %s", pDataReceive);
+				}
+
+			}
+			CheckSend = 0;
+			free(pDataReceive);
+			pDataReceive = (uint8_t *)calloc(100, sizeof(uint8_t));
 		}
-		else if(u8Data =='1')
-		{
-			PORT_LED_O &= ~(1<<BIT_LED_O);
-		}
-		//*a = u8Data1;
-		else if(u8Data == 'b')
-		{
-			PORT_BUZ ^= (1<<BIT_BUZ);
-		}
-		clr_LCD();
-		move_LCD(1, 1);
-		printf_LCD("Data: %c", u8Data);
+
 	}
 }
 

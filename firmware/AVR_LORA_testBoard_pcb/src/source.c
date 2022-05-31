@@ -38,6 +38,18 @@ void TMR_vInit(void)
     TIMSK |= (1<<OCIE1A);
 
 }
+void Variables_vInit()
+{
+	u8Data = 0;
+	temperature = 0;
+	humidity = 0;
+	pDataReceive = (uint8_t *)calloc(100, sizeof(uint8_t));
+	leftString = (uint8_t *)calloc(100, sizeof(uint8_t));
+	rightString = (uint8_t *)calloc(100, sizeof(uint8_t));
+	NullforLastString = "";
+	Sum = 0;
+	CheckSend = 0;
+}
 void USART0_vSendByte(uint8_t u8Data)
 {
     // Wait if a byte is being transmitted

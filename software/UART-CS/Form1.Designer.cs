@@ -60,6 +60,7 @@ namespace UART_CS
             this.pictureBoxNhietdo = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelEditBaud = new System.Windows.Forms.Label();
+            this.buttonClearString = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuz)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTime)).BeginInit();
@@ -182,7 +183,7 @@ namespace UART_CS
             // 
             // buttonLed
             // 
-            this.buttonLed.Location = new System.Drawing.Point(122, 312);
+            this.buttonLed.Location = new System.Drawing.Point(195, 319);
             this.buttonLed.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonLed.Name = "buttonLed";
             this.buttonLed.Size = new System.Drawing.Size(97, 45);
@@ -193,21 +194,22 @@ namespace UART_CS
             // 
             // textBox1
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.textBox1.Location = new System.Drawing.Point(3, 280);
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.textBox1.Location = new System.Drawing.Point(3, 243);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(115, 34);
+            this.textBox1.Size = new System.Drawing.Size(185, 71);
             this.textBox1.TabIndex = 16;
             // 
             // buttonUart
             // 
+            this.buttonUart.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.buttonUart.Location = new System.Drawing.Point(3, 320);
             this.buttonUart.Name = "buttonUart";
             this.buttonUart.Size = new System.Drawing.Size(112, 37);
             this.buttonUart.TabIndex = 17;
             this.buttonUart.Text = "Send";
-            this.buttonUart.UseVisualStyleBackColor = true;
+            this.buttonUart.UseVisualStyleBackColor = false;
             this.buttonUart.Click += new System.EventHandler(this.buttonUart_Click);
             // 
             // serialPort
@@ -244,7 +246,7 @@ namespace UART_CS
             // 
             // buttonStartDC
             // 
-            this.buttonStartDC.Location = new System.Drawing.Point(383, 315);
+            this.buttonStartDC.Location = new System.Drawing.Point(456, 322);
             this.buttonStartDC.Name = "buttonStartDC";
             this.buttonStartDC.Size = new System.Drawing.Size(107, 39);
             this.buttonStartDC.TabIndex = 23;
@@ -270,7 +272,7 @@ namespace UART_CS
             // 
             // buttonBuz
             // 
-            this.buttonBuz.Location = new System.Drawing.Point(256, 312);
+            this.buttonBuz.Location = new System.Drawing.Point(329, 319);
             this.buttonBuz.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonBuz.Name = "buttonBuz";
             this.buttonBuz.Size = new System.Drawing.Size(95, 45);
@@ -281,7 +283,7 @@ namespace UART_CS
             // 
             // pictureBoxBuz
             // 
-            this.pictureBoxBuz.Location = new System.Drawing.Point(256, 250);
+            this.pictureBoxBuz.Location = new System.Drawing.Point(329, 257);
             this.pictureBoxBuz.Name = "pictureBoxBuz";
             this.pictureBoxBuz.Size = new System.Drawing.Size(95, 57);
             this.pictureBoxBuz.TabIndex = 29;
@@ -289,7 +291,7 @@ namespace UART_CS
             // 
             // pictureBoxDC
             // 
-            this.pictureBoxDC.Location = new System.Drawing.Point(383, 250);
+            this.pictureBoxDC.Location = new System.Drawing.Point(456, 257);
             this.pictureBoxDC.Name = "pictureBoxDC";
             this.pictureBoxDC.Size = new System.Drawing.Size(107, 57);
             this.pictureBoxDC.TabIndex = 25;
@@ -315,7 +317,7 @@ namespace UART_CS
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(124, 250);
+            this.pictureBox1.Location = new System.Drawing.Point(197, 257);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(95, 57);
             this.pictureBox1.TabIndex = 15;
@@ -333,6 +335,18 @@ namespace UART_CS
             this.labelEditBaud.Text = "AddBaud";
             this.labelEditBaud.Click += new System.EventHandler(this.labelEditBaud_Click);
             // 
+            // buttonClearString
+            // 
+            this.buttonClearString.BackColor = System.Drawing.Color.Red;
+            this.buttonClearString.ForeColor = System.Drawing.Color.Black;
+            this.buttonClearString.Location = new System.Drawing.Point(111, 320);
+            this.buttonClearString.Name = "buttonClearString";
+            this.buttonClearString.Size = new System.Drawing.Size(78, 39);
+            this.buttonClearString.TabIndex = 31;
+            this.buttonClearString.Text = "Clear";
+            this.buttonClearString.UseVisualStyleBackColor = false;
+            this.buttonClearString.Click += new System.EventHandler(this.buttonClearString_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -341,6 +355,7 @@ namespace UART_CS
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(800, 360);
+            this.Controls.Add(this.buttonClearString);
             this.Controls.Add(this.labelEditBaud);
             this.Controls.Add(this.pictureBoxBuz);
             this.Controls.Add(this.buttonBuz);
@@ -416,6 +431,7 @@ namespace UART_CS
         private System.Windows.Forms.Button buttonBuz;
         private System.Windows.Forms.ComboBox comboBoxPort;
         private System.Windows.Forms.Label labelEditBaud;
+        private System.Windows.Forms.Button buttonClearString;
     }
 }
 
