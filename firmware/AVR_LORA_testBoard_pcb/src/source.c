@@ -1,6 +1,5 @@
 
 #include "source.h"
-
 void USART0_vInit(void)
 {
     // Set baud rate
@@ -43,10 +42,11 @@ void Variables_vInit()
 	u8Data = 0;
 	temperature = 0;
 	humidity = 0;
-	pDataReceive = (uint8_t *)calloc(100, sizeof(uint8_t));
-	leftString = (uint8_t *)calloc(100, sizeof(uint8_t));
-	rightString = (uint8_t *)calloc(100, sizeof(uint8_t));
-	NullforLastString = "";
+	temp = 0;
+	pDataReceive = (char *)calloc(100, sizeof(char));
+	leftString = (char *)calloc(100, sizeof(char));
+	rightString = (char *)calloc(100, sizeof(char));
+	NullforLastString = "\0";
 	Sum = 0;
 	CheckSend = 0;
 }
@@ -63,7 +63,7 @@ void USART0_vSendByte(uint8_t u8Data)
 }
 void String_dataSend(uint8_t a[4])
 {
-	for(int i=0;i<4;i++)
+	for(int i=0;i < 4;i++)
 	{
 		USART0_vSendByte(a[i]);
 	}

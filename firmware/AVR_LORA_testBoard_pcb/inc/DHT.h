@@ -42,11 +42,12 @@ enum DHT_Status_t
 void DHT_Setup();
 enum DHT_Status_t DHT_GetStatus();
 enum DHT_Status_t DHT_ReadRaw(uint8_t Data[4]);
-enum DHT_Status_t DHT_GetTemperature(uint8_t *Temperature);
-enum DHT_Status_t DHT_GetHumidity(uint8_t *Humidity);
-enum DHT_Status_t DHT_Read(uint8_t *Temperature, uint8_t *Humidity);
-uint8_t DHT_CelsiusToFahrenheit(uint8_t Temperature);
-uint8_t DHT_CelsiusToKelvin(uint8_t Temperature);
+enum DHT_Status_t DHT_GetTemperature(double *Temperature);
+enum DHT_Status_t DHT_GetHumidity(double *Humidity);
+enum DHT_Status_t DHT_Read(double *Temperature, double *Humidity);
+enum DHT_Status_t DHT_Read_u8(uint8_t *Temperature, uint8_t *Humidity);
+double DHT_CelsiusToFahrenheit(double Temperature);
+double DHT_CelsiusToKelvin(double Temperature);
 //-------------------------------------------//
 #endif
 

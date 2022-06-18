@@ -3,6 +3,7 @@
 
 #define F_CPU 7372800UL
 #include <avr/io.h>
+#include <stdio.h>
 #include <stdint.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
@@ -29,17 +30,18 @@
 
 //Variables
 uint8_t u8Data;
-uint8_t temperature;
-uint8_t humidity;
+double temperature;
+double humidity;
+int temp;
 uint8_t data[4];
-uint8_t *pDataReceive,*NullforLastString;
-uint8_t *leftString, *rightString;
+char *pDataReceive,*NullforLastString, *leftString, *rightString;
 int Sum;
 int CheckSend;
 void USART0_vInit(void);
 void Init_IO(void);
 void TMR_vInit(void);
-void String_dataSend(uint8_t a[4]);
+void Variables_vInit();
+void String_dataSend(uint8_t a[2]);
 void USART0_vSendByte(uint8_t u8Data);
 uint8_t USART0_vReceiveByte();
 #endif

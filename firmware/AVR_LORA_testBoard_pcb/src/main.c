@@ -4,10 +4,8 @@
  * Created: 4/27/2022 8:01:59 PM
  * Author : QUAN
  */
-#include <stdlib.h>
-#include <string.h>
+
 #include "source.h"
-#include "DHT.h"
 
 int main(void)
 {
@@ -31,6 +29,7 @@ int main(void)
     {
     }
 }
+
 ISR(TIMER1_COMPA_vect)
 {
 	//Read from sensor
@@ -42,13 +41,24 @@ ISR(TIMER1_COMPA_vect)
 			//Print temperature
 			//print(temperature[0]);
 			PORT_LED_O ^= (1<<BIT_LED_O);
-			Sum = temperature*100 + humidity;
-			itoa(Sum,data,10);
+			if(temperature > 50)
+			{
+				PORT_BUZ &= ~(1<<BIT_BUZ);
+			}
+			//tempe
+			data[0] = (uint8_t)temperature;
+			temp = (temperature - data[0])*10;
+			data[1] = (uint8_t)temp;
+			//humid
+			data[2] = (uint8_t)humidity;
+			temp = (humidity - data[2])*10;
+			data[3] = (uint8_t)temp;
+
 			clr_LCD();
 			move_LCD(1,1);
-			printf_LCD("Temp : %d",temperature);
+			printf_LCD("Temp : %d.%d0",data[0],data[1]);
 			move_LCD(2,1);
-			printf_LCD("Humi : %d",humidity);
+			printf_LCD("Humi : %d.%d0",data[2],data[3]);
 			String_dataSend(data);
 			//Print humidity
 			break;
@@ -66,6 +76,7 @@ ISR(TIMER1_COMPA_vect)
 			break;
 	}
 }
+
 ISR(USART0_RX_vect) { //hï¿½m ph?c v? ng?t nh?n c?a UART0 thay cho hï¿½m ISR(SIG_UART0_RECV)
 	u8Data = USART0_vReceiveByte();
 	if(u8Data)
@@ -92,31 +103,33 @@ ISR(USART0_RX_vect) { //hï¿½m ph?c v? ng?t nh?n c?a UART0 thay cho hï¿½m ISR(SIG
 			}
 			else
 			{
-				if(strlen(pDataReceive)>10)
+				if(strlen(pDataReceive)>16)
 				{
 					//nay la cat chuoi ðó nhaaaa
-					strncpy(leftString, pDataReceive + 0, 10);
-					*(leftString + 10) = '\0';
-					strncpy(rightString, pDataReceive + 10, (strlen(pDataReceive) - 10));
-					*(rightString + (strlen(pDataReceive) - 10)) = '\0';
-
+					strncpy(leftString, pDataReceive + 0, 16);
+					*(leftString + 16) = *NullforLastString;
+					strncpy(rightString, pDataReceive + 16, (strlen(pDataReceive) - 16));
+					*(rightString + (strlen(pDataReceive) - 16)) = *NullforLastString;
 					clr_LCD();
 					move_LCD(1, 1);
-					printf_LCD("Data: %s", leftString);
+					printf_LCD("%s", leftString);
 					move_LCD(2,1);
 					printf_LCD("%s", rightString);
+					free(leftString);
+					free(rightString);
+					leftString = (char *)calloc(100, sizeof(char));
+					rightString = (char *)calloc(100, sizeof(char));
 				}
 				else
 				{
 					clr_LCD();
 					move_LCD(1, 1);
-					printf_LCD("Data: %s", pDataReceive);
+					printf_LCD("%s", pDataReceive);
 				}
-
 			}
 			CheckSend = 0;
 			free(pDataReceive);
-			pDataReceive = (uint8_t *)calloc(100, sizeof(uint8_t));
+			pDataReceive = (char *)calloc(100, sizeof(char));
 		}
 
 	}

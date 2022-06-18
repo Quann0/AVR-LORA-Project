@@ -223,9 +223,30 @@ namespace UART_CS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap kisspng_humidity_computer_icons_moisture_object_5abe54104c2479_6291987115224228003119 {
+            get {
+                object obj = ResourceManager.GetObject("kisspng-humidity-computer-icons-moisture-object-5abe54104c2479.629198711522422800" +
+                        "3119", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap original {
             get {
                 object obj = ResourceManager.GetObject("original", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap original1 {
+            get {
+                object obj = ResourceManager.GetObject("original1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -225,6 +225,12 @@
   <ItemGroup>
     <None Include="bin\Debug\Image\4.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Image\gif\original1.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Image\nhietdo-doam\kisspng-humidity-computer-icons-moisture-object-5abe54104c2479.6291987115224228003119.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,6 +1,4 @@
-﻿
-#include "source.h"
-
+﻿#include "source.h"
 
 //----- Auxiliary data ----------//
 enum DHT_Status_t __DHT_STATUS;
@@ -10,7 +8,7 @@ enum DHT_Status_t __DHT_STATUS;
 	#define __DHT_Temperature_Max	50
 	#define __DHT_Humidity_Min		20
 	#define __DHT_Humidity_Max		90
-	#define __DHT_Delay_Read		50
+	#define __DHT_Delay_Read		25
 #elif (DHT_Type == DHT22)
 	#define __DHT_Temperature_Min	-40
 	#define __DHT_Temperature_Max	80
@@ -21,15 +19,15 @@ enum DHT_Status_t __DHT_STATUS;
 //-------------------------------//
 
 //----- Prototypes ----------------------------//
-static uint8_t ExtractTemperature(uint8_t Data3, uint8_t Data4);
-static uint8_t ExtractHumidity(uint8_t Data1, uint8_t Data2);
+static double ExtractTemperature(uint8_t Data3, uint8_t Data4);
+static double ExtractHumidity(uint8_t Data1, uint8_t Data2);
 //---------------------------------------------//
 
 //----- Functions -----------------------------//
 //Setup sensor.
 void DHT_Setup()
 {
-	_delay_ms(__DHT_Delay_Read);
+	_delay_ms(__DHT_Delay_Setup);
 	__DHT_STATUS = DHT_Ok;
 }
 
@@ -177,21 +175,21 @@ enum DHT_Status_t DHT_ReadRaw(uint8_t Data[4])
 }
 
 //Read temperature in Celsius.
-enum DHT_Status_t DHT_GetTemperature(uint8_t *Temperature)
+enum DHT_Status_t DHT_GetTemperature(double *Temperature)
 {
-	uint8_t *waste = 0;
+	double *waste = 0;
 	return DHT_Read(Temperature, waste);
 }
 
 //Read humidity percentage.
-enum DHT_Status_t DHT_GetHumidity(uint8_t *Humidity)
+enum DHT_Status_t DHT_GetHumidity(double *Humidity)
 {
-	uint8_t *waste = 0;
+	double *waste = 0;
 	return DHT_Read(waste, Humidity);
 }
 
 //Read temperature and humidity.
-enum DHT_Status_t DHT_Read(uint8_t *Temperature, uint8_t *Humidity)
+enum DHT_Status_t DHT_Read(double *Temperature, double *Humidity)
 {
 	uint8_t data[4] = { 0, 0, 0, 0 };
 
@@ -215,22 +213,48 @@ enum DHT_Status_t DHT_Read(uint8_t *Temperature, uint8_t *Humidity)
 	return DHT_GetStatus();
 }
 
+// Read temperature and humidity to u8
+enum DHT_Status_t DHT_Read_u8(uint8_t *u8_Temperature, uint8_t *u8_Humidity)
+{
+	uint8_t data[4] = {0,0,0,0};
+
+	//Read data
+	enum DHT_Status_t status =  DHT_ReadRaw(data);
+
+	//If read successfully
+	if (status == DHT_Ok)
+	{
+		//Calculate values
+		*u8_Temperature = data[2];
+		*(u8_Temperature+1) = data[3];
+		*u8_Humidity = data[0];
+		*(u8_Humidity+1) = data[1];
+		//Check values
+		if ((*u8_Temperature < __DHT_Temperature_Min) || (*u8_Temperature > __DHT_Temperature_Max))
+			__DHT_STATUS = DHT_Error_Temperature;
+		else if ((*u8_Humidity < __DHT_Humidity_Min) || (*u8_Humidity > __DHT_Humidity_Max))
+			__DHT_STATUS = DHT_Error_Humidity;
+	}
+
+	return DHT_GetStatus();
+}
+
 //Convert temperature from Celsius to Fahrenheit.
-uint8_t DHT_CelsiusToFahrenheit(uint8_t Temperature)
+double DHT_CelsiusToFahrenheit(double Temperature)
 {
 	return (Temperature * 1.8 + 32);
 }
 
 //Convert temperature from Celsius to Kelvin.
-uint8_t DHT_CelsiusToKelvin(uint8_t Temperature)
+double DHT_CelsiusToKelvin(double Temperature)
 {
 	return (Temperature + 273.15);
 }
 
-//Convert temperature data to uint8_t temperature.
-static uint8_t ExtractTemperature(uint8_t Data2, uint8_t Data3)
+//Convert temperature data to double temperature.
+static double ExtractTemperature(uint8_t Data2, uint8_t Data3)
 {
-	uint8_t temp = 0.0;
+	double temp = 0.0;
 
 	#if (DHT_Type == DHT11)
 		temp = Data2;
@@ -242,9 +266,9 @@ static uint8_t ExtractTemperature(uint8_t Data2, uint8_t Data3)
 	return temp;
 }
 
-static uint8_t ExtractHumidity(uint8_t Data0, uint8_t Data1)
+static double ExtractHumidity(uint8_t Data0, uint8_t Data1)
 {
-	uint8_t hum = 0.0;
+	double hum = 0.0;
 
 	#if (DHT_Type == DHT11)
 		hum = Data0;

@@ -23,8 +23,8 @@ namespace UART_CS
         {
             public Account () { }
             ~ Account() { }
-            public string tk { set; get; }
-            public string mk { set; get; }
+            private string tk { set; get; }
+            private string mk { set; get; }
             public Account(string _tk, string _mk)
             {
                 tk = _tk;
@@ -50,6 +50,7 @@ namespace UART_CS
             comboBoxBaud.DropDownHeight = comboBoxBaud.ItemHeight * 8;
             textBox1.Multiline = true;
             textBox1.AcceptsReturn = true;
+            textBox1.MaxLength = 32;
             timer1.Start();
         }
         public void LoadImage()
@@ -57,13 +58,16 @@ namespace UART_CS
             try 
             {
                 pictureBoxTime.Image = new Bitmap(Application.StartupPath + "\\Image\\gif\\original.gif");
+                pictureBox2.Image = new Bitmap(Application.StartupPath + "\\Image\\gif\\original1.gif");
                 pictureBox1.Image = new Bitmap(Application.StartupPath + "\\Image\\1.png");
                 pictureBoxDC.Image = new Bitmap(Application.StartupPath + "\\Image\\dongco\\a.jpg");
                 pictureBoxBuz.Image = new Bitmap(Application.StartupPath + "\\Image\\3.jpg");
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBoxTime.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBoxDC.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBoxBuz.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBoxHumid.SizeMode = PictureBoxSizeMode.Zoom;
             }
             catch (Exception) { MessageBox.Show("Bug in picture"); }
             
@@ -118,7 +122,7 @@ namespace UART_CS
                 }
                 else if (buttonLed.Text == "OFF")
                 {
-                    serialPort.Write("ledOff~");
+                    serialPort.Write("ledOn~");
                 }
                 pictureBox1.Image = new Bitmap(Application.StartupPath + "\\Image\\"+Led.ToString()+".png");
             }
@@ -135,8 +139,6 @@ namespace UART_CS
                     serialPort.BaudRate = Convert.ToInt32(comboBoxBaud.Text);
                     comboBoxPort.Enabled = false;
                     comboBoxBaud.Enabled = false;
-                    textBoxHumi.Enabled = true;
-                    textBoxNhietdo.Enabled = true;
                 }
                 else
                 {
@@ -171,14 +173,24 @@ namespace UART_CS
         public string rightString = "";
         private void buttonUart_Click(object sender, EventArgs e)
         {
-	        if(serialPort.IsOpen)
-		    {
-			    serialPort.Write(textBox1.Text+"~");
-		    }
+
+            if (serialPort.IsOpen)
+            {
+                if (textBox1.Text == "")
+                {
+                    MessageBox.Show("Không kí tự nào được tìm thấy!", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    serialPort.Write(textBox1.Text + "~");
+                }
+            }
             else
-		    {
-			    MessageBox.Show("Vui Lòng Mở Cổng COM");
-		    }
+            {
+                MessageBox.Show("Vui Lòng Mở Cổng COM", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+	        
         }
         string kq = "";
 
@@ -220,27 +232,43 @@ namespace UART_CS
             button.Click += button_Click;
             f.ShowDialog();
         }
-
+        public int i = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
+            //textBox1.Enabled = true;
             labelTime.Text = DateTime.Now.ToString("dd/MM/yyy\nHH:mm:ss");
+            i++;
+            if (i > 4) 
+            {
+                buttonStartDC.Text = (buttonStartDC.Text == "ComingSoon...") ? "ComingSoon." : (buttonStartDC.Text == "ComingSoon.") ? "ComingSoon.." : "ComingSoon...";
+                i = 0;
+            }
+            //textBox1.Enabled = false;
         }
-        public int check = 0;
+        public string dataPort = "";
+        public int compare = 0;
         private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            var dataPort = serialPort.ReadExisting();
-            kq += dataPort;
+            Invoke(new MethodInvoker(() =>
+            {
+                dataPort = serialPort.ReadChar().ToString();
+                dataPort += serialPort.ReadChar().ToString();
+                dataPort += serialPort.ReadChar().ToString();
+                dataPort += serialPort.ReadChar().ToString();
+            }));
+            kq += dataPort;          
             if (kq.Length >3)
             {
                 string kq1 = kq.ToString();
-                var compare = Convert.ToInt32(kq1.Substring(0,2));
+                compare = Convert.ToInt32(kq1.Substring(0,2));
                 compare = (compare == 0) ? 0 : (compare > 0 && compare <= 10) ? 10 : (compare > 10 && compare <= 30) ? 30 : (compare > 30 && compare <= 40) ? 40 : (compare > 40 && compare <= 44) ? 44 : (compare > 44 && compare <= 55) ? 55 : (compare > 55 && compare <= 60) ? 60 : (compare > 60 && compare < 70) ? 70 : 100;
-                pictureBoxNhietdo.Image = new Bitmap(Application.StartupPath + "\\Image\\nhietdo\\"+compare.ToString()+".jpg");
+                pictureBoxNhietdo.Image = new Bitmap(Application.StartupPath + "\\Image\\nhietdo-doam\\"+compare.ToString()+".jpg");
+                pictureBoxHumid.Image = new Bitmap(Application.StartupPath + "\\Image\\nhietdo-doam\\kisspng-humidity-computer-icons-moisture-object-5abe54104c2479.6291987115224228003119.jpg");
                 pictureBoxNhietdo.SizeMode = PictureBoxSizeMode.Zoom;
-                Invoke(new MethodInvoker(() => textBoxNhietdo.Text = kq1.ToString().Substring(0,2) + "oC"));
-                Invoke(new MethodInvoker(() => textBoxHumi.Text = kq1.ToString().Substring(2) + "%"));
-                check = 0;
+                Invoke(new MethodInvoker(() => textBoxNhietdo.Text = kq1.ToString().Substring(0,2) + ","+ kq1.ToString().Substring(2, 1)));
+                Invoke(new MethodInvoker(() => textBoxHumi.Text = kq1.ToString().Substring(3,2) +","+ kq1.ToString().Substring(5)+"%"));
                 kq = "";
+                dataPort = "";
             }
         }
         public string DC = "a";
@@ -296,6 +324,7 @@ namespace UART_CS
             this.AutoSize = true;
             textBoxHumi.Enabled = false;
             textBoxNhietdo.Enabled = false;
+            buttonStartDC.Enabled = false;
             
         }
 
