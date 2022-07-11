@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UART-CS", "UART-CS\UART-CS.csproj", "{5B8744FF-9D1F-4613-A772-EBDABCC3D857}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoundButtonDemo", "..\..\..\..\Desktop\Qt\AddTextUsingButtons-master\RoundButtonDemo\RoundButtonDemo.csproj", "{8A8712C3-604E-483C-9310-95C07CC4E2BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B8744FF-9D1F-4613-A772-EBDABCC3D857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B8744FF-9D1F-4613-A772-EBDABCC3D857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B8744FF-9D1F-4613-A772-EBDABCC3D857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B8744FF-9D1F-4613-A772-EBDABCC3D857}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EBCD43F4-D862-441C-82EB-1B21B8832426}
+	EndGlobalSection
+EndGlobal

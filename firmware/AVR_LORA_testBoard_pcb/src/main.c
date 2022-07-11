@@ -9,22 +9,15 @@
 
 int main(void)
 {
-
 	Init_IO();
 	init_LCD();
 	TMR_vInit();
 	Variables_vInit();
 	USART0_vInit();
 	sei();
-	USART0_vSendByte('A');
-	USART0_vSendByte('V');
-	USART0_vSendByte('R');
-	USART0_vSendByte('\r');
-	USART0_vSendByte('\n');
 	clr_LCD();
 	move_LCD(1,1);
-	printf_LCD("Test LCD");
-	_delay_ms(500);
+	printf_LCD("Test LCD123");
     while (1)
     {
     }
@@ -33,7 +26,7 @@ int main(void)
 ISR(TIMER1_COMPA_vect)
 {
 	//Read from sensor
-	DHT_Read(&temperature, &humidity);
+	DHT_Read(&temperature, &humidity); //double
 	//Check status
 	switch (DHT_GetStatus())
 	{
@@ -41,19 +34,23 @@ ISR(TIMER1_COMPA_vect)
 			//Print temperature
 			//print(temperature[0]);
 			PORT_LED_O ^= (1<<BIT_LED_O);
-			if(temperature > 50)
-			{
-				PORT_BUZ &= ~(1<<BIT_BUZ);
-			}
-			//tempe
-			data[0] = (uint8_t)temperature;
-			temp = (temperature - data[0])*10;
+			//temp 32,40
+			data[0] = (uint8_t)temperature; //32
+			temp = (temperature - data[0])*10; //(32,4 - 32)*10 = 4
 			data[1] = (uint8_t)temp;
-			//humid
+			//humi
 			data[2] = (uint8_t)humidity;
 			temp = (humidity - data[2])*10;
 			data[3] = (uint8_t)temp;
 
+			if(temperature > 30 || humidity > 90)
+			{
+				PORT_BUZ &= ~(1<<BIT_BUZ);
+			}
+			else
+			{
+				PORT_BUZ |= (1<<BIT_BUZ);
+			}
 			clr_LCD();
 			move_LCD(1,1);
 			printf_LCD("Temp : %d.%d0",data[0],data[1]);
@@ -63,16 +60,25 @@ ISR(TIMER1_COMPA_vect)
 			//Print humidity
 			break;
 		case (DHT_Error_Checksum):
-			//Do something
+				clr_LCD();
+				move_LCD(1,1);
+				printf_LCD("DHT_Error_Checksum");
 			break;
 		case (DHT_Error_Timeout):
-			//Do something else
+				clr_LCD();
+				move_LCD(1,1);
+				printf_LCD("DHT_Error_Timeout");
 			break;
 		case (DHT_Error_Humidity):
-			//Do something else
+				clr_LCD();
+				move_LCD(1,1);
+				printf_LCD("DHT_Error_Humidity");
 			break;
 		case (DHT_Error_Temperature):
-			//Do something else
+			clr_LCD();
+			move_LCD(1,1);
+			printf_LCD("DHT_Error_Temperature");
+		//Do something else
 			break;
 	}
 }
@@ -81,35 +87,37 @@ ISR(USART0_RX_vect) { //hï¿½m ph?c v? ng?t nh?n c?a UART0 thay cho hï¿½m ISR(SIG
 	u8Data = USART0_vReceiveByte();
 	if(u8Data)
 	{
-		*(pDataReceive + CheckSend++) = u8Data;
-		if(*(pDataReceive + (CheckSend - 1)) == '~')
+		*(pDataReceive + CheckSend++) = (char)u8Data;
+		if(*(pDataReceive + (CheckSend - 1)) == '\n')
 		{
 			*(pDataReceive + (CheckSend - 1)) = *NullforLastString;
 			if(strstr(pDataReceive,"buzOn"))
 			{
-				PORT_BUZ &= ~(1<<BIT_BUZ);
+				PORT_OUT |= (1 << BIT_BUZ_OUT);
 			}
 			else if(strstr(pDataReceive,"buzOff"))
 			{
-				PORT_BUZ |= (1<<BIT_BUZ);
+				PORT_OUT &= ~(1 << BIT_BUZ_OUT);
 			}
 			else if(strstr(pDataReceive,"ledOn"))
 			{
-				PORT_LED_O |= (1<<BIT_LED_O);
+				PORT_OUT |= (1 << BIT_LED_OUT);
 			}
 			else if(strstr(pDataReceive,"ledOff"))
 			{
-				PORT_LED_O &= ~(1<<BIT_LED_O);
+				PORT_OUT &= ~(1<<BIT_LED_OUT);
 			}
 			else
 			{
-				if(strlen(pDataReceive)>16)
+				if(strlen(pDataReceive)>((pSIZE_STRING_LCD/2) - 1))
 				{
-					//nay la cat chuoi ðó nhaaaa
-					strncpy(leftString, pDataReceive + 0, 16);
-					*(leftString + 16) = *NullforLastString;
-					strncpy(rightString, pDataReceive + 16, (strlen(pDataReceive) - 16));
-					*(rightString + (strlen(pDataReceive) - 16)) = *NullforLastString;
+					//cut string left
+					strncpy(leftString, pDataReceive + 0, (pSIZE_STRING_LCD/2) - 1);
+					*(leftString + ((pSIZE_STRING_LCD/2) - 1)) = *NullforLastString;
+					//cut string right
+					strncpy(rightString, pDataReceive + ((pSIZE_STRING_LCD/2) - 1), (strlen(pDataReceive) - ((pSIZE_STRING_LCD/2) - 1)));
+					*(rightString + (strlen(pDataReceive) - ((pSIZE_STRING_LCD/2) - 1))) = *NullforLastString;
+					//print string on LCD
 					clr_LCD();
 					move_LCD(1, 1);
 					printf_LCD("%s", leftString);
@@ -117,8 +125,8 @@ ISR(USART0_RX_vect) { //hï¿½m ph?c v? ng?t nh?n c?a UART0 thay cho hï¿½m ISR(SIG
 					printf_LCD("%s", rightString);
 					free(leftString);
 					free(rightString);
-					leftString = (char *)calloc(100, sizeof(char));
-					rightString = (char *)calloc(100, sizeof(char));
+					leftString = (char *)calloc(pSIZE_STRING_LCD/2, sizeof(char));
+					rightString = (char *)calloc(pSIZE_STRING_LCD/2, sizeof(char));
 				}
 				else
 				{
@@ -127,9 +135,10 @@ ISR(USART0_RX_vect) { //hï¿½m ph?c v? ng?t nh?n c?a UART0 thay cho hï¿½m ISR(SIG
 					printf_LCD("%s", pDataReceive);
 				}
 			}
+			//reset variables
 			CheckSend = 0;
 			free(pDataReceive);
-			pDataReceive = (char *)calloc(100, sizeof(char));
+			pDataReceive = (char *)calloc(pSIZE_STRING_LCD, sizeof(char));
 		}
 
 	}

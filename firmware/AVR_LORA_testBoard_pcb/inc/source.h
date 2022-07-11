@@ -18,30 +18,34 @@
 #define PORT_LED_O      PORTB
 #define DDR_LED_O       DDRB
 #define BIT_LED_O       6
+#define PORT_OUT		PORTE
+#define DDR_OUT			DDRE
+#define BIT_LED_OUT		2
+#define BIT_BUZ_OUT		3
 // Output Port pin Buzzer
 #define PORT_BUZ       PORTB
 #define DDR_BUZ        DDRB
 #define BIT_BUZ        7
 #define PORT_BT			PB5
-
+#define pSIZE_STRING_LCD	34
 // Define baud rate
 #define USART0_BAUD         115200ul
 #define USART0_UBBR_VALUE   ((F_CPU/(USART0_BAUD<<4))-1)
 
 //Variables
 uint8_t u8Data;
+uint8_t data[4];
+int temp;
+int CheckSend;
 double temperature;
 double humidity;
-int temp;
-uint8_t data[4];
-char *pDataReceive,*NullforLastString, *leftString, *rightString;
-int Sum;
-int CheckSend;
+char *NullforLastString, *pDataReceive, *leftString, *rightString;
+
 void USART0_vInit(void);
 void Init_IO(void);
 void TMR_vInit(void);
 void Variables_vInit();
-void String_dataSend(uint8_t a[2]);
+void String_dataSend(uint8_t data[4]);
 void USART0_vSendByte(uint8_t u8Data);
 uint8_t USART0_vReceiveByte();
 #endif

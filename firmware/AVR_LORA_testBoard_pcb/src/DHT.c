@@ -1,4 +1,4 @@
-﻿#include "source.h"
+﻿#include "DHT.h"
 
 //----- Auxiliary data ----------//
 enum DHT_Status_t __DHT_STATUS;
@@ -225,10 +225,8 @@ enum DHT_Status_t DHT_Read_u8(uint8_t *u8_Temperature, uint8_t *u8_Humidity)
 	if (status == DHT_Ok)
 	{
 		//Calculate values
-		*u8_Temperature = data[2];
-		*(u8_Temperature+1) = data[3];
-		*u8_Humidity = data[0];
-		*(u8_Humidity+1) = data[1];
+		*u8_Temperature       = data[2];
+		*u8_Humidity       = data[0];
 		//Check values
 		if ((*u8_Temperature < __DHT_Temperature_Min) || (*u8_Temperature > __DHT_Temperature_Max))
 			__DHT_STATUS = DHT_Error_Temperature;

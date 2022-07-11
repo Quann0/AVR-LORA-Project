@@ -16,10 +16,16 @@ void Init_IO(void) {
 	// Set LED_BUZ as output pin
 	DDR_LED_O |= (1 << BIT_LED_O); //|= la OR (1<<BIT_LED_O) dich trai so bit = voi gia tri BIT_LED_O
 	DDR_BUZ |= (1 << BIT_BUZ); //nhu tren
+	DDR_OUT |= (1 << BIT_LED_OUT)|(1 << BIT_BUZ_OUT);
+
 	PORT_LED_O &= ~(1 << BIT_LED_O);
 	PORT_BUZ |= (1 << BIT_BUZ);
 	DDR_BUZ &= ~(1 << PORT_BT);
 	PORT_BUZ |= (1 << PORT_BT);
+	PORT_OUT |= (1 << BIT_BUZ_OUT)|(1 << BIT_LED_OUT);
+	PORT_OUT &= ~(1 << BIT_BUZ_OUT);
+	PORT_OUT &= ~(1 << BIT_LED_OUT);
+
 }
 void TMR_vInit(void)
 {
@@ -43,12 +49,11 @@ void Variables_vInit()
 	temperature = 0;
 	humidity = 0;
 	temp = 0;
-	pDataReceive = (char *)calloc(100, sizeof(char));
-	leftString = (char *)calloc(100, sizeof(char));
-	rightString = (char *)calloc(100, sizeof(char));
-	NullforLastString = "\0";
-	Sum = 0;
 	CheckSend = 0;
+	*NullforLastString = '\0';
+	pDataReceive = (char *)calloc(pSIZE_STRING_LCD, sizeof(char));
+	leftString = (char *)calloc(pSIZE_STRING_LCD/2, sizeof(char));
+	rightString = (char *)calloc(pSIZE_STRING_LCD/2, sizeof(char));
 }
 void USART0_vSendByte(uint8_t u8Data)
 {

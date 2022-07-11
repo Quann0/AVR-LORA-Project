@@ -1,4 +1,3 @@
-
 #ifndef DHT_H_INCLUDED
 #define DHT_H_INCLUDED
 /*
@@ -12,6 +11,7 @@
 ||	This library can drive DHT11 and DHT22 sensors.
 ||
 */
+
 //------ Headers ------//
 #include <inttypes.h>
 #include <util/delay.h>
@@ -45,10 +45,7 @@ enum DHT_Status_t DHT_ReadRaw(uint8_t Data[4]);
 enum DHT_Status_t DHT_GetTemperature(double *Temperature);
 enum DHT_Status_t DHT_GetHumidity(double *Humidity);
 enum DHT_Status_t DHT_Read(double *Temperature, double *Humidity);
-enum DHT_Status_t DHT_Read_u8(uint8_t *Temperature, uint8_t *Humidity);
 double DHT_CelsiusToFahrenheit(double Temperature);
 double DHT_CelsiusToKelvin(double Temperature);
 //-------------------------------------------//
 #endif
-
-
