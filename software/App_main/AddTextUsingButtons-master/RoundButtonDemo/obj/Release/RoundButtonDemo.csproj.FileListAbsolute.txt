@@ -1,0 +1,14 @@
+C:\Users\QUAN\Desktop\Qt\New folder\AddTextUsingButtons-master\RoundButtonDemo\bin\Release\RoundButtonDemo.exe.config
+C:\Users\QUAN\Desktop\Qt\New folder\AddTextUsingButtons-master\RoundButtonDemo\bin\Release\RoundButtonDemo.exe.manifest
+C:\Users\QUAN\Desktop\Qt\New folder\AddTextUsingButtons-master\RoundButtonDemo\bin\Release\RoundButtonDemo.application
+C:\Users\QUAN\Desktop\Qt\New folder\AddTextUsingButtons-master\RoundButtonDemo\bin\Release\RoundButtonDemo.exe
+C:\Users\QUAN\Desktop\Qt\New folder\AddTextUsingButtons-master\RoundButtonDemo\bin\Release\RoundButtonDemo.pdb
+C:\Users\QUAN\Desktop\Qt\New folder\AddTextUsingButtons-master\RoundButtonDemo\obj\Release\RoundButtonDemo.Formpass.resources
+C:\Users\QUAN\Desktop\Qt\New folder\AddTextUsingButtons-master\RoundButtonDemo\obj\Release\UART_CS.Form_Dashboard.resources
+C:\Users\QUAN\Desktop\Qt\New folder\AddTextUsingButtons-master\RoundButtonDemo\obj\Release\RoundButtonDemo.Properties.Resources.resources
+C:\Users\QUAN\Desktop\Qt\New folder\AddTextUsingButtons-master\RoundButtonDemo\obj\Release\RoundButtonDemo.csproj.GenerateResource.cache
+C:\Users\QUAN\Desktop\Qt\New folder\AddTextUsingButtons-master\RoundButtonDemo\obj\Release\RoundButtonDemo.csproj.CoreCompileInputs.cache
+C:\Users\QUAN\Desktop\Qt\New folder\AddTextUsingButtons-master\RoundButtonDemo\obj\Release\RoundButtonDemo.exe.manifest
+C:\Users\QUAN\Desktop\Qt\New folder\AddTextUsingButtons-master\RoundButtonDemo\obj\Release\RoundButtonDemo.application
+C:\Users\QUAN\Desktop\Qt\New folder\AddTextUsingButtons-master\RoundButtonDemo\obj\Release\RoundButtonDemo.exe
+C:\Users\QUAN\Desktop\Qt\New folder\AddTextUsingButtons-master\RoundButtonDemo\obj\Release\RoundButtonDemo.pdb

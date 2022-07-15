@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoundButtonDemo", "RoundButtonDemo\RoundButtonDemo.csproj", "{8A8712C3-604E-483C-9310-95C07CC4E2BE}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "application", "application\application.vdproj", "{B785D41B-8A84-45EF-90D4-99D92696135E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Debug|ARM.Build.0 = Debug|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Debug|x64.Build.0 = Debug|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Debug|x86.Build.0 = Debug|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Release|ARM.ActiveCfg = Release|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Release|ARM.Build.0 = Release|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Release|ARM64.Build.0 = Release|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Release|x64.ActiveCfg = Release|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Release|x64.Build.0 = Release|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Release|x86.ActiveCfg = Release|Any CPU
+		{8A8712C3-604E-483C-9310-95C07CC4E2BE}.Release|x86.Build.0 = Release|Any CPU
+		{B785D41B-8A84-45EF-90D4-99D92696135E}.Debug|Any CPU.ActiveCfg = Debug
+		{B785D41B-8A84-45EF-90D4-99D92696135E}.Debug|ARM.ActiveCfg = Debug
+		{B785D41B-8A84-45EF-90D4-99D92696135E}.Debug|ARM64.ActiveCfg = Debug
+		{B785D41B-8A84-45EF-90D4-99D92696135E}.Debug|x64.ActiveCfg = Debug
+		{B785D41B-8A84-45EF-90D4-99D92696135E}.Debug|x86.ActiveCfg = Debug
+		{B785D41B-8A84-45EF-90D4-99D92696135E}.Release|Any CPU.ActiveCfg = Release
+		{B785D41B-8A84-45EF-90D4-99D92696135E}.Release|ARM.ActiveCfg = Release
+		{B785D41B-8A84-45EF-90D4-99D92696135E}.Release|ARM64.ActiveCfg = Release
+		{B785D41B-8A84-45EF-90D4-99D92696135E}.Release|x64.ActiveCfg = Release
+		{B785D41B-8A84-45EF-90D4-99D92696135E}.Release|x86.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C03ED296-4693-4060-A74D-7B1B73C44D48}
+	EndGlobalSection
+EndGlobal
