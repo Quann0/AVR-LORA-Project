@@ -1,6 +1,8 @@
 # AVR-LORA-Project
-LED : PORTE PE1
+LED : PORTE PE1 
+
 BUZ : PORTE PE2
-DHT : ADC1
+
+DHT22 : ADC1
 
 The code is 23112001
